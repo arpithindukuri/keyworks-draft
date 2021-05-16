@@ -63,6 +63,9 @@ const theme = createMyTheme({
 			},
 		},
 	},
+	typography: {
+		fontFamily: ["Inter"].join(","),
+	},
 });
 
 const useStyles = makeStyles((theme) => ({
