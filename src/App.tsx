@@ -34,12 +34,9 @@ const defaultTheme = createMyTheme({});
 
 const theme = createMyTheme({
 	gradients: {
-		green:
-			"radial-gradient(circle at 50% -20.71%, #cbebb7 0, #bfe7b5 12.5%, #afe0af 25%, #9ad6a7 37.5%, #81ca9d 50%, #66be94 62.5%, #4bb48f 75%, #2dad8e 87.5%, #00a991 100%)",
-		orange:
-			"radial-gradient(circle at 50% -20.71%, #ffffcc 0, #e2cf7a 50%, #a69328 100%)",
-		red:
-			"radial-gradient(circle at 50% -20.71%, #f5985e 0, #f18958 16.67%, #e8764f 33.33%, #db5d43 50%, #cd423a 66.67%, #c32836 83.33%, #bb0136 100%)",
+		green: "radial-gradient(circle at 50% -20.71%, #cbebb7 0, #bfe7b5 12.5%, #afe0af 25%, #9ad6a7 37.5%, #81ca9d 50%, #66be94 62.5%, #4bb48f 75%, #2dad8e 87.5%, #00a991 100%)",
+		orange: "radial-gradient(circle at 50% -20.71%, #ffffcc 0, #e2cf7a 50%, #a69328 100%)",
+		red: "radial-gradient(circle at 50% -20.71%, #f5985e 0, #f18958 16.67%, #e8764f 33.33%, #db5d43 50%, #cd423a 66.67%, #c32836 83.33%, #bb0136 100%)",
 	},
 	overrides: {
 		MuiList: {
@@ -97,7 +94,7 @@ function App() {
 							minHeight: "100vh",
 						}}
 					>
-						<Dashboard />
+						<Dashboard isSidebarOpen={open} />
 					</div>
 				</div>
 			</AppProvider>

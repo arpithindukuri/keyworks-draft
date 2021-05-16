@@ -31,19 +31,22 @@ const useStyles = makeStyles({
 		animationDelay: "0.5s",
 		animationFillMode: "backwards",
 	},
-	placeholder: {
+	placeholder: ({ isSidebarOpen }: { isSidebarOpen: boolean }) => ({
 		display: "flex",
 		position: "absolute",
-		top: 0,
-		left: 0,
-		height: "100vh",
-		width: "100vw",
+		top: "8px",
+		bottom: "8px",
+		left: isSidebarOpen ? "248px" : "8px",
+		right: "8px",
+		transition: "0.3s",
 		alignItems: "center",
 		justifyContent: "center",
 		fontSize: "2rem",
 		pointerEvents: "none",
 		touchAction: "none",
-	},
+		border: "2px dashed grey",
+		color: "grey",
+	}),
 	container: {
 		minHeight: "100vh !important",
 	},
@@ -72,8 +75,12 @@ const dashboardData = [
 	},
 ];
 
-export default function Dashboard() {
-	const classes = useStyles();
+export default function Dashboard({
+	isSidebarOpen,
+}: {
+	isSidebarOpen: boolean;
+}) {
+	const classes = useStyles({ isSidebarOpen: isSidebarOpen });
 	const { state } = useContext(AppContext);
 
 	const [layout, setLayout] = useState<Layout[]>([
