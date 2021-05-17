@@ -61,8 +61,9 @@ const useStyles = makeStyles((theme) =>
 			transition: "0.3s",
 			display: "flex",
 			flexGrow: 1,
-			overflowX: "hidden",
-			overflowY: "visible",
+			overflow: "hidden !important",
+			// overflowX: "hidden",
+			// overflowY: "visible",
 		},
 	})
 );
@@ -128,7 +129,7 @@ export default function Dashboard({
 				// useCSSTransforms={false}
 				measureBeforeMount
 				className={`layout ${classes.container}`}
-				style={{ height: `${height}px`, overflowY: "visible" }}
+				style={{ height: `${height}px` }}
 				layouts={{
 					lg: layout,
 					md: layout,
