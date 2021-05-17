@@ -1,13 +1,14 @@
 import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import Dashboard from "./components/RGL/Dashboard";
+import Dashboard from "./components/pages/Dashboard";
 
 import Drawer from "./components/Drawer";
 
 import { ThemeOptions } from "@material-ui/core/styles";
 import { useState } from "react";
 import AppProvider from "./context/AppContext";
+import FrameworkOverviews from "./components/pages/FrameworkOverviews";
 
 declare module "@material-ui/core/styles/createMuiTheme" {
 	interface Theme {
@@ -66,38 +67,51 @@ const theme = createMyTheme({
 	typography: {
 		fontFamily: ["Inter"].join(","),
 	},
+	shape: {
+		borderRadius: 0,
+	},
+	palette: {
+		primary: {
+			light: "#ae8fff",
+			main: "#7961e6",
+			dark: "#4236b3",
+			contrastText: "#fff",
+		},
+	},
 });
 
 const useStyles = makeStyles((theme) => ({
 	container: {
 		position: "relative",
 		maxWidth: "100vw",
+		maxHeight: "100vh",
 		overflow: "hidden",
-		backgroundColor: theme.palette.background.default,
+		backgroundColor: theme.palette.grey[100],
 	},
+	appBody: ({ isDrawerOpen }: { isDrawerOpen: boolean }) => ({
+		position: "relative",
+		transition: "0.3s",
+		marginLeft: isDrawerOpen ? "240px" : "54px",
+		height: "100vh",
+		overflowX: "visible",
+		overflowY: "scroll",
+		boxSizing: "border-box",
+	}),
 }));
 
 function App() {
-	const classes = useStyles();
+	const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
-	const [open, setOpen] = useState(true);
+	const classes = useStyles({ isDrawerOpen });
 
 	return (
 		<ThemeProvider theme={theme}>
 			<AppProvider>
 				<div className={classes.container}>
-					<Drawer open={open} setOpen={setOpen} />
-					<div
-						style={{
-							transition: "0.3s",
-							marginLeft: open ? "240px" : "54px",
-							width: open
-								? "calc(100vw - 256px)"
-								: "calc(100vw - 70px)",
-							minHeight: "100vh",
-						}}
-					>
-						<Dashboard isSidebarOpen={open} />
+					<Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} />
+					<div className={classes.appBody}>
+						<FrameworkOverviews />
+						<Dashboard isSidebarOpen={isDrawerOpen} />
 					</div>
 				</div>
 			</AppProvider>

@@ -41,7 +41,11 @@ export default function Module({
 	const classes = useStyles();
 
 	return (
-		<Card className={classes.container} variant='outlined'>
+		<Card
+			className={classes.container}
+			elevation={3}
+			// variant='outlined'
+		>
 			<div className={classes.header}>
 				<Typography
 					className={`${classes.title} ModuleDragHandle`}

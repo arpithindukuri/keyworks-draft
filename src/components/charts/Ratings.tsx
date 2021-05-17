@@ -9,10 +9,8 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		width: "100%",
 		height: "100%",
-		padding: theme.spacing(2),
-		// paddingTop: 0,
 		overflowX: "auto",
-		// overflowY: "visible",
+		padding: theme.spacing(2),
 		boxSizing: "border-box",
 	},
 	ratingCard: {
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 		flex: 1,
 		minWidth: "130px",
 		maxHeight: "100%",
-		marginLeft: theme.spacing(3),
+		marginLeft: `${theme.spacing(3)}px`,
 		"&:first-child": {
 			marginLeft: 0,
 		},
@@ -58,8 +56,8 @@ export function RatingCard({
 	return (
 		<Card
 			className={classes.ratingCard}
-			elevation={5}
-			// variant='outlined'
+			// elevation={5}
+			variant='outlined'
 		>
 			<Typography className={classes.ratingCardTitle} variant='h6'>
 				{title}
@@ -71,13 +69,16 @@ export function RatingCard({
 			>
 				<GaugeChart
 					id='gauge-chart1'
-					nrOfLevels={1}
+					nrOfLevels={2}
+					arcsLength={[percent, 1 - percent]}
+					cornerRadius={0}
 					percent={percent}
-					arcWidth={0.1}
-					colors={[getColor()]}
-					needleColor={getColor()}
-					needleBaseColor={getColor()}
+					arcWidth={0.2}
+					colors={[getColor(), "#ddd"]}
+					needleColor={"#ddd"}
+					needleBaseColor={"#ddd"}
 					hideText
+					// textColor={"grey"}
 				/>
 			</ResponsiveContainer>
 			<Typography className={classes.ratingCardNumber} variant='h4'>
@@ -92,11 +93,20 @@ export default function Ratings() {
 
 	return (
 		<Module title='RATINGS'>
+			{/* <div
+				style={{
+					margin: "0px 16px",
+					height: "100%",
+					width: "100%",
+					boxSizing: "border-box",
+					overflowX: "auto",
+				}}
+			> */}
 			<div className={classes.body}>
 				<RatingCard title='Risk' percent={0.17} />
 				<RatingCard title='Compliance' percent={0.55} />
-				<RatingCard title='Thing' percent={0.82} />
 			</div>
+			{/* </div> */}
 		</Module>
 	);
 }

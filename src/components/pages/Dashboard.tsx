@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
-import { makeStyles } from "@material-ui/core";
+import {
+	createStyles,
+	makeStyles,
+	Typography,
+	useTheme,
+} from "@material-ui/core";
 import { useContext, useState } from "react";
 import { Layout, WidthProvider, Responsive } from "react-grid-layout";
 import { withResizeDetector } from "react-resize-detector";
@@ -17,40 +22,50 @@ const ReactGridLayout = WidthProvider(
 	})
 );
 
-const useStyles = makeStyles({
-	"@keyframes fadeIn": {
-		"0%": {
-			opacity: 0,
+const useStyles = makeStyles((theme) =>
+	createStyles({
+		"@keyframes fadeIn": {
+			"0%": {
+				opacity: 0,
+			},
+			"100%": {
+				opacity: 1,
+			},
 		},
-		"100%": {
-			opacity: 1,
+		selector: {
+			animation: "$fadeIn 0.3s ease-in-out",
+			// animationDelay: "0.5s",
+			animationFillMode: "backwards",
 		},
-	},
-	selector: {
-		animation: "$fadeIn 0.5s ease-in-out",
-		animationDelay: "0.5s",
-		animationFillMode: "backwards",
-	},
-	placeholder: ({ isSidebarOpen }: { isSidebarOpen: boolean }) => ({
-		display: "flex",
-		position: "absolute",
-		top: "8px",
-		bottom: "8px",
-		left: isSidebarOpen ? "248px" : "8px",
-		right: "8px",
-		transition: "0.3s",
-		alignItems: "center",
-		justifyContent: "center",
-		fontSize: "2rem",
-		pointerEvents: "none",
-		touchAction: "none",
-		border: "2px dashed grey",
-		color: "grey",
-	}),
-	container: {
-		minHeight: "100vh !important",
-	},
-});
+		placeholder: ({ height }: { height: number }) => ({
+			display: "flex",
+			position: "absolute",
+			minHeight: "calc(100vh - 16px)",
+			height: `calc(${height}px - 16px)`,
+			top: "8px",
+			left: "8px",
+			right: "8px",
+			transition: "0.3s",
+			alignItems: "center",
+			justifyContent: "center",
+			pointerEvents: "none",
+			touchAction: "none",
+			border: `2px dashed ${theme.palette.grey[300]}`,
+			color: theme.palette.grey[500],
+			boxSizing: "border-box",
+			overflowX: "hidden",
+			overflowY: "visible",
+		}),
+		container: {
+			minHeight: "100vh !important",
+			transition: "0.3s",
+			display: "flex",
+			flexGrow: 1,
+			overflowX: "hidden",
+			overflowY: "visible",
+		},
+	})
+);
 
 const dashboardData = [
 	{
@@ -80,15 +95,20 @@ export default function Dashboard({
 }: {
 	isSidebarOpen: boolean;
 }) {
-	const classes = useStyles({ isSidebarOpen: isSidebarOpen });
-	const { state } = useContext(AppContext);
+	const theme = useTheme();
 
+	const { state } = useContext(AppContext);
+	const [height, setHeight] = useState(0);
 	const [layout, setLayout] = useState<Layout[]>([
 		// { i: "ratings", x: 0, y: 0, w: 3, h: 5, minW: 3, minH: 3 },
 		// { i: "trends", x: 3, y: 0, w: 5, h: 5, minW: 3, minH: 3 },
 		// { i: "regcomp", x: 0, y: 5, w: 4, h: 5, minW: 3, minH: 3 },
 		// { i: "highriskassets", x: 4, y: 5, w: 4, h: 5, minW: 3, minH: 3 },
 	]);
+	const margin = theme.spacing(3);
+	const rowHeight = 80;
+
+	const classes = useStyles({ height: height });
 
 	const getView = (view: typeType) => {
 		if (view === "ratings") return <Ratings />;
@@ -103,9 +123,12 @@ export default function Dashboard({
 	);
 
 	return (
-		<>
+		<div style={{ position: "relative" }}>
 			<ReactGridLayout
+				// useCSSTransforms={false}
+				measureBeforeMount
 				className={`layout ${classes.container}`}
+				style={{ height: `${height}px`, overflowY: "visible" }}
 				layouts={{
 					lg: layout,
 					md: layout,
@@ -117,9 +140,16 @@ export default function Dashboard({
 					if (!layout.find((li) => li.i === "__dropping-elem__")) {
 						setLayout(() => layout);
 					}
+					let h = 0;
+					layout.forEach((li) => {
+						if (li.y + li.h > h) h = li.y + li.h;
+						console.log(li.i, h);
+					});
+					setHeight(() => h * (rowHeight + margin) + margin);
 				}}
-				rowHeight={80}
+				rowHeight={rowHeight}
 				cols={{ lg: 8, md: 8, sm: 8, xs: 8, xxs: 8 }}
+				margin={[margin, margin]}
 				draggableHandle={".ModuleDragHandle"}
 				droppingItem={
 					newIndex !== -1
@@ -131,8 +161,6 @@ export default function Dashboard({
 				}
 				isDroppable
 				onDrop={(layout, item) => {
-					console.log(layout);
-					console.log(item);
 					if (newIndex !== -1) {
 						const newLI = {
 							...item,
@@ -149,8 +177,6 @@ export default function Dashboard({
 								}
 								return 0;
 							});
-							console.log([...prev, newLI]);
-							console.log(newLayout);
 							return newLayout;
 						});
 					}
@@ -161,35 +187,24 @@ export default function Dashboard({
 					return (
 						<div
 							key={view.i}
-							// className={
-							// 	view.i === "__dropping-elem__"
-							// 		? ""
-							// 		: classes.selector
-							// }
+							className={
+								view.i === "__dropping-elem__"
+									? ""
+									: classes.selector
+							}
 						>
 							{viewEl ? viewEl : ""}
 						</div>
 					);
 				})}
 			</ReactGridLayout>
-			{layout.length === 0 && (
-				<div className={classes.placeholder}>
-					Drag views in from side bar
-				</div>
-			)}
-		</>
+			<div className={classes.placeholder}>
+				{layout.length === 0 && (
+					<Typography variant='h4'>
+						Drag views in from side bar
+					</Typography>
+				)}
+			</div>
+		</div>
 	);
 }
-
-/* <div key='ratings' className={classes.selector}>
-				<Ratings />
-			</div>
-			<div key='trends' className={classes.selector}>
-				<RatingTrends />
-			</div>
-			<div key='regcomp' className={classes.selector}>
-				<RegulatoryCompliance />
-			</div>
-			<div key='highriskassets' className={classes.selector}>
-				<HighRiskAssets />
-			</div> */

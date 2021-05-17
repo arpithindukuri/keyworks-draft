@@ -56,24 +56,40 @@ const useStyles = makeStyles((theme) =>
 		drawerControl: {
 			padding: theme.spacing(1),
 			transition: "transform 0.3s",
+			color: theme.palette.grey[100],
 		},
 		flipped180: {
 			transform: "rotate(180deg)",
 		},
 		listItemText: {
 			marginLeft: theme.spacing(1),
+			color: theme.palette.grey[100],
+		},
+		listItemIcon: {
+			color: theme.palette.grey[100],
 		},
 		listItem: {
 			paddingTop: 0,
 			paddingBottom: 0,
 			"&:hover": {
-				backgroundColor: theme.palette.background.default,
+				backgroundColor: theme.palette.primary.dark,
 				cursor: "grab",
 			},
 			"&:active": {
 				cursor: "grabbing",
-				backgroundColor: theme.palette.grey[300],
+				backgroundColor: theme.palette.primary.light,
 			},
+			transition: "0.08s",
+		},
+		drawerPaper: {
+			position: "absolute",
+			height: "100vh",
+			// height: "calc(100vh - 16px)",
+			// top: "8px",
+			// left: "8px",
+			// borderRadius: "0 12px 12px 0",
+			border: 0,
+			backgroundColor: theme.palette.primary.main,
 		},
 	})
 );
@@ -113,7 +129,6 @@ export default function ChatList({
 	setOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
 	const classes = useStyles();
-	// const [open, setOpen] = useState(false);
 
 	const toggleDrawer = () => {
 		setOpen((prev) => !prev);
@@ -132,7 +147,10 @@ export default function ChatList({
 					[classes.drawerClose]: !open,
 				}),
 			}}
-			PaperProps={{ style: { position: "absolute" } }}
+			PaperProps={{
+				className: classes.drawerPaper,
+				elevation: 3,
+			}}
 			BackdropProps={{ style: { position: "absolute" } }}
 			ModalProps={{
 				container: document.getElementById("drawer-container"),
@@ -174,6 +192,7 @@ function Item({
 	dragType: typeType;
 }) {
 	const classes = useStyles();
+	// const theme -
 	const { setType, clearType } = useContext(AppContext);
 
 	return (
@@ -188,7 +207,9 @@ function Item({
 			}}
 		>
 			<ListItem className={classes.listItem}>
-				<ListItemIcon>{icon}</ListItemIcon>
+				<ListItemIcon className={classes.listItemIcon}>
+					{icon}
+				</ListItemIcon>
 				<ListItemText
 					className={classes.listItemText}
 					primary={title}
