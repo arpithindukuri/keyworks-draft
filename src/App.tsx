@@ -71,6 +71,11 @@ const theme = createMyTheme({
 				},
 			},
 		},
+		MuiButton: {
+			root: {
+				borderRadius: 5,
+			},
+		},
 	},
 	typography: {
 		fontFamily: ["Inter"].join(","),

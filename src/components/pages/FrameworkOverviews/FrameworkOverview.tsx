@@ -227,14 +227,10 @@ export default function FrameworkOverview({
 								className={classes.alert}
 								severity={item.severity}
 								action={
-									<Button
-										color='inherit'
-										size='small'
-										style={{
-											borderRadius: 0,
-										}}
-									>
-										DISMISS
+									<Button color='inherit' size='small'>
+										{item.severity === "success"
+											? "DISMISS"
+											: "HOW TO FIX"}
 									</Button>
 								}
 							>
