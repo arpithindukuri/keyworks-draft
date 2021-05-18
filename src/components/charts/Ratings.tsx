@@ -1,6 +1,7 @@
 import { Card, makeStyles, Typography } from "@material-ui/core";
 import GaugeChart from "react-gauge-chart";
 import { ResponsiveContainer } from "recharts";
+import { getColor } from "../../util";
 import Module from "../Module";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,12 +48,6 @@ export function RatingCard({
 }) {
 	const classes = useStyles();
 
-	const getColor = () => {
-		if (percent <= 0.33) return "green";
-		else if (percent <= 0.66) return "orange";
-		else return "red";
-	};
-
 	return (
 		<Card
 			className={classes.ratingCard}
@@ -73,12 +68,11 @@ export function RatingCard({
 					arcsLength={[percent, 1 - percent]}
 					cornerRadius={0}
 					percent={percent}
-					arcWidth={0.2}
-					colors={[getColor(), "#ddd"]}
+					arcWidth={0.15}
+					colors={[getColor(percent), "#ddd"]}
 					needleColor={"#ddd"}
 					needleBaseColor={"#ddd"}
 					hideText
-					// textColor={"grey"}
 				/>
 			</ResponsiveContainer>
 			<Typography className={classes.ratingCardNumber} variant='h4'>

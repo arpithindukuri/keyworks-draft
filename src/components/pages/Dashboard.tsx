@@ -40,11 +40,11 @@ const useStyles = makeStyles((theme) =>
 		placeholder: ({ height }: { height: number }) => ({
 			display: "flex",
 			position: "absolute",
-			minHeight: "calc(100vh - 16px)",
-			height: `calc(${height}px - 16px)`,
-			top: "8px",
-			left: "8px",
-			right: "8px",
+			minHeight: "calc(100vh - 24px)",
+			height: `calc(${height}px - 24px)`,
+			top: "12px",
+			left: "12px",
+			right: "12px",
 			transition: "0.3s",
 			alignItems: "center",
 			justifyContent: "center",
@@ -144,7 +144,6 @@ export default function Dashboard({
 					let h = 0;
 					layout.forEach((li) => {
 						if (li.y + li.h > h) h = li.y + li.h;
-						console.log(li.i, h);
 					});
 					setHeight(() => h * (rowHeight + margin) + margin);
 				}}

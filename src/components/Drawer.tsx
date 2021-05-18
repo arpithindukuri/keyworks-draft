@@ -56,17 +56,17 @@ const useStyles = makeStyles((theme) =>
 		drawerControl: {
 			padding: theme.spacing(1),
 			transition: "transform 0.3s",
-			color: theme.palette.grey[100],
+			color: theme.palette.primary.contrastText,
 		},
 		flipped180: {
 			transform: "rotate(180deg)",
 		},
 		listItemText: {
 			marginLeft: theme.spacing(1),
-			color: theme.palette.grey[100],
+			color: theme.palette.primary.contrastText,
 		},
 		listItemIcon: {
-			color: theme.palette.grey[100],
+			color: theme.palette.primary.contrastText,
 		},
 		listItem: {
 			paddingTop: 0,

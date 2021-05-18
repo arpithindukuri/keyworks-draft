@@ -26,14 +26,21 @@ const useStyles = makeStyles((theme) => ({
 
 const oldData = [
 	{
-		name: "BQN",
+		name: "PCI",
 		Low: 0,
 		Medium: 0,
 		High: 0,
 		Complete: 0,
 	},
 	{
-		name: "PQI",
+		name: "ISO",
+		Low: 0,
+		Medium: 0,
+		High: 0,
+		Complete: 0,
+	},
+	{
+		name: "NIST",
 		Low: 0,
 		Medium: 0,
 		High: 0,
@@ -41,13 +48,6 @@ const oldData = [
 	},
 	{
 		name: "HIPAA",
-		Low: 0,
-		Medium: 0,
-		High: 0,
-		Complete: 0,
-	},
-	{
-		name: "OLRA",
 		Low: 0,
 		Medium: 0,
 		High: 0,
@@ -64,28 +64,28 @@ const oldData = [
 
 const newData = [
 	{
-		name: "BQN",
+		name: "PCI",
 		Low: 40,
 		Medium: 24,
 		High: 26,
 		Complete: 10,
 	},
 	{
-		name: "PQI",
+		name: "ISO",
 		Low: 30,
 		Medium: 13,
 		High: 27,
 		Complete: 30,
 	},
 	{
-		name: "HIPAA",
+		name: "NIST",
 		Low: 20,
 		Medium: 28,
 		High: 12,
 		Complete: 40,
 	},
 	{
-		name: "OLRA",
+		name: "HIPAA",
 		Low: 27,
 		Medium: 40,
 		High: 20,
@@ -130,25 +130,25 @@ export default function RegulatoryCompliance() {
 							animationDuration={1000}
 							dataKey='Low'
 							stackId='a'
-							fill='green'
+							fill='#3adf5d'
 						/>
 						<Bar
 							animationDuration={1000}
 							dataKey='Medium'
 							stackId='a'
-							fill='orange'
+							fill='#ffa339'
 						/>
 						<Bar
 							animationDuration={1000}
 							dataKey='High'
 							stackId='a'
-							fill='red'
+							fill='#f1462f'
 						/>
 						<Bar
 							animationDuration={1000}
 							dataKey='Complete'
 							stackId='a'
-							fill='blue'
+							fill='#49a9e9'
 						/>
 					</BarChart>
 				</ResponsiveContainer>

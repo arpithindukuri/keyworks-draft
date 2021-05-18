@@ -8,7 +8,7 @@ import Drawer from "./components/Drawer";
 import { ThemeOptions } from "@material-ui/core/styles";
 import { useState } from "react";
 import AppProvider from "./context/AppContext";
-import FrameworkOverviews from "./components/pages/FrameworkOverviews";
+import AllOverviews from "./components/pages/FrameworkOverviews/AllOverviews";
 
 declare module "@material-ui/core/styles/createMuiTheme" {
 	interface Theme {
@@ -63,19 +63,27 @@ const theme = createMyTheme({
 				minWidth: 0,
 			},
 		},
+		MuiCardContent: {
+			root: {
+				"&:last-child": {
+					paddingBottom:
+						defaultTheme.props?.MuiCardContent?.style?.padding,
+				},
+			},
+		},
 	},
 	typography: {
 		fontFamily: ["Inter"].join(","),
 	},
 	shape: {
-		borderRadius: 0,
+		borderRadius: 10,
 	},
 	palette: {
 		primary: {
-			light: "#ae8fff",
-			main: "#7961e6",
-			dark: "#4236b3",
-			contrastText: "#fff",
+			light: "#64d8cb",
+			main: "#26a69a",
+			dark: "#00766c",
+			contrastText: "#ffffff",
 		},
 	},
 });
@@ -100,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-	const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 	const classes = useStyles({ isDrawerOpen });
 
@@ -110,7 +118,7 @@ function App() {
 				<div className={classes.container}>
 					<Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} />
 					<div className={classes.appBody}>
-						<FrameworkOverviews />
+						<AllOverviews />
 						<Dashboard isSidebarOpen={isDrawerOpen} />
 					</div>
 				</div>
