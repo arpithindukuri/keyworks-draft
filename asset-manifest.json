@@ -6,17 +6,17 @@
     "runtime-main.js": "/keyworks-draft/static/js/runtime-main.2adc8d22.js",
     "runtime-main.js.map": "/keyworks-draft/static/js/runtime-main.2adc8d22.js.map",
     "static/css/2.0fe8871e.chunk.css": "/keyworks-draft/static/css/2.0fe8871e.chunk.css",
-    "static/js/2.ba34e74c.chunk.js": "/keyworks-draft/static/js/2.ba34e74c.chunk.js",
-    "static/js/2.ba34e74c.chunk.js.map": "/keyworks-draft/static/js/2.ba34e74c.chunk.js.map",
+    "static/js/2.e3c21354.chunk.js": "/keyworks-draft/static/js/2.e3c21354.chunk.js",
+    "static/js/2.e3c21354.chunk.js.map": "/keyworks-draft/static/js/2.e3c21354.chunk.js.map",
     "index.html": "/keyworks-draft/index.html",
     "static/css/2.0fe8871e.chunk.css.map": "/keyworks-draft/static/css/2.0fe8871e.chunk.css.map",
     "static/css/main.944290e5.chunk.css.map": "/keyworks-draft/static/css/main.944290e5.chunk.css.map",
-    "static/js/2.ba34e74c.chunk.js.LICENSE.txt": "/keyworks-draft/static/js/2.ba34e74c.chunk.js.LICENSE.txt"
+    "static/js/2.e3c21354.chunk.js.LICENSE.txt": "/keyworks-draft/static/js/2.e3c21354.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2adc8d22.js",
     "static/css/2.0fe8871e.chunk.css",
-    "static/js/2.ba34e74c.chunk.js",
+    "static/js/2.e3c21354.chunk.js",
     "static/css/main.944290e5.chunk.css",
     "static/js/main.3dc086c9.chunk.js"
   ]
