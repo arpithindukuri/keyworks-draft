@@ -1,6 +1,11 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import {
+	makeStyles,
+	Theme,
+	createStyles,
+	fade,
+} from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -14,8 +19,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import logoIpsum from "../assets/logo-12.svg";
-import { Collapse, Icon } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+import { Badge, Collapse, Icon, InputBase } from "@material-ui/core";
+import {
+	AccountCircle,
+	ExpandMore,
+	Notifications,
+	Search,
+} from "@material-ui/icons";
 
 type drawerListItemType = {
 	title: string;
@@ -26,16 +36,17 @@ type drawerListItemType = {
 
 const drawerList: drawerListItemType[] = [
 	{
+		title: "Home",
+		icon: "home",
+		isNested: false,
+	},
+	{
 		title: "Dashboard",
 		icon: "dashboard",
 		isNested: true,
 		nestedListItems: [
-			{
-				title: "Risk Analysis",
-			},
-			{
-				title: "Compliance",
-			},
+			{ title: "Risk Analysis" },
+			{ title: "Compliance" },
 			{
 				title: "Manage Dashboards",
 				icon: "tune",
@@ -47,15 +58,10 @@ const drawerList: drawerListItemType[] = [
 		icon: "device_hub",
 		isNested: true,
 		nestedListItems: [
-			{
-				title: "PCI",
-			},
-			{
-				title: "ISO27001",
-			},
-			{
-				title: "NIST",
-			},
+			{ title: "Overview" },
+			{ title: "PCI" },
+			{ title: "ISO27001" },
+			{ title: "NIST" },
 			{
 				title: "Manage Frameworks",
 				icon: "tune",
@@ -67,16 +73,10 @@ const drawerList: drawerListItemType[] = [
 		icon: "wifi_tethering_error_rounded",
 		isNested: true,
 		nestedListItems: [
-			{
-				title: "STIX",
-			},
-			{
-				title: "TAXII",
-			},
-			{
-				title: "Manage Threat Feeds",
-				icon: "tune",
-			},
+			{ title: "Overview" },
+			{ title: "STIX" },
+			{ title: "TAXII" },
+			{ title: "Manage Threat Feeds", icon: "tune" },
 		],
 	},
 	{
@@ -84,12 +84,9 @@ const drawerList: drawerListItemType[] = [
 		icon: "memory",
 		isNested: true,
 		nestedListItems: [
-			{
-				title: "AI Feeds",
-			},
-			{
-				title: "ML Feeds",
-			},
+			{ title: "Overview" },
+			{ title: "AI Feeds" },
+			{ title: "ML Feeds" },
 			{
 				title: "Manage AI/ML Feeds",
 				icon: "tune",
@@ -101,12 +98,8 @@ const drawerList: drawerListItemType[] = [
 		icon: "place",
 		isNested: true,
 		nestedListItems: [
-			{
-				title: "Global",
-			},
-			{
-				title: "Calgary International Airport",
-			},
+			{ title: "Global" },
+			{ title: "Calgary International Airport" },
 			{
 				title: "Manage GIS",
 				icon: "tune",
@@ -118,12 +111,9 @@ const drawerList: drawerListItemType[] = [
 		icon: "power",
 		isNested: true,
 		nestedListItems: [
-			{
-				title: "My API",
-			},
-			{
-				title: "API2",
-			},
+			{ title: "My API" },
+			{ title: "API2" },
+			{ title: "HVAC Sensors" },
 			{
 				title: "Manage APIs",
 				icon: "tune",
@@ -157,16 +147,55 @@ const useStyles = makeStyles((theme: Theme) =>
 			}),
 		},
 		menuButton: {
-			marginRight: theme.spacing(2),
+			// marginRight: theme.spacing(1),
 		},
 		logoIpsum: {
 			display: "flex",
 			height: "56px",
 			padding: theme.spacing(2),
+			marginLeft: theme.spacing(1),
+			marginRight: theme.spacing(1),
 		},
 		title: {
 			flexGrow: 1,
 			textAlign: "center",
+		},
+		search: {
+			position: "relative",
+			borderRadius: "50px",
+			backgroundColor: fade(theme.palette.common.black, 0.05),
+			"&:hover": {
+				backgroundColor: fade(theme.palette.common.black, 0.1),
+			},
+			marginRight: theme.spacing(2),
+			marginLeft: 0,
+			width: "100%",
+			[theme.breakpoints.up("sm")]: {
+				marginLeft: theme.spacing(3),
+				width: "auto",
+			},
+		},
+		searchIcon: {
+			padding: theme.spacing(0, 2),
+			height: "100%",
+			position: "absolute",
+			pointerEvents: "none",
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center",
+		},
+		inputRoot: {
+			color: "inherit",
+		},
+		inputInput: {
+			padding: theme.spacing(1, 1, 1, 0),
+			// vertical padding + font size from searchIcon
+			paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+			transition: theme.transitions.create("width"),
+			width: "100%",
+			[theme.breakpoints.up("md")]: {
+				width: "20ch",
+			},
 		},
 		drawer: {
 			width: drawerWidth,
@@ -235,7 +264,6 @@ export default function Layout({ children }: { children: any }) {
 				<Toolbar>
 					<IconButton
 						color='inherit'
-						aria-label='open drawer'
 						onClick={handleDrawerToggle}
 						edge='start'
 						className={clsx(classes.menuButton)}
@@ -248,8 +276,29 @@ export default function Layout({ children }: { children: any }) {
 						alt='Placeholder Logo'
 					/>
 					<Typography className={classes.title} variant='h6' noWrap>
-						11:40 am (MT)
+						11:40 am (MST)
 					</Typography>
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<Search color='inherit' />
+						</div>
+						<InputBase
+							placeholder='Search…'
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+							inputProps={{ "aria-label": "search" }}
+						/>
+					</div>
+					<IconButton color='inherit'>
+						<Badge badgeContent={6} color='primary'>
+							<Notifications />
+						</Badge>
+					</IconButton>
+					<IconButton edge='end' color='inherit'>
+						<AccountCircle />
+					</IconButton>
 				</Toolbar>
 			</AppBar>
 			<Drawer
