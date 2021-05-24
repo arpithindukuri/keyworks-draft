@@ -1,14 +1,15 @@
+import { useState } from "react";
 import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core";
+import { ThemeOptions } from "@material-ui/core/styles";
+
+import AppProvider from "./context/AppContext";
+import Dashboard from "./components/pages/Dashboard";
+// import Drawer from "./components/Drawer";
+import AllOverviews from "./components/pages/FrameworkOverviews/AllOverviews";
+import Layout from "./components/Layout";
+
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import Dashboard from "./components/pages/Dashboard";
-
-import Drawer from "./components/Drawer";
-
-import { ThemeOptions } from "@material-ui/core/styles";
-import { useState } from "react";
-import AppProvider from "./context/AppContext";
-import AllOverviews from "./components/pages/FrameworkOverviews/AllOverviews";
 
 declare module "@material-ui/core/styles/createMuiTheme" {
 	interface Theme {
@@ -31,7 +32,7 @@ function createMyTheme(options: ThemeOptions) {
 	});
 }
 
-const defaultTheme = createMyTheme({});
+const defaultTheme = createMyTheme({ shape: { borderRadius: 2 } });
 
 const theme = createMyTheme({
 	gradients: {
@@ -48,10 +49,11 @@ const theme = createMyTheme({
 		MuiListItem: {
 			root: {
 				borderRadius: defaultTheme.shape.borderRadius,
-				marginBottom: defaultTheme.spacing(1),
-				"&:last-child": {
-					marginBottom: 0,
-				},
+				marginTop: defaultTheme.spacing(0.5),
+				marginBottom: defaultTheme.spacing(0.5),
+				// "&:last-child": {
+				// 	marginBottom: 0,
+				// },
 			},
 			gutters: {
 				paddingLeft: defaultTheme.spacing(1),
@@ -61,6 +63,11 @@ const theme = createMyTheme({
 		MuiListItemIcon: {
 			root: {
 				minWidth: 0,
+			},
+		},
+		MuiListItemText: {
+			root: {
+				marginLeft: defaultTheme.spacing(1),
 			},
 		},
 		MuiCardContent: {
@@ -73,7 +80,7 @@ const theme = createMyTheme({
 		},
 		MuiButton: {
 			root: {
-				borderRadius: 5,
+				// borderRadius: 5,
 			},
 		},
 	},
@@ -81,13 +88,13 @@ const theme = createMyTheme({
 		fontFamily: ["Inter"].join(","),
 	},
 	shape: {
-		borderRadius: 10,
+		borderRadius: defaultTheme.shape.borderRadius,
 	},
 	palette: {
 		primary: {
-			light: "#64d8cb",
-			main: "#26a69a",
-			dark: "#00766c",
+			light: "#6f74dd",
+			main: "#3949ab",
+			dark: "#00227b",
 			contrastText: "#ffffff",
 		},
 	},
@@ -95,25 +102,24 @@ const theme = createMyTheme({
 
 const useStyles = makeStyles((theme) => ({
 	container: {
-		position: "relative",
-		maxWidth: "100vw",
-		maxHeight: "100vh",
-		overflow: "hidden",
+		// maxWidth: "100%",
+		// maxHeight: "100%",
+		overflow: "visible",
 		backgroundColor: theme.palette.grey[100],
 	},
 	appBody: ({ isDrawerOpen }: { isDrawerOpen: boolean }) => ({
 		position: "relative",
 		transition: "0.3s",
-		marginLeft: isDrawerOpen ? "240px" : "54px",
-		height: "100vh",
-		overflowX: "visible",
-		overflowY: "scroll",
+		// marginLeft: isDrawerOpen ? "240px" : "54px",
+		height: "100%",
+		// overflowX: "visible",
+		// overflowY: "scroll",
 		boxSizing: "border-box",
 	}),
 }));
 
 function App() {
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [isDrawerOpen] = useState(false);
 
 	const classes = useStyles({ isDrawerOpen });
 
@@ -121,11 +127,13 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<AppProvider>
 				<div className={classes.container}>
-					<Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} />
-					<div className={classes.appBody}>
-						<AllOverviews />
-						<Dashboard isSidebarOpen={isDrawerOpen} />
-					</div>
+					<Layout>
+						{/* <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} /> */}
+						<div className={classes.appBody}>
+							<AllOverviews />
+							<Dashboard isSidebarOpen={isDrawerOpen} />
+						</div>
+					</Layout>
 				</div>
 			</AppProvider>
 		</ThemeProvider>

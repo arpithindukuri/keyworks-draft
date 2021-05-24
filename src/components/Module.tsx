@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		display: "flex",
 		flexDirection: "column",
-		borderRadius: 0,
+		// borderRadius: 0,
 	},
 	header: {
 		display: "flex",

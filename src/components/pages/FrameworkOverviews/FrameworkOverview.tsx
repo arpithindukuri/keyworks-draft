@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) =>
 			"&:first-child": {
 				marginTop: 0,
 			},
-			borderRadius: 0,
+			// borderRadius: 0,
 		},
 		cardHeader: {
 			padding: theme.spacing(1),
@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) =>
 			display: "flex",
 			marginTop: theme.spacing(2),
 			justifyContent: "center",
+			flexWrap: "wrap",
 		},
 		cardDetails: {
 			display: "flex",
