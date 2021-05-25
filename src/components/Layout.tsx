@@ -26,9 +26,11 @@ import {
 	Notifications,
 	Search,
 } from "@material-ui/icons";
+import { useHistory } from "react-router";
 
 type drawerListItemType = {
 	title: string;
+	link?: string;
 	icon?: string;
 	isNested?: boolean;
 	nestedListItems?: drawerListItemType[];
@@ -37,18 +39,20 @@ type drawerListItemType = {
 const drawerList: drawerListItemType[] = [
 	{
 		title: "Home",
+		link: "/home",
 		icon: "home",
 		isNested: false,
 	},
 	{
-		title: "Dashboard",
+		title: "Dashboards",
 		icon: "dashboard",
 		isNested: true,
 		nestedListItems: [
-			{ title: "Risk Analysis" },
-			{ title: "Compliance" },
+			{ title: "Risk Analysis", link: "/dashboard/risk-analysis" },
+			{ title: "Compliance", link: "/dashboard/compliance" },
 			{
 				title: "Manage Dashboards",
+				link: "/dashboard/manage",
 				icon: "tune",
 			},
 		],
@@ -58,7 +62,7 @@ const drawerList: drawerListItemType[] = [
 		icon: "device_hub",
 		isNested: true,
 		nestedListItems: [
-			{ title: "Overview" },
+			{ title: "Overview", link: "/framework/overview" },
 			{ title: "PCI" },
 			{ title: "ISO27001" },
 			{ title: "NIST" },
@@ -212,6 +216,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			...theme.mixins.toolbar,
 			justifyContent: "flex-end",
 		},
+		drawerContainer: {
+			overflow: "auto",
+		},
 		content: {
 			flexGrow: 1,
 			transition: theme.transitions.create("margin", {
@@ -311,12 +318,13 @@ export default function Layout({ children }: { children: any }) {
 				}}
 			>
 				<div className={classes.drawerHeader} />
-				<Divider />
-				<List>
-					{drawerList.map((item, index) => (
-						<DrawerItem item={item} />
-					))}
-				</List>
+				<div className={classes.drawerContainer}>
+					<List>
+						{drawerList.map((item, index) => (
+							<DrawerItem item={item} />
+						))}
+					</List>
+				</div>
 			</Drawer>
 			<main
 				className={clsx(classes.content, {
@@ -339,9 +347,19 @@ function DrawerItem({
 }) {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
+	const history = useHistory();
+
+	const goToLink = () => {
+		history.push(item.link || "");
+	};
 
 	const toggleOpen = () => {
 		setOpen(!open);
+	};
+
+	const handleClick = () => {
+		if (item.isNested) toggleOpen();
+		if (item.link) goToLink();
 	};
 
 	return (
@@ -349,7 +367,7 @@ function DrawerItem({
 			<ListItem
 				key={`drawer-item-${item.title}`}
 				button
-				onClick={item.isNested ? toggleOpen : undefined}
+				onClick={handleClick}
 			>
 				<ListItemIcon>
 					<Icon>{item.icon !== "tune" && item.icon}</Icon>

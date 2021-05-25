@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core";
 import { ThemeOptions } from "@material-ui/core/styles";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 
 import AppProvider from "./context/AppContext";
 import Dashboard from "./components/pages/Dashboard";
 // import Drawer from "./components/Drawer";
-import AllOverviews from "./components/pages/FrameworkOverviews/AllOverviews";
+import AllOverviews from "./components/pages/Framework/AllOverviews";
 import Layout from "./components/Layout";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import Home from "./components/pages/Home/Home";
 
 declare module "@material-ui/core/styles/createMuiTheme" {
 	interface Theme {
@@ -32,7 +39,9 @@ function createMyTheme(options: ThemeOptions) {
 	});
 }
 
-const defaultTheme = createMyTheme({ shape: { borderRadius: 2 } });
+const defaultTheme = createMyTheme({
+	shape: { borderRadius: 4 },
+});
 
 const theme = createMyTheme({
 	gradients: {
@@ -83,9 +92,15 @@ const theme = createMyTheme({
 				// borderRadius: 5,
 			},
 		},
+		MuiChip: {
+			label: {
+				fontWeight: 500,
+			},
+		},
 	},
 	typography: {
-		fontFamily: ["Inter"].join(","),
+		fontFamily: ["Poppins"].join(","),
+		fontSize: 12,
 	},
 	shape: {
 		borderRadius: defaultTheme.shape.borderRadius,
@@ -105,13 +120,13 @@ const useStyles = makeStyles((theme) => ({
 		// maxWidth: "100%",
 		// maxHeight: "100%",
 		overflow: "visible",
-		backgroundColor: theme.palette.grey[100],
+		// backgroundColor: theme.palette.grey[100],
 	},
 	appBody: ({ isDrawerOpen }: { isDrawerOpen: boolean }) => ({
 		position: "relative",
 		transition: "0.3s",
 		// marginLeft: isDrawerOpen ? "240px" : "54px",
-		height: "100%",
+		// height: "100%",
 		// overflowX: "visible",
 		// overflowY: "scroll",
 		boxSizing: "border-box",
@@ -124,19 +139,35 @@ function App() {
 	const classes = useStyles({ isDrawerOpen });
 
 	return (
-		<ThemeProvider theme={theme}>
-			<AppProvider>
-				<div className={classes.container}>
-					<Layout>
-						{/* <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} /> */}
-						<div className={classes.appBody}>
-							<AllOverviews />
-							<Dashboard isSidebarOpen={isDrawerOpen} />
-						</div>
-					</Layout>
-				</div>
-			</AppProvider>
-		</ThemeProvider>
+		<Router basename='/keyworks-draft'>
+			<ThemeProvider theme={theme}>
+				<AppProvider>
+					<div className={classes.container}>
+						<Layout>
+							{/* <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} /> */}
+							<div className={classes.appBody}>
+								<Switch>
+									<Route path='/home'>
+										<Home />
+									</Route>
+									<Route path='/framework/overview'>
+										<AllOverviews />
+									</Route>
+									<Route path='/dashboard'>
+										<Dashboard
+											isSidebarOpen={isDrawerOpen}
+										/>
+									</Route>
+									<Route path='/'>
+										<Redirect to='/home' />
+									</Route>
+								</Switch>
+							</div>
+						</Layout>
+					</div>
+				</AppProvider>
+			</ThemeProvider>
+		</Router>
 	);
 }
 
