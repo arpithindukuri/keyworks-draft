@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
 			},
 		},
 		fadeIn: {
-			// animation: "$fadeIn 0.8s ease backwards",
+			animation: "$fadeIn 0.8s ease backwards",
 			animationDelay: "calc(var(--animation-order) * 300ms)",
 			transformOrigin: "center",
 		},
