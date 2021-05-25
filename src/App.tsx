@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core";
 import { ThemeOptions } from "@material-ui/core/styles";
 import {
-	BrowserRouter as Router,
+	HashRouter as Router,
 	Switch,
 	Route,
 	Redirect,
