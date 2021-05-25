@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/keyworks-draft/static/css/main.ec5e26ad.chunk.css",
-    "main.js": "/keyworks-draft/static/js/main.13170bed.chunk.js",
-    "main.js.map": "/keyworks-draft/static/js/main.13170bed.chunk.js.map",
+    "main.js": "/keyworks-draft/static/js/main.5846fe82.chunk.js",
+    "main.js.map": "/keyworks-draft/static/js/main.5846fe82.chunk.js.map",
     "runtime-main.js": "/keyworks-draft/static/js/runtime-main.2adc8d22.js",
     "runtime-main.js.map": "/keyworks-draft/static/js/runtime-main.2adc8d22.js.map",
     "static/css/2.0fe8871e.chunk.css": "/keyworks-draft/static/css/2.0fe8871e.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.0fe8871e.chunk.css",
     "static/js/2.af35e8c7.chunk.js",
     "static/css/main.ec5e26ad.chunk.css",
-    "static/js/main.13170bed.chunk.js"
+    "static/js/main.5846fe82.chunk.js"
   ]
 }
