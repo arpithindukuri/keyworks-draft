@@ -139,7 +139,7 @@ function App() {
 	const classes = useStyles({ isDrawerOpen });
 
 	return (
-		<Router basename='/keyworks-draft'>
+		<Router>
 			<ThemeProvider theme={theme}>
 				<AppProvider>
 					<div className={classes.container}>
