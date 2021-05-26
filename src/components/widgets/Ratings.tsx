@@ -1,8 +1,6 @@
 import { Card, makeStyles, Typography } from "@material-ui/core";
-import GaugeChart from "react-gauge-chart";
-import { ResponsiveContainer } from "recharts";
-import { getColor } from "../../util";
 import Module from "../Module";
+import PieChartRating from "./PieChartRating";
 
 const useStyles = makeStyles((theme) => ({
 	body: {
@@ -20,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 		justifyContent: "center",
 		flex: 1,
+		padding: theme.spacing(3),
 		minWidth: "130px",
 		maxHeight: "100%",
 		marginLeft: `${theme.spacing(3)}px`,
@@ -57,27 +56,7 @@ export function RatingCard({
 			<Typography className={classes.ratingCardTitle} variant='h6'>
 				{title}
 			</Typography>
-			<ResponsiveContainer
-				className={classes.responsive}
-				width='99%'
-				height='auto'
-			>
-				<GaugeChart
-					id='gauge-chart1'
-					nrOfLevels={2}
-					arcsLength={[percent, 1 - percent]}
-					cornerRadius={0}
-					percent={percent}
-					arcWidth={0.15}
-					colors={[getColor(percent), "#ddd"]}
-					needleColor={"#ddd"}
-					needleBaseColor={"#ddd"}
-					hideText
-				/>
-			</ResponsiveContainer>
-			<Typography className={classes.ratingCardNumber} variant='h4'>
-				{`${Math.floor(percent * 100)}%`}
-			</Typography>
+			<PieChartRating percent={percent} />
 		</Card>
 	);
 }

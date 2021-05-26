@@ -1,221 +1,286 @@
-import { Dispatch, useContext } from "react";
-import {
-	createStyles,
-	Drawer,
-	IconButton,
-	List,
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-	makeStyles,
-	SvgIconTypeMap,
-} from "@material-ui/core";
-import classNames from "classnames";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import StarHalfIcon from "@material-ui/icons/StarHalf";
-import TrendingUpIcon from "@material-ui/icons/TrendingUp";
-import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import { AppContext, typeType } from "../context/AppContext";
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import React from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import { default as MuiDrawer } from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { Collapse, Icon } from "@material-ui/core";
+import { ExpandMore } from "@material-ui/icons";
+import { useHistory, useLocation } from "react-router";
+import { useAppSelector } from "../redux/hooks";
+import { selectDashboards } from "../redux/dashboardSlice";
 
-const drawerWidth = 240;
+type drawerListItemType = {
+	title: string;
+	link?: string;
+	icon?: string;
+	isNested?: boolean;
+	nestedListItems?: drawerListItemType[];
+};
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		drawer: {
-			width: drawerWidth,
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-			whiteSpace: "nowrap",
-			display: "flex",
-		},
-		drawerOpen: {
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-			width: drawerWidth,
-			overflow: "hidden",
-		},
-		drawerClose: {
-			transition: theme.transitions.create("width", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.leavingScreen,
-			}),
-			overflow: "hidden",
-			width: theme.spacing(7),
-		},
-		toolbar: {
+		drawer: ({ drawerWidth }: { drawerWidth?: number }) => ({
+			width: drawerWidth || 300,
+			flexShrink: 0,
+		}),
+		drawerPaper: ({ drawerWidth }: { drawerWidth?: number }) => ({
+			width: drawerWidth || 300,
+		}),
+		drawerHeader: {
 			display: "flex",
 			alignItems: "center",
+			padding: theme.spacing(0, 1),
+			// necessary for content to be below app bar
+			...theme.mixins.toolbar,
 			justifyContent: "flex-end",
 		},
-		drawerControl: {
-			padding: theme.spacing(1),
-			transition: "transform 0.3s",
-			color: theme.palette.primary.contrastText,
+		drawerContainer: {
+			overflow: "auto",
 		},
-		flipped180: {
+		drawerItemIcon: {
+			color: theme.palette.text.secondary,
+			transition: theme.transitions.create("transform", {
+				easing: theme.transitions.easing.easeOut,
+				duration: theme.transitions.duration.shortest,
+			}),
+		},
+		drawerItemIconRotated: {
 			transform: "rotate(180deg)",
 		},
-		listItemText: {
-			marginLeft: theme.spacing(1),
-			color: theme.palette.primary.contrastText,
-		},
-		listItemIcon: {
-			color: theme.palette.primary.contrastText,
-		},
-		listItem: {
-			paddingTop: 0,
-			paddingBottom: 0,
-			"&:hover": {
-				backgroundColor: theme.palette.primary.dark,
-				cursor: "grab",
-			},
-			"&:active": {
-				cursor: "grabbing",
-				backgroundColor: theme.palette.primary.light,
-			},
-			transition: "0.08s",
-		},
-		drawerPaper: {
-			position: "absolute",
-			height: "100vh",
-			// height: "calc(100vh - 16px)",
-			// top: "8px",
-			// left: "8px",
-			// borderRadius: "0 12px 12px 0",
-			border: 0,
-			backgroundColor: theme.palette.primary.main,
+		nested: {
+			paddingLeft: theme.spacing(2),
 		},
 	})
 );
 
-const views: {
-	title: string;
-	icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-	dragType: typeType;
-}[] = [
-	{
-		title: "Ratings",
-		icon: StarHalfIcon,
-		dragType: "ratings",
-	},
-	{
-		title: "Rating Trends",
-		icon: TrendingUpIcon,
-		dragType: "trends",
-	},
-	{
-		title: "Regulatory Compliance",
-		icon: PlaylistAddCheckIcon,
-		dragType: "regcomp",
-	},
-	{
-		title: "High Risk Assets",
-		icon: AccountBalanceWalletIcon,
-		dragType: "highriskassets",
-	},
-];
-
-export default function ChatList({
+export default function Drawer({
+	drawerWidth,
 	open,
-	setOpen,
 }: {
+	drawerWidth: number;
 	open: boolean;
-	setOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
-	const classes = useStyles();
+	const classes = useStyles({ drawerWidth: drawerWidth });
 
-	const toggleDrawer = () => {
-		setOpen((prev) => !prev);
-	};
+	const drawerItems = useDrawerItems();
 
 	return (
-		<Drawer
-			variant='permanent'
-			className={classNames(classes.drawer, {
-				[classes.drawerOpen]: open,
-				[classes.drawerClose]: !open,
-			})}
+		<MuiDrawer
+			className={classes.drawer}
+			variant='persistent'
+			anchor='left'
+			open={open}
 			classes={{
-				paper: classNames({
-					[classes.drawerOpen]: open,
-					[classes.drawerClose]: !open,
-				}),
-			}}
-			PaperProps={{
-				className: classes.drawerPaper,
-				elevation: 3,
-			}}
-			BackdropProps={{ style: { position: "absolute" } }}
-			ModalProps={{
-				container: document.getElementById("drawer-container"),
-				style: { position: "absolute" },
+				paper: classes.drawerPaper,
 			}}
 		>
-			<div className={classes.toolbar}>
-				<IconButton
-					onClick={toggleDrawer}
-					className={classNames({
-						[classes.drawerControl]: true,
-						[classes.flipped180]: open,
-					})}
-				>
-					<ChevronRightIcon />
-				</IconButton>
+			<div className={classes.drawerHeader} />
+			<div className={classes.drawerContainer}>
+				<List>
+					{drawerItems.map((item, index) => (
+						<DrawerItem
+							key={`drawer-item-${item.title}`}
+							item={item}
+						/>
+					))}
+				</List>
 			</div>
-			<List>
-				{views.map((view) => (
-					<Item
-						key={`drawer-item-${view.title}`}
-						title={view.title}
-						icon={<view.icon />}
-						dragType={view.dragType}
-					/>
-				))}
-			</List>
-		</Drawer>
+		</MuiDrawer>
 	);
 }
 
-function Item({
-	title,
-	icon,
-	dragType,
+function DrawerItem({
+	item,
+	useDivider = true,
 }: {
-	title: string;
-	icon: JSX.Element;
-	dragType: typeType;
+	item: drawerListItemType;
+	useDivider?: boolean;
 }) {
-	const classes = useStyles();
-	// const theme -
-	const { setType, clearType } = useContext(AppContext);
+	const classes = useStyles({});
+	const history = useHistory();
+	const location = useLocation();
+
+	const [open, setOpen] = React.useState(
+		item.isNested &&
+			recursivelySearchDrawerListItem(item, (i) => {
+				return (
+					i.link !== undefined && location.pathname.includes(i.link)
+				);
+			})
+	);
+
+	const goToLink = () => {
+		history.push(item.link || "");
+	};
+
+	const toggleOpen = () => {
+		setOpen(!open);
+	};
+
+	const handleClick = () => {
+		if (item.isNested) toggleOpen();
+		if (item.link) goToLink();
+	};
+
+	const selected =
+		(item.isNested &&
+			recursivelySearchDrawerListItem(item, (i) => {
+				return (
+					i.link !== undefined && location.pathname.includes(i.link)
+				);
+			})) ||
+		(item.link !== undefined && location.pathname.includes(item.link));
 
 	return (
-		<div
-			draggable={true}
-			onDragStart={(e) => {
-				e.dataTransfer.setData("text/plain", "");
-				setType(dragType);
-			}}
-			onDragEnd={() => {
-				clearType();
-			}}
-		>
-			<ListItem className={classes.listItem}>
-				<ListItemIcon className={classes.listItemIcon}>
-					{icon}
+		<div>
+			<ListItem button onClick={handleClick} selected={selected}>
+				<ListItemIcon>
+					<Icon>{item.icon !== "tune" && item.icon}</Icon>
 				</ListItemIcon>
-				<ListItemText
-					className={classes.listItemText}
-					primary={title}
-					primaryTypographyProps={{ noWrap: true }}
-				/>
+				<ListItemText primary={item.title} />
+				{item.isNested && item.nestedListItems && (
+					<ExpandMore
+						className={`${classes.drawerItemIcon} ${
+							open && classes.drawerItemIconRotated
+						}`}
+					/>
+				)}
+				{item.icon === "tune" && (
+					<Icon className={classes.drawerItemIcon}>{item.icon}</Icon>
+				)}
 			</ListItem>
+
+			{item.isNested && item.nestedListItems && (
+				<Collapse className={classes.nested} in={open} timeout='auto'>
+					<List component='div' disablePadding>
+						{item.nestedListItems.map((nestedItem) => (
+							<DrawerItem
+								key={`drawer-item-${nestedItem.title}`}
+								item={nestedItem}
+								useDivider={false}
+							/>
+						))}
+					</List>
+				</Collapse>
+			)}
+
+			{useDivider && <Divider />}
 		</div>
 	);
+}
+
+function recursivelySearchDrawerListItem(
+	item: drawerListItemType,
+	predicate: (item: drawerListItemType) => boolean
+) {
+	for (const i of item.nestedListItems || []) {
+		if (predicate(i)) return true;
+		recursivelySearchDrawerListItem(i, predicate);
+	}
+	return false;
+}
+
+function useDrawerItems(): drawerListItemType[] {
+	return [
+		{
+			title: "Home",
+			link: "/home",
+			icon: "home",
+			isNested: false,
+		},
+		useDashboardItems(),
+		{
+			title: "Frameworks",
+			icon: "device_hub",
+			isNested: true,
+			nestedListItems: [
+				{ title: "Overview", link: "/framework/overview" },
+				{ title: "PCI" },
+				{ title: "ISO27001" },
+				{ title: "NIST" },
+				{
+					title: "Manage Frameworks",
+					icon: "tune",
+				},
+			],
+		},
+		{
+			title: "Threat Intelligence Feeds",
+			icon: "wifi_tethering_error_rounded",
+			isNested: true,
+			nestedListItems: [
+				{ title: "Overview" },
+				{ title: "STIX" },
+				{ title: "TAXII" },
+				{ title: "Manage Threat Feeds", icon: "tune" },
+			],
+		},
+		{
+			title: "AI/ML",
+			icon: "memory",
+			isNested: true,
+			nestedListItems: [
+				{ title: "Overview" },
+				{ title: "AI Feeds" },
+				{ title: "ML Feeds" },
+				{
+					title: "Manage AI/ML Feeds",
+					icon: "tune",
+				},
+			],
+		},
+		{
+			title: "GIS",
+			icon: "place",
+			isNested: true,
+			nestedListItems: [
+				{ title: "Global" },
+				{ title: "Calgary International Airport" },
+				{
+					title: "Manage GIS",
+					icon: "tune",
+				},
+			],
+		},
+		{
+			title: "APIs",
+			icon: "power",
+			isNested: true,
+			nestedListItems: [
+				{ title: "My API" },
+				{ title: "API2" },
+				{ title: "HVAC Sensors" },
+				{
+					title: "Manage APIs",
+					icon: "tune",
+				},
+			],
+		},
+	];
+}
+
+function useDashboardItems() {
+	const dashboards = useAppSelector(selectDashboards);
+
+	const nestedListItems = dashboards.map((dash) => ({
+		title: dash.name,
+		link: `/dashboard/${dash.id}`,
+	}));
+
+	return {
+		title: "Dashboards",
+		icon: "dashboard",
+		isNested: true,
+		nestedListItems: [
+			...nestedListItems,
+			{
+				title: "Manage Dashboards",
+				link: "/dashboard/manage",
+				icon: "tune",
+			},
+		],
+	};
 }

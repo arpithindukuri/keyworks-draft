@@ -6,125 +6,20 @@ import {
 	createStyles,
 	fade,
 } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import logoIpsum from "../assets/logo-12.svg";
-import { Badge, Collapse, Icon, InputBase } from "@material-ui/core";
+import { Badge, InputBase } from "@material-ui/core";
 import {
 	AccountCircle,
-	ExpandMore,
 	Notifications,
 	Search,
 } from "@material-ui/icons";
-import { useHistory } from "react-router";
-
-type drawerListItemType = {
-	title: string;
-	link?: string;
-	icon?: string;
-	isNested?: boolean;
-	nestedListItems?: drawerListItemType[];
-};
-
-const drawerList: drawerListItemType[] = [
-	{
-		title: "Home",
-		link: "/home",
-		icon: "home",
-		isNested: false,
-	},
-	{
-		title: "Dashboards",
-		icon: "dashboard",
-		isNested: true,
-		nestedListItems: [
-			{ title: "Risk Analysis", link: "/dashboard/risk-analysis" },
-			{ title: "Compliance", link: "/dashboard/compliance" },
-			{
-				title: "Manage Dashboards",
-				link: "/dashboard/manage",
-				icon: "tune",
-			},
-		],
-	},
-	{
-		title: "Frameworks",
-		icon: "device_hub",
-		isNested: true,
-		nestedListItems: [
-			{ title: "Overview", link: "/framework/overview" },
-			{ title: "PCI" },
-			{ title: "ISO27001" },
-			{ title: "NIST" },
-			{
-				title: "Manage Frameworks",
-				icon: "tune",
-			},
-		],
-	},
-	{
-		title: "Threat Intelligence Feeds",
-		icon: "wifi_tethering_error_rounded",
-		isNested: true,
-		nestedListItems: [
-			{ title: "Overview" },
-			{ title: "STIX" },
-			{ title: "TAXII" },
-			{ title: "Manage Threat Feeds", icon: "tune" },
-		],
-	},
-	{
-		title: "AI/ML",
-		icon: "memory",
-		isNested: true,
-		nestedListItems: [
-			{ title: "Overview" },
-			{ title: "AI Feeds" },
-			{ title: "ML Feeds" },
-			{
-				title: "Manage AI/ML Feeds",
-				icon: "tune",
-			},
-		],
-	},
-	{
-		title: "GIS",
-		icon: "place",
-		isNested: true,
-		nestedListItems: [
-			{ title: "Global" },
-			{ title: "Calgary International Airport" },
-			{
-				title: "Manage GIS",
-				icon: "tune",
-			},
-		],
-	},
-	{
-		title: "APIs",
-		icon: "power",
-		isNested: true,
-		nestedListItems: [
-			{ title: "My API" },
-			{ title: "API2" },
-			{ title: "HVAC Sensors" },
-			{
-				title: "Manage APIs",
-				icon: "tune",
-			},
-		],
-	},
-];
+import Drawer from "./Drawer";
 
 const drawerWidth = 300;
 
@@ -201,24 +96,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				width: "20ch",
 			},
 		},
-		drawer: {
-			width: drawerWidth,
-			flexShrink: 0,
-		},
-		drawerPaper: {
-			width: drawerWidth,
-		},
-		drawerHeader: {
-			display: "flex",
-			alignItems: "center",
-			padding: theme.spacing(0, 1),
-			// necessary for content to be below app bar
-			...theme.mixins.toolbar,
-			justifyContent: "flex-end",
-		},
-		drawerContainer: {
-			overflow: "auto",
-		},
 		content: {
 			flexGrow: 1,
 			transition: theme.transitions.create("margin", {
@@ -235,18 +112,13 @@ const useStyles = makeStyles((theme: Theme) =>
 			}),
 			marginLeft: 0,
 		},
-		nested: {
-			paddingLeft: theme.spacing(2),
-		},
-		drawerItemIcon: {
-			color: theme.palette.text.secondary,
-			transition: theme.transitions.create("transform", {
-				easing: theme.transitions.easing.easeOut,
-				duration: theme.transitions.duration.shortest,
-			}),
-		},
-		drawerItemIconRotated: {
-			transform: "rotate(180deg)",
+		drawerHeader: {
+			display: "flex",
+			alignItems: "center",
+			padding: theme.spacing(0, 1),
+			// necessary for content to be below app bar
+			...theme.mixins.toolbar,
+			justifyContent: "flex-end",
 		},
 	})
 );
@@ -295,7 +167,6 @@ export default function Layout({ children }: { children: any }) {
 								root: classes.inputRoot,
 								input: classes.inputInput,
 							}}
-							inputProps={{ "aria-label": "search" }}
 						/>
 					</div>
 					<IconButton color='inherit'>
@@ -308,24 +179,7 @@ export default function Layout({ children }: { children: any }) {
 					</IconButton>
 				</Toolbar>
 			</AppBar>
-			<Drawer
-				className={classes.drawer}
-				variant='persistent'
-				anchor='left'
-				open={open}
-				classes={{
-					paper: classes.drawerPaper,
-				}}
-			>
-				<div className={classes.drawerHeader} />
-				<div className={classes.drawerContainer}>
-					<List>
-						{drawerList.map((item, index) => (
-							<DrawerItem item={item} />
-						))}
-					</List>
-				</div>
-			</Drawer>
+			<Drawer drawerWidth={drawerWidth} open={open} />
 			<main
 				className={clsx(classes.content, {
 					[classes.contentShift]: open,
@@ -335,72 +189,5 @@ export default function Layout({ children }: { children: any }) {
 				{children}
 			</main>
 		</div>
-	);
-}
-
-function DrawerItem({
-	item,
-	useDivider = true,
-}: {
-	item: drawerListItemType;
-	useDivider?: boolean;
-}) {
-	const classes = useStyles();
-	const [open, setOpen] = React.useState(false);
-	const history = useHistory();
-
-	const goToLink = () => {
-		history.push(item.link || "");
-	};
-
-	const toggleOpen = () => {
-		setOpen(!open);
-	};
-
-	const handleClick = () => {
-		if (item.isNested) toggleOpen();
-		if (item.link) goToLink();
-	};
-
-	return (
-		<>
-			<ListItem
-				key={`drawer-item-${item.title}`}
-				button
-				onClick={handleClick}
-			>
-				<ListItemIcon>
-					<Icon>{item.icon !== "tune" && item.icon}</Icon>
-				</ListItemIcon>
-				<ListItemText primary={item.title} />
-				{item.isNested && item.nestedListItems && (
-					<ExpandMore
-						className={`${classes.drawerItemIcon} ${
-							open && classes.drawerItemIconRotated
-						}`}
-					/>
-				)}
-				{item.icon === "tune" && (
-					<Icon className={classes.drawerItemIcon}>{item.icon}</Icon>
-				)}
-			</ListItem>
-
-			{item.isNested && item.nestedListItems && (
-				<Collapse
-					className={classes.nested}
-					in={open}
-					timeout='auto'
-					unmountOnExit
-				>
-					<List component='div' disablePadding>
-						{item.nestedListItems.map((nestedItem) => (
-							<DrawerItem item={nestedItem} useDivider={false} />
-						))}
-					</List>
-				</Collapse>
-			)}
-
-			{useDivider && <Divider />}
-		</>
 	);
 }

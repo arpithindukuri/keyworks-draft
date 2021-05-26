@@ -1,22 +1,14 @@
 import { useState } from "react";
 import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core";
 import { ThemeOptions } from "@material-ui/core/styles";
-import {
-	HashRouter as Router,
-	Switch,
-	Route,
-	Redirect,
-} from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import AppProvider from "./context/AppContext";
-import Dashboard from "./components/pages/Dashboard";
-// import Drawer from "./components/Drawer";
-import AllOverviews from "./components/pages/Framework/AllOverviews";
 import Layout from "./components/Layout";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import Home from "./components/pages/Home/Home";
+import { routes } from "./Router";
 
 declare module "@material-ui/core/styles/createMuiTheme" {
 	interface Theme {
@@ -144,23 +136,17 @@ function App() {
 				<AppProvider>
 					<div className={classes.container}>
 						<Layout>
-							{/* <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen} /> */}
 							<div className={classes.appBody}>
 								<Switch>
-									<Route path='/home'>
-										<Home />
-									</Route>
-									<Route path='/framework/overview'>
-										<AllOverviews />
-									</Route>
-									<Route path='/dashboard'>
-										<Dashboard
-											isSidebarOpen={isDrawerOpen}
-										/>
-									</Route>
-									<Route path='/'>
-										<Redirect to='/home' />
-									</Route>
+									{routes.map((route) => {
+										return (
+											<Route
+												key={`${route.path}`}
+												path={route.path}
+												component={route.component}
+											/>
+										);
+									})}
 								</Switch>
 							</div>
 						</Layout>

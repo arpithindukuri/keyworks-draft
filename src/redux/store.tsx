@@ -1,11 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { tagSlice } from './tagSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { dashboardSlice } from "./dashboardSlice";
 
 export const store = configureStore({
-  reducer: {
-    tag: tagSlice.reducer,
-  },
-  devTools: true,
+	reducer: {
+		dashboard: dashboardSlice.reducer,
+	},
+	devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

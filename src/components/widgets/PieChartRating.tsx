@@ -1,6 +1,7 @@
 import { createStyles, fade, makeStyles, useTheme } from "@material-ui/core";
 import { useState } from "react";
 import { Cell, Label, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { v4 } from "uuid";
 import { getColor } from "../../util";
 
 const useStyles = makeStyles((theme) =>
@@ -64,7 +65,10 @@ export default function PieChartRating({
 					}}
 				>
 					{data.map((entry, index) => (
-						<Cell fill={index === 0 ? color : fade(color, 0.2)} />
+						<Cell
+							key={`${v4()}-${entry.name}`}
+							fill={index === 0 ? color : fade(color, 0.2)}
+						/>
 					))}
 					<Label
 						className={classes.fadeIn}

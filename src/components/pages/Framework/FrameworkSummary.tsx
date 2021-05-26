@@ -6,7 +6,7 @@ import {
 	ReportProblem,
 } from "@material-ui/icons";
 
-import PieChartRating from "../../charts/PieChartRating";
+import PieChartRating from "../../widgets/PieChartRating";
 
 const useStyles = makeStyles((theme) =>
 	createStyles({
@@ -44,22 +44,17 @@ export default function FrameworkSummary({
 
 	return (
 		<Grid container className={classes.root} direction='column'>
-			<Grid item alignItems='center'>
+			<Grid item>
 				<Typography variant='h4'>{title}</Typography>
 			</Grid>
-			<Grid item alignItems='center'>
+			<Grid item>
 				<Typography variant='h6'>{subtitle}</Typography>
 			</Grid>
 			<Grid container className={classes.body} alignItems='center'>
-				<Grid
-					item
-					className={classes.pieContainer}
-					alignItems='center'
-					xs={7}
-				>
+				<Grid item className={classes.pieContainer} xs={7}>
 					<PieChartRating percent={percent} inverse />
 				</Grid>
-				<Grid item direction='column' xs={5}>
+				<Grid item xs={5}>
 					{difference && (
 						<Grid container direction='row'>
 							<Grid item xs={3}>
