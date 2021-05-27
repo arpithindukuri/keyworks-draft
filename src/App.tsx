@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createMuiTheme, makeStyles, ThemeProvider } from "@material-ui/core";
 import { ThemeOptions } from "@material-ui/core/styles";
+import { SnackbarProvider } from "notistack";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import AppProvider from "./context/AppContext";
@@ -134,23 +135,25 @@ function App() {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<AppProvider>
-					<div className={classes.container}>
-						<Layout>
-							<div className={classes.appBody}>
-								<Switch>
-									{routes.map((route) => {
-										return (
-											<Route
-												key={`${route.path}`}
-												path={route.path}
-												component={route.component}
-											/>
-										);
-									})}
-								</Switch>
-							</div>
-						</Layout>
-					</div>
+					<SnackbarProvider maxSnack={3}>
+						<div className={classes.container}>
+							<Layout>
+								<div className={classes.appBody}>
+									<Switch>
+										{routes.map((route) => {
+											return (
+												<Route
+													key={`${route.path}`}
+													path={route.path}
+													component={route.component}
+												/>
+											);
+										})}
+									</Switch>
+								</div>
+							</Layout>
+						</div>
+					</SnackbarProvider>
 				</AppProvider>
 			</ThemeProvider>
 		</Router>

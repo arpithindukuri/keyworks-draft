@@ -16,8 +16,9 @@ import StarHalfIcon from "@material-ui/icons/StarHalf";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import { AppContext, typeType } from "../context/AppContext";
+import { AppContext } from "../context/AppContext";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import { WidgetIdType } from "../redux/widgetSlice";
 
 const drawerWidth = 240;
 
@@ -97,7 +98,7 @@ const useStyles = makeStyles((theme) =>
 const views: {
 	title: string;
 	icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-	dragType: typeType;
+	dragType: WidgetIdType;
 }[] = [
 	{
 		title: "Ratings",
@@ -189,7 +190,7 @@ function Item({
 }: {
 	title: string;
 	icon: JSX.Element;
-	dragType: typeType;
+	dragType: WidgetIdType;
 }) {
 	const classes = useStyles();
 	// const theme -

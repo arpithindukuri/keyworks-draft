@@ -1,5 +1,4 @@
 import { createStyles, fade, makeStyles, useTheme } from "@material-ui/core";
-import { useState } from "react";
 import { Cell, Label, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { v4 } from "uuid";
 import { getColor } from "../../util";
@@ -30,16 +29,16 @@ export default function PieChartRating({
 	percent: number;
 	inverse?: boolean;
 }) {
-	const [num, setNum] = useState(0);
+	// const [num, setNum] = useState(0);
 
 	const data = [
 		{
 			name: "Group A",
-			value: Math.round(num * 100),
+			value: Math.round(percent * 100),
 		},
 		{
 			name: "Group B",
-			value: Math.round((1 - num) * 100),
+			value: Math.round((1 - percent) * 100),
 		},
 	];
 
@@ -59,10 +58,10 @@ export default function PieChartRating({
 					paddingAngle={5}
 					innerRadius='85%'
 					outerRadius='100%'
-					animationDuration={1000}
-					onAnimationEnd={() => {
-						if (num !== percent) setNum(percent);
-					}}
+					// animationDuration={1000}
+					// onAnimationEnd={() => {
+					// 	if (num !== percent) setNum(percent);
+					// }}
 				>
 					{data.map((entry, index) => (
 						<Cell

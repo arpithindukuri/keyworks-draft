@@ -11,8 +11,13 @@ import {
 	Typography,
 } from "@material-ui/core";
 import { Edit, Lock, LockOpen, MoreVert } from "@material-ui/icons";
-import { Dashboard, selectDashboards } from "../../../redux/dashboardSlice";
-import { useAppSelector } from "../../../redux/hooks";
+import { useHistory } from "react-router";
+import {
+	Dashboard,
+	selectDashboards,
+	update,
+} from "../../../redux/dashboardSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 
 const useStyles = makeStyles((theme) =>
 	createStyles({
@@ -47,6 +52,8 @@ export default function ManageDashboard() {
 
 function DashboardSummary({ dashboard }: { dashboard: Dashboard }) {
 	const classes = useStyles();
+	const dispatch = useAppDispatch();
+	const history = useHistory();
 
 	return (
 		<Grid item xs={12}>
@@ -56,6 +63,17 @@ function DashboardSummary({ dashboard }: { dashboard: Dashboard }) {
 						<Checkbox
 							checked={dashboard.isActive}
 							color='primary'
+							onChange={(e) => {
+								dispatch(
+									update({
+										id: dashboard.id,
+										newDashboard: {
+											...dashboard,
+											isActive: e.target.checked,
+										},
+									})
+								);
+							}}
 						/>
 					</DashboardSummaryItem>
 					<DashboardSummaryItem title='NAME'>
@@ -80,11 +98,19 @@ function DashboardSummary({ dashboard }: { dashboard: Dashboard }) {
 						disableElevation
 						size='small'
 					>
-						<Button variant='contained' startIcon={<Edit />}>
+						<Button
+							variant='contained'
+							startIcon={<Edit />}
+							onClick={() =>
+								history.push(
+									`/dashboard/manage/edit/${dashboard.id}`
+								)
+							}
+						>
 							Edit
 						</Button>
+						<Button>View</Button>
 						<Button>Share</Button>
-						<Button>Delete</Button>
 						<Button>
 							<MoreVert />
 						</Button>

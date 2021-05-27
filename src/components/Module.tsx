@@ -1,4 +1,6 @@
-import { Card, makeStyles, Typography } from "@material-ui/core";
+import { Card, makeStyles, Tooltip, Typography } from "@material-ui/core";
+import classNames from "classnames";
+import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -14,10 +16,12 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(1),
 	},
 	title: {
-		cursor: "grab",
 		fontWeight: 600,
 		color: theme.palette.text.secondary,
 		transition: "0.3s",
+	},
+	grabbable: {
+		cursor: "grab",
 		"&:hover": {
 			color: theme.palette.text.primary,
 		},
@@ -28,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		height: `calc(100% - ${
 			theme.typography.h6.lineHeight
-		}rem - ${theme.spacing(5)}px)`,
+		}rem - ${theme.spacing(3)}px)`,
 	},
 }));
 
@@ -40,6 +44,8 @@ export default function Module({
 	children?: any;
 }) {
 	const classes = useStyles();
+	const location = useLocation();
+	const isEditable = location.pathname.includes("/dashboard/manage/edit");
 
 	return (
 		<Card
@@ -48,12 +54,26 @@ export default function Module({
 			// variant='outlined'
 		>
 			<div className={classes.header}>
-				<Typography
-					className={`${classes.title} ModuleDragHandle`}
-					variant='h6'
+				<Tooltip
+					title={`To edit, go to "Manage Dashboards", find this dashboard, and click "Edit"`}
+					disableFocusListener={isEditable}
+					disableHoverListener={isEditable}
+					disableTouchListener={isEditable}
 				>
-					{title}
-				</Typography>
+					<Typography
+						className={classNames(
+							classes.title,
+							"ModuleDragHandle",
+							{
+								[classes.grabbable]: isEditable,
+							}
+						)}
+						// className={`${classes.title} ModuleDragHandle`}
+						variant='h6'
+					>
+						{title}
+					</Typography>
+				</Tooltip>
 			</div>
 			<div className={classes.body}>{children}</div>
 		</Card>

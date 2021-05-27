@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import {
 	createStyles,
 	makeStyles,
@@ -9,18 +8,20 @@ import { useContext, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { withResizeDetector } from "react-resize-detector";
 
-import { AppContext, typeType } from "../../../context/AppContext";
-import HighRiskAssets from "../../widgets/HighRiskAssets";
-import Ratings from "../../widgets/Ratings";
-import RatingTrends from "../../widgets/RatingTrends";
-import RegulatoryCompliance from "../../widgets/RegulatoryCompliance";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { AppContext } from "../../../context/AppContext";
+import { useAppDispatch } from "../../../redux/hooks";
 import {
-	selectDashboardById,
 	updateDashboardLayout,
 	dropLayout,
+	Dashboard as DashboardType,
 } from "../../../redux/dashboardSlice";
-import { useLocation } from "react-router";
+import {
+	getWidgetDetailsFromId,
+	getWidgetFromId,
+	WidgetIdType,
+} from "../../../redux/widgetSlice";
+import DotGrid from "../../DotGrid";
+import ErrorBoundary from "../../ErrorBoundary";
 
 const ReactGridLayout = WidthProvider(
 	withResizeDetector(Responsive, {
@@ -40,15 +41,15 @@ const useStyles = makeStyles((theme) =>
 			},
 		},
 		selector: {
-			animation: "$fadeIn 0.3s ease-in-out 0.5s",
+			animation: "$fadeIn 0.3s ease-in-out 0.25s",
 			// animationDelay: "0.5s",
 			animationFillMode: "backwards",
 		},
 		placeholder: ({ height }: { height: number }) => ({
 			display: "flex",
 			position: "absolute",
-			minHeight: "calc(100vh - 24px)",
-			height: `calc(${height}px - 24px)`,
+			minHeight: "calc(100vh - 90px)",
+			height: `calc(${height}px - 90px)`,
 			top: "12px",
 			left: "12px",
 			right: "12px",
@@ -57,14 +58,13 @@ const useStyles = makeStyles((theme) =>
 			justifyContent: "center",
 			pointerEvents: "none",
 			touchAction: "none",
-			border: `2px dashed ${theme.palette.grey[300]}`,
+			// border: `2px dashed ${theme.palette.grey[300]}`,
 			color: theme.palette.grey[500],
 			boxSizing: "border-box",
-			overflowX: "hidden",
-			overflowY: "visible",
+			overflow: "visible",
 		}),
 		container: {
-			minHeight: "100vh !important",
+			minHeight: "calc(100vh - 66px) !important",
 			transition: "0.3s",
 			display: "flex",
 			flexGrow: 1,
@@ -75,71 +75,93 @@ const useStyles = makeStyles((theme) =>
 	})
 );
 
-const dashboardData = [
-	{
-		name: "ratings",
-		layoutData: { w: 3, h: 5, minW: 3, minH: 3 },
-		element: Ratings,
-	},
-	{
-		name: "trends",
-		layoutData: { w: 5, h: 5, minW: 3, minH: 3 },
-		element: RatingTrends,
-	},
-	{
-		name: "regcomp",
-		layoutData: { w: 4, h: 5, minW: 3, minH: 3 },
-		element: Ratings,
-	},
-	{
-		name: "highriskassets",
-		layoutData: { w: 4, h: 5, minW: 3, minH: 3 },
-		element: Ratings,
-	},
-];
-
-export default function Dashboard() {
+export default function Dashboard({
+	dashboard,
+	canEdit = false,
+}: {
+	dashboard: DashboardType;
+	canEdit?: boolean;
+}) {
 	const theme = useTheme();
 	const { state } = useContext(AppContext);
-	const location = useLocation();
-	const thisId = location.pathname.split("/")[2];
-	const dashboard = useAppSelector(selectDashboardById(thisId));
 	const dispatch = useAppDispatch();
+	const thisId = dashboard.id;
 
+	const [isDotGridVisible, setIsDotGridVisible] = useState(false);
 	const [height, setHeight] = useState(0);
-	// const [layout, setLayout] = useState<Layout[]>([]);
 	const margin = theme.spacing(3);
-	const rowHeight = 80;
+	const rowHeight = 50;
 
 	const classes = useStyles({ height: height });
 
-	const getView = (view: typeType) => {
-		if (view === "ratings") return <Ratings />;
-		else if (view === "trends") return <RatingTrends />;
-		else if (view === "regcomp") return <RegulatoryCompliance />;
-		else if (view === "highriskassets") return <HighRiskAssets />;
-		else if (view === null) return <></>;
-	};
+	const newItem = getWidgetDetailsFromId(state.type);
 
-	const newIndex = dashboardData.findIndex(
-		(data) => data.name === state.type
-	);
+	const layout = dashboard.layout.map((widget) => {
+		const widgetDefaults = getWidgetDetailsFromId(
+			widget.i.split("-")[0] as WidgetIdType
+		);
+		return {
+			...widget,
+			minW: widgetDefaults?.minW,
+			minH: widgetDefaults?.minH,
+			maxW: widgetDefaults?.maxW,
+			maxH: widgetDefaults?.maxH,
+		};
+	});
 
-	if (dashboard)
-		return (
-			<div style={{ position: "relative" }}>
+	return (
+		<div style={{ position: "relative" }}>
+			<div className={classes.placeholder}>
+				{isDotGridVisible && (
+					<DotGrid
+						numX={16}
+						numY={Math.max(
+							Math.floor(height / (rowHeight + margin / 2)),
+							Math.floor(
+								(window.innerHeight - 66) /
+									(rowHeight + margin / 2)
+							)
+						)}
+						heightSpace={rowHeight + margin}
+					/>
+				)}
+				{layout.length === 0 && (
+					<Typography
+						variant='h4'
+						display='block'
+						style={{ position: "absolute" }}
+					>
+						This Dashboard is Empty <br />
+						{`Go to "Manage Dashboards" -> Find ${dashboard.name} -> Click edit`}
+					</Typography>
+				)}
+			</div>
+			<ErrorBoundary>
 				<ReactGridLayout
 					// useCSSTransforms={false}
-					measureBeforeMount
+					isDraggable={canEdit}
+					isResizable={canEdit}
+					isDroppable={canEdit}
+					// measureBeforeMount
 					className={`layout ${classes.container}`}
-					style={{ height: `${height}px` }}
+					// style={{ height: `${height}px` }}
 					layouts={{
-						lg: dashboard.layout,
-						md: dashboard.layout,
-						sm: dashboard.layout,
-						xs: dashboard.layout,
-						xxs: dashboard.layout,
+						lg: layout,
+						md: layout,
+						sm: layout,
+						xs: layout,
+						xxs: layout,
 					}}
+					width={1000}
+					resizeHandles={["nw", "se"]}
+					rowHeight={rowHeight}
+					cols={{ lg: 16, md: 16, sm: 16, xs: 16, xxs: 16 }}
+					margin={[margin, margin]}
+					draggableHandle={".ModuleDragHandle"}
+					onDragStart={() => setIsDotGridVisible(true)}
+					onDragStop={() => setIsDotGridVisible(false)}
+					onResizeStart={() => setIsDotGridVisible(true)}
+					onResizeStop={() => setIsDotGridVisible(false)}
 					onLayoutChange={(layout) => {
 						if (
 							!layout.find((li) => li.i === "__dropping-elem__")
@@ -158,25 +180,28 @@ export default function Dashboard() {
 						});
 						setHeight(() => h * (rowHeight + margin) + margin);
 					}}
-					rowHeight={rowHeight}
-					cols={{ lg: 8, md: 8, sm: 8, xs: 8, xxs: 8 }}
-					margin={[margin, margin]}
-					draggableHandle={".ModuleDragHandle"}
 					droppingItem={
-						newIndex !== -1
+						newItem !== undefined
 							? {
 									i: "__dropping-elem__",
-									...dashboardData[newIndex].layoutData,
+									w: newItem.w,
+									h: newItem.h,
 							  }
 							: { i: "__dropping-elem__", w: 3, h: 3 }
 					}
-					isDroppable
 					onDrop={(layout, item) => {
-						if (newIndex !== -1) {
+						if (newItem !== undefined) {
+							let num = 0;
+							for (let i = 0; i < layout.length; i++) {
+								num +=
+									layout[i].i.split("-")[0] === state.type
+										? 1
+										: 0;
+							}
 							const newLI = {
 								...item,
-								...dashboardData[newIndex].layoutData,
-								i: `${state.type}-${uuidv4()}`,
+								...newItem,
+								i: `${state.type}-${dashboard.id}-${num}`,
 							};
 							dispatch(
 								dropLayout({
@@ -184,6 +209,7 @@ export default function Dashboard() {
 									newLayoutItem: newLI,
 								})
 							);
+							console.log("fropped!!!");
 							// setLayout((prev) => {
 							// 	const newLayout = [...prev, newLI].sort(
 							// 		(a, b) => {
@@ -201,37 +227,25 @@ export default function Dashboard() {
 						}
 					}}
 				>
-					{dashboard.layout.map((view) => {
-						const viewEl = getView(
-							view.i.split("-")[0] as typeType
+					{layout.map((widget) => {
+						const widgetEl = getWidgetFromId(
+							widget.i.split("-")[0] as WidgetIdType
 						);
 						return (
 							<div
-								key={view.i}
+								key={widget.i}
 								className={
-									view.i === "__dropping-elem__"
+									widget.i === "__dropping-elem__"
 										? ""
 										: classes.selector
 								}
 							>
-								{viewEl ? viewEl : ""}
+								{widgetEl ? widgetEl : ""}
 							</div>
 						);
 					})}
 				</ReactGridLayout>
-				<div className={classes.placeholder}>
-					{dashboard.layout.length === 0 && (
-						<Typography variant='h4'>
-							Drag views in from side bar
-						</Typography>
-					)}
-				</div>
-			</div>
-		);
-
-	return (
-		<div className={classes.placeholder}>
-			<Typography variant='h4'>404: No such dashboard found</Typography>
+			</ErrorBoundary>
 		</div>
 	);
 }

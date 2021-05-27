@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { WidgetIdType } from "../redux/widgetSlice";
 
 export const AppContext = createContext<AppContextType>({
 	state: { type: null },
@@ -6,20 +7,13 @@ export const AppContext = createContext<AppContextType>({
 	clearType: () => {},
 });
 
-export type typeType =
-	| "ratings"
-	| "trends"
-	| "regcomp"
-	| "highriskassets"
-	| null;
-
 export type stateType = {
-	type: typeType;
+	type: WidgetIdType;
 };
 
 export type AppContextType = {
 	state: stateType;
-	setType: (type: typeType) => void;
+	setType: (type: WidgetIdType) => void;
 	clearType: () => void;
 };
 
@@ -28,7 +22,7 @@ function AppProvider({ children }: { children: any }) {
 		type: null,
 	});
 
-	const setType = (type: typeType) => {
+	const setType = (type: WidgetIdType) => {
 		setState((prev) => ({ ...prev, type: type }));
 	};
 

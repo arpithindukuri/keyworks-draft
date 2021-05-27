@@ -1,6 +1,7 @@
 import { Redirect } from "react-router";
-import Dashboard from "./components/pages/Dashboard/Dashboard";
+import EditDashboard from "./components/pages/Dashboard/EditDashboard";
 import ManageDashboard from "./components/pages/Dashboard/ManageDashboard";
+import ViewDashboard from "./components/pages/Dashboard/ViewDashboard";
 import AllOverviews from "./components/pages/Framework/AllOverviews";
 import Home from "./components/pages/Home/Home";
 
@@ -16,6 +17,10 @@ export const routes: Route[] = [
 		component: AllOverviews,
 	},
 	{
+		path: "/dashboard/manage/edit",
+		component: EditDashboard,
+	},
+	{
 		path: "/dashboard/manage",
 		component: ManageDashboard,
 	},
@@ -25,7 +30,7 @@ export const routes: Route[] = [
 	},
 	{
 		path: "/dashboard",
-		component: Dashboard,
+		component: ViewDashboard,
 	},
 	{
 		path: "/",

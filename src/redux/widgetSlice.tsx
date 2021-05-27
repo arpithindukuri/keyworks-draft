@@ -9,11 +9,14 @@ export type WidgetIdType =
 	| "regcomp"
 	| "highriskassets"
 	| "globalmap"
-	| "localmap";
+	| "localmap"
+	| null;
 
 export interface Widget {
 	title: string;
 	i: WidgetIdType;
+	w: number;
+	h: number;
 	minW: number;
 	minH: number;
 	maxW: number;
@@ -35,53 +38,69 @@ export function getWidgetFromId(widgetId: WidgetIdType) {
 	}
 }
 
+export function getWidgetDetailsFromId(widgetId: WidgetIdType) {
+	return widgetList.find((wid) => wid.i === widgetId);
+}
+
 export const widgetList: Widget[] = [
 	{
 		title: "Ratings",
 		i: "ratings",
-		minW: 3,
-		minH: 3,
-		maxW: 10,
-		maxH: 10,
+		w: 6,
+		h: 6,
+		minW: 5,
+		minH: 4,
+		maxW: 20,
+		maxH: 20,
 	},
 	{
 		title: "Rating Trends",
 		i: "trends",
-		minW: 3,
+		w: 8,
+		h: 5,
+		minW: 5,
 		minH: 3,
-		maxW: 10,
-		maxH: 10,
+		maxW: 20,
+		maxH: 20,
 	},
 	{
 		title: "Regulatory Compliance",
 		i: "regcomp",
-		minW: 3,
-		minH: 3,
-		maxW: 10,
-		maxH: 10,
+		w: 4,
+		h: 5,
+		minW: 4,
+		minH: 4,
+		maxW: 20,
+		maxH: 20,
 	},
 	{
 		title: "High Risk Assets",
 		i: "highriskassets",
-		minW: 3,
-		minH: 3,
-		maxW: 10,
-		maxH: 10,
+		w: 10,
+		h: 7,
+		minW: 8,
+		minH: 4,
+		maxW: 20,
+		maxH: 20,
 	},
 	{
 		title: "Global Map",
 		i: "globalmap",
-		minW: 3,
-		minH: 3,
-		maxW: 10,
-		maxH: 10,
+		w: 10,
+		h: 8,
+		minW: 6,
+		minH: 4,
+		maxW: 20,
+		maxH: 20,
 	},
 	{
 		title: "Local Map",
 		i: "localmap",
-		minW: 3,
-		minH: 3,
-		maxW: 10,
-		maxH: 10,
+		w: 8,
+		h: 6,
+		minW: 6,
+		minH: 4,
+		maxW: 20,
+		maxH: 20,
 	},
 ];
