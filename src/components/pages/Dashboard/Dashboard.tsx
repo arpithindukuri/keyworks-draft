@@ -1,5 +1,6 @@
 import {
 	createStyles,
+	Fade,
 	makeStyles,
 	Typography,
 	useTheme,
@@ -112,6 +113,7 @@ export default function Dashboard({
 				};
 			})
 		);
+		console.log("changed");
 	}, [dashboard.layout]);
 
 	// const layout = dashboard.layout.map((widget) => {
@@ -126,11 +128,33 @@ export default function Dashboard({
 	// 		maxH: widgetDefaults?.maxH,
 	// 	};
 	// });
-
 	return (
 		<div style={{ position: "relative" }}>
 			<div className={classes.placeholder}>
-				{isDotGridVisible && (
+				<Fade in={isDotGridVisible}>
+					<div
+						style={{
+							position: "absolute",
+							top: 0,
+							left: 0,
+							bottom: 0,
+							right: 0,
+						}}
+					>
+						<DotGrid
+							numX={16}
+							numY={Math.max(
+								Math.floor(height / (rowHeight + margin / 2)),
+								Math.floor(
+									(window.innerHeight - 66) /
+										(rowHeight + margin / 2)
+								)
+							)}
+							heightSpace={rowHeight + margin}
+						/>
+					</div>
+				</Fade>
+				{/* {isDotGridVisible && (
 					<DotGrid
 						numX={16}
 						numY={Math.max(
@@ -142,7 +166,7 @@ export default function Dashboard({
 						)}
 						heightSpace={rowHeight + margin}
 					/>
-				)}
+				)} */}
 				{layout.length === 0 && (
 					<Typography
 						variant='h4'
