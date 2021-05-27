@@ -19,6 +19,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import FrameworkControlList from "./FrameworkControlList";
 import { alertType, controlType } from "./AllOverviews";
+import PieChartRating from "../../widgets/PieChartRating";
 
 const useStyles = makeStyles((theme) =>
 	createStyles({
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) =>
 		slidingChart: {
 			display: "flex",
 			width: "100%",
-			height: "25px",
+			// height: "25px",
 			marginTop: theme.spacing(1),
 		},
 		chipsContainer: {
@@ -145,74 +146,33 @@ export default function FrameworkOverview({
 					>
 						Compliance
 					</Typography>
-					<Typography
-						className={classes.cardSummaryPercent}
-						variant='h2'
-					>
-						{`${Math.floor(percent * 100)}%`}
-					</Typography>
 					<div className={classes.slidingChart}>
-						<ResponsiveContainer width='100%' height='100%'>
-							<BarChart
-								layout='vertical'
-								data={[
-									{
-										name: "",
-										amt: Math.round(percent * 100),
-										rest: Math.round((1 - percent) * 100),
-									},
-								]}
-								margin={{ left: 24, right: 24 }}
-							>
-								<XAxis
-									type='number'
-									tickFormatter={(tick) => {
-										return `${tick}%`;
-									}}
-									ticks={[0, 25, 50, 75, 100]}
-									domain={[0, 100]}
-									minTickGap={0}
-									interval={0}
-									hide
-								/>
-								<YAxis dataKey='name' type='category' hide />
-								<Bar
-									dataKey='amt'
-									stackId='a'
-									fill={getColor(percent, true)}
-									radius={[50, 0, 0, 50]}
-								/>
-								<Bar
-									dataKey='rest'
-									stackId='a'
-									fill='#dddddd'
-									radius={[0, 50, 50, 0]}
-								/>
-							</BarChart>
-						</ResponsiveContainer>
+						<PieChartRating percent={percent} inverse />
 					</div>
 					<div className={classes.chipsContainer}>
 						<Chip
 							label={`${numViolations} violations found`}
-							style={{
-								margin: "0 8px",
-								color: "white",
-								backgroundColor:
-									numViolations === 0
-										? getColor(0)
-										: getColor(1),
-							}}
+							color='default'
+							// style={{
+							// 	margin: "0 8px",
+							// 	color: "white",
+							// 	backgroundColor:
+							// 		numViolations === 0
+							// 			? getColor(0)
+							// 			: getColor(1),
+							// }}
 						/>
 						<Chip
 							label={`${numAlerts} items need your attention`}
-							style={{
-								margin: "0 8px",
-								color: "white",
-								backgroundColor:
-									numAlerts === 0
-										? getColor(0)
-										: getColor(0.5),
-							}}
+							color='default'
+							// style={{
+							// 	margin: "0 8px",
+							// 	color: "white",
+							// 	backgroundColor:
+							// 		numAlerts === 0
+							// 			? getColor(0)
+							// 			: getColor(0.5),
+							// }}
 						/>
 					</div>
 				</div>
@@ -222,49 +182,28 @@ export default function FrameworkOverview({
 					style={{ margin: "0 16px" }}
 				/>
 				<div className={classes.cardDetails}>
-					{alerts.map((item, index) =>
-						index < 3 ? (
+					<Collapse
+						in={expanded}
+						timeout='auto'
+						collapsedHeight={280}
+					>
+						{alerts.map((item, index) => (
 							<Alert
 								className={classes.alert}
 								severity={item.severity}
+								style={{
+									marginTop: index === 3 ? "8px" : "",
+								}}
 								action={
 									<Button color='inherit' size='small'>
-										{item.severity === "success"
-											? "DISMISS"
-											: "HOW TO FIX"}
+										DISMISS
 									</Button>
 								}
 							>
 								<AlertTitle>{item.title}</AlertTitle>
 								{item.text}
 							</Alert>
-						) : null
-					)}
-					<Collapse
-						in={expanded}
-						timeout='auto'
-						// unmountOnExit
-						// collapsedHeight={100}
-					>
-						{alerts.map((item, index) =>
-							index >= 3 ? (
-								<Alert
-									className={classes.alert}
-									severity={item.severity}
-									style={{
-										marginTop: index === 3 ? "8px" : "",
-									}}
-									action={
-										<Button color='inherit' size='small'>
-											DISMISS
-										</Button>
-									}
-								>
-									<AlertTitle>{item.title}</AlertTitle>
-									{item.text}
-								</Alert>
-							) : null
-						)}
+						))}
 					</Collapse>
 				</div>
 			</CardContent>
