@@ -4,8 +4,8 @@ import {
 	Typography,
 	useTheme,
 } from "@material-ui/core";
-import { useContext, useState } from "react";
-import { WidthProvider, Responsive } from "react-grid-layout";
+import { useContext, useEffect, useState } from "react";
+import { WidthProvider, Responsive, Layout } from "react-grid-layout";
 import { withResizeDetector } from "react-resize-detector";
 
 import { AppContext } from "../../../context/AppContext";
@@ -87,6 +87,7 @@ export default function Dashboard({
 	const dispatch = useAppDispatch();
 	const thisId = dashboard.id;
 
+	const [layout, setLayout] = useState<Layout[]>([]);
 	const [isDotGridVisible, setIsDotGridVisible] = useState(false);
 	const [height, setHeight] = useState(0);
 	const margin = theme.spacing(3);
@@ -94,20 +95,37 @@ export default function Dashboard({
 
 	const classes = useStyles({ height: height });
 
-	const newItem = getWidgetDetailsFromId(state.type);
+	const newItemType = getWidgetDetailsFromId(state.type);
 
-	const layout = dashboard.layout.map((widget) => {
-		const widgetDefaults = getWidgetDetailsFromId(
-			widget.i.split("-")[0] as WidgetIdType
+	useEffect(() => {
+		setLayout(() =>
+			dashboard.layout.map((widget) => {
+				const widgetDefaults = getWidgetDetailsFromId(
+					widget.i.split("-")[0] as WidgetIdType
+				);
+				return {
+					...widget,
+					minW: widgetDefaults?.minW,
+					minH: widgetDefaults?.minH,
+					maxW: widgetDefaults?.maxW,
+					maxH: widgetDefaults?.maxH,
+				};
+			})
 		);
-		return {
-			...widget,
-			minW: widgetDefaults?.minW,
-			minH: widgetDefaults?.minH,
-			maxW: widgetDefaults?.maxW,
-			maxH: widgetDefaults?.maxH,
-		};
-	});
+	}, [dashboard.layout]);
+
+	// const layout = dashboard.layout.map((widget) => {
+	// 	const widgetDefaults = getWidgetDetailsFromId(
+	// 		widget.i.split("-")[0] as WidgetIdType
+	// 	);
+	// 	return {
+	// 		...widget,
+	// 		minW: widgetDefaults?.minW,
+	// 		minH: widgetDefaults?.minH,
+	// 		maxW: widgetDefaults?.maxW,
+	// 		maxH: widgetDefaults?.maxH,
+	// 	};
+	// });
 
 	return (
 		<div style={{ position: "relative" }}>
@@ -158,21 +176,41 @@ export default function Dashboard({
 					cols={{ lg: 16, md: 16, sm: 16, xs: 16, xxs: 16 }}
 					margin={[margin, margin]}
 					draggableHandle={".ModuleDragHandle"}
-					onDragStart={() => setIsDotGridVisible(true)}
-					onDragStop={() => setIsDotGridVisible(false)}
-					onResizeStart={() => setIsDotGridVisible(true)}
-					onResizeStop={() => setIsDotGridVisible(false)}
+					onDragStart={() => {
+						setIsDotGridVisible(true);
+					}}
+					onDragStop={(newLayout) => {
+						setIsDotGridVisible(false);
+						dispatch(
+							updateDashboardLayout({
+								id: thisId,
+								newLayout: newLayout,
+							})
+						);
+					}}
+					onResizeStart={() => {
+						setIsDotGridVisible(true);
+					}}
+					onResizeStop={(newLayout) => {
+						setIsDotGridVisible(false);
+						dispatch(
+							updateDashboardLayout({
+								id: thisId,
+								newLayout: newLayout,
+							})
+						);
+					}}
 					onLayoutChange={(layout) => {
 						if (
 							!layout.find((li) => li.i === "__dropping-elem__")
 						) {
-							// setLayout(() => layout);
-							dispatch(
-								updateDashboardLayout({
-									id: thisId,
-									newLayout: layout,
-								})
-							);
+							setLayout(() => layout);
+							// dispatch(
+							// 	updateDashboardLayout({
+							// 		id: thisId,
+							// 		newLayout: layout,
+							// 	})
+							// );
 						}
 						let h = 0;
 						layout.forEach((li) => {
@@ -181,35 +219,46 @@ export default function Dashboard({
 						setHeight(() => h * (rowHeight + margin) + margin);
 					}}
 					droppingItem={
-						newItem !== undefined
+						newItemType !== undefined
 							? {
 									i: "__dropping-elem__",
-									w: newItem.w,
-									h: newItem.h,
+									w: newItemType.w,
+									h: newItemType.h,
 							  }
 							: { i: "__dropping-elem__", w: 3, h: 3 }
 					}
 					onDrop={(layout, item) => {
-						if (newItem !== undefined) {
-							let num = 0;
-							for (let i = 0; i < layout.length; i++) {
-								num +=
-									layout[i].i.split("-")[0] === state.type
-										? 1
-										: 0;
-							}
-							const newLI = {
-								...item,
-								...newItem,
-								i: `${state.type}-${dashboard.id}-${num}`,
-							};
-							dispatch(
-								dropLayout({
-									id: thisId,
-									newLayoutItem: newLI,
-								})
+						if (newItemType !== undefined) {
+							const droppingElemIndex = layout.findIndex(
+								(item) => item.i === "__dropping-elem__"
 							);
-							console.log("fropped!!!");
+							if (droppingElemIndex > -1) {
+								let num = 0;
+								for (let i = 0; i < layout.length; i++) {
+									num +=
+										layout[i].i.split("-")[0] === state.type
+											? 1
+											: 0;
+								}
+								const newLayoutItem = {
+									...item,
+									...newItemType,
+									i: `${state.type}-${dashboard.id}-${num}`,
+								};
+								const newLayout = layout;
+								newLayout.splice(
+									droppingElemIndex,
+									1,
+									newLayoutItem
+								);
+								dispatch(
+									dropLayout({
+										id: thisId,
+										// newLayoutItem: newLI,
+										newLayout,
+									})
+								);
+							}
 							// setLayout((prev) => {
 							// 	const newLayout = [...prev, newLI].sort(
 							// 		(a, b) => {

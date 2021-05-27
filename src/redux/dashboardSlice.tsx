@@ -94,25 +94,31 @@ export const dashboardSlice = createSlice({
 
 		dropLayout: (
 			state,
-			action: PayloadAction<{ id: string; newLayoutItem: Layout }>
+			action: PayloadAction<{ id: string; newLayout: Layout[] }>
 		) => {
 			const index = state.dashboards.findIndex(
 				(dash) => dash.id === action.payload.id
 			);
 			if (index > -1) {
-				const newLayout = [
-					...state.dashboards[index].layout,
-					action.payload.newLayoutItem,
-				].sort((a, b) => {
-					if (a.y < b.y) return -1;
-					if (a.y > b.y) return 1;
-					if (a.y === b.y) {
-						if (a.x < b.x) return -1;
-						if (a.x > b.x) return 1;
-					}
-					return 0;
-				});
-				state.dashboards[index].layout = newLayout;
+				// const newLayout = [
+				// 	...state.dashboards[index].layout,
+				// 	action.payload.newLayoutItem,
+				// ].sort((a, b) => {
+				// 	if (a.y < b.y) return -1;
+				// 	if (a.y > b.y) return 1;
+				// 	if (a.y === b.y) {
+				// 		if (a.x < b.x) return -1;
+				// 		if (a.x > b.x) return 1;
+				// 	}
+				// 	return 0;
+				// });
+				// state.dashboards[index].layout = newLayout;
+				// const newLayout = [
+				// 	...state.dashboards[index].layout,
+				// 	action.payload.newLayoutItem,
+				// ];
+				// console.log(newLayout);
+				state.dashboards[index].layout = action.payload.newLayout;
 			}
 		},
 	},
