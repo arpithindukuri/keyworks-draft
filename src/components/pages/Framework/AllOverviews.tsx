@@ -52,7 +52,7 @@ export default function AllOverviews() {
 	const classes = useStyles();
 	return (
 		<div className={classes.container}>
-			<FrameworkOverview
+			{/* <FrameworkOverview
 				title='PCI'
 				percent={0.78}
 				alerts={PCIAlerts}
@@ -69,7 +69,7 @@ export default function AllOverviews() {
 				percent={0.9}
 				alerts={NISTAlerts}
 				controls={NISTControls}
-			/>
+			/> */}
 		</div>
 	);
 }

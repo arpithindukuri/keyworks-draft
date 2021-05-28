@@ -1,9 +1,11 @@
-import { alertType, controlType, createControl } from "./AllOverviews";
+import { format } from "date-fns";
+import { Alert } from "../../../redux/frameworkSlice";
+import { controlType, createControl } from "./AllOverviews";
 
-export const ISOAlerts: alertType[] = [
+export const ISOAlerts: Alert[] = [
 	{
 		title: "Control 13.1.3",
-		text: (
+		child: (
 			<>
 				<strong>High Risk Alert:</strong> An unauthorized device has
 				connected to, or has attempted to connect to, the segregated OT
@@ -11,10 +13,11 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "error",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control A.10.1.2",
-		text: (
+		child: (
 			<>
 				<strong>No Risk:</strong> All cryptographic keys are fully
 				stored and backed up. ISO27001 Control A.10.1.2 is no longer in
@@ -22,10 +25,11 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "success",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control A.18.1.3",
-		text: (
+		child: (
 			<>
 				<strong>High Risk Alert:</strong> Certain data records are
 				vulnerable to physical damage, violating ISO270001 Control
@@ -33,10 +37,11 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "error",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control A.14.1.2",
-		text: (
+		child: (
 			<>
 				<strong>No Risk:</strong> All systems connected to public
 				networks are now appropriately secured. ISO27001 Control
@@ -44,10 +49,11 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "success",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control A.11.1.1",
-		text: (
+		child: (
 			<>
 				<strong>No Risk:</strong> All sensitive areas are now
 				appropriately secured. ISO27001 Control A.11.1.1 is no longer in
@@ -55,10 +61,11 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "success",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control A.11.1.1",
-		text: (
+		child: (
 			<>
 				<strong>Medium Risk Alert:</strong> Some systems have not been
 				reviewed after a platform change, violating ISO27001 Control
@@ -66,10 +73,11 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "warning",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control A.7.1.1",
-		text: (
+		child: (
 			<>
 				<strong>High Risk Alert:</strong> Employees without appropriate
 				screening have access to sensitive information, placing them in
@@ -77,6 +85,7 @@ export const ISOAlerts: alertType[] = [
 			</>
 		),
 		severity: "error",
+		timestamp: format(new Date(), "T"),
 	},
 ];
 

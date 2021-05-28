@@ -9,6 +9,28 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		// borderRadius: 0,
+		boxSizing: "content-box",
+	},
+	"@keyframes fadeIn": {
+		"0%": {
+			transform: "rotate(0deg)",
+		},
+		"25%": {
+			transform: "rotate(-1deg)",
+		},
+		"75%": {
+			transform: "rotate(1deg)",
+		},
+		"100%": {
+			rotate: "rotate(0deg)",
+		},
+	},
+	isEditing: {
+		border: `1px solid rgba(0, 0, 0, 0)`,
+		"&:active": {
+			border: `1px solid ${theme.palette.primary.light}`,
+			boxShadow: theme.shadows[15],
+		},
 	},
 	header: {
 		display: "flex",
@@ -49,7 +71,9 @@ export default function Module({
 
 	return (
 		<Card
-			className={classes.container}
+			className={classNames(classes.container, {
+				[classes.isEditing]: isEditable,
+			})}
 			elevation={3}
 			// variant='outlined'
 		>

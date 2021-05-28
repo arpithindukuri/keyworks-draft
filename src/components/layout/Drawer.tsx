@@ -9,16 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { Collapse, Icon } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { useHistory, useLocation } from "react-router";
-import { useAppSelector } from "../redux/hooks";
-import { selectDashboards } from "../redux/dashboardSlice";
-
-type drawerListItemType = {
-	title: string;
-	link?: string;
-	icon?: string;
-	isNested?: boolean;
-	nestedListItems?: drawerListItemType[];
-};
+import { drawerItemType, useDrawerItems } from "./DrawerData";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -96,7 +87,7 @@ function DrawerItem({
 	item,
 	useDivider = true,
 }: {
-	item: drawerListItemType;
+	item: drawerItemType;
 	useDivider?: boolean;
 }) {
 	const classes = useStyles({});
@@ -138,7 +129,9 @@ function DrawerItem({
 		<div>
 			<ListItem button onClick={handleClick} selected={selected}>
 				<ListItemIcon>
-					<Icon>{item.icon !== "tune" && item.icon}</Icon>
+					<Icon style={{ color: selected ? "white" : undefined }}>
+						{item.icon !== "tune" && item.icon}
+					</Icon>
 				</ListItemIcon>
 				<ListItemText primary={item.title} />
 				{item.isNested && item.nestedListItems && (
@@ -146,10 +139,16 @@ function DrawerItem({
 						className={`${classes.drawerItemIcon} ${
 							open && classes.drawerItemIconRotated
 						}`}
+						style={{ color: selected ? "white" : undefined }}
 					/>
 				)}
 				{item.icon === "tune" && (
-					<Icon className={classes.drawerItemIcon}>{item.icon}</Icon>
+					<Icon
+						className={classes.drawerItemIcon}
+						style={{ color: selected ? "white" : undefined }}
+					>
+						{item.icon}
+					</Icon>
 				)}
 			</ListItem>
 
@@ -173,116 +172,12 @@ function DrawerItem({
 }
 
 function recursivelySearchDrawerListItem(
-	item: drawerListItemType,
-	predicate: (item: drawerListItemType) => boolean
+	item: drawerItemType,
+	predicate: (item: drawerItemType) => boolean
 ) {
 	for (const i of item.nestedListItems || []) {
 		if (predicate(i)) return true;
 		recursivelySearchDrawerListItem(i, predicate);
 	}
 	return false;
-}
-
-function useDrawerItems(): drawerListItemType[] {
-	return [
-		{
-			title: "Home",
-			link: "/home",
-			icon: "home",
-			isNested: false,
-		},
-		useDashboardItems(),
-		{
-			title: "Frameworks",
-			icon: "device_hub",
-			isNested: true,
-			nestedListItems: [
-				{ title: "Overview", link: "/framework/overview" },
-				{ title: "PCI" },
-				{ title: "ISO27001" },
-				{ title: "NIST" },
-				{
-					title: "Manage Frameworks",
-					icon: "tune",
-				},
-			],
-		},
-		{
-			title: "Threat Intelligence Feeds",
-			icon: "wifi_tethering_error_rounded",
-			isNested: true,
-			nestedListItems: [
-				{ title: "Overview" },
-				{ title: "STIX" },
-				{ title: "TAXII" },
-				{ title: "Manage Threat Feeds", icon: "tune" },
-			],
-		},
-		{
-			title: "AI/ML",
-			icon: "memory",
-			isNested: true,
-			nestedListItems: [
-				{ title: "Overview" },
-				{ title: "AI Feeds" },
-				{ title: "ML Feeds" },
-				{
-					title: "Manage AI/ML Feeds",
-					icon: "tune",
-				},
-			],
-		},
-		{
-			title: "GIS",
-			icon: "place",
-			isNested: true,
-			nestedListItems: [
-				{ title: "Global" },
-				{ title: "Calgary International Airport" },
-				{
-					title: "Manage GIS",
-					icon: "tune",
-				},
-			],
-		},
-		{
-			title: "APIs",
-			icon: "power",
-			isNested: true,
-			nestedListItems: [
-				{ title: "My API" },
-				{ title: "API2" },
-				{ title: "HVAC Sensors" },
-				{
-					title: "Manage APIs",
-					icon: "tune",
-				},
-			],
-		},
-	];
-}
-
-function useDashboardItems() {
-	const dashboards = useAppSelector(selectDashboards);
-
-	const nestedListItems = dashboards
-		.filter((dash) => dash.isActive)
-		.map((dash) => ({
-			title: dash.name,
-			link: `/dashboard/${dash.id}`,
-		}));
-
-	return {
-		title: "Dashboards",
-		icon: "dashboard",
-		isNested: true,
-		nestedListItems: [
-			...nestedListItems,
-			{
-				title: "Manage Dashboards",
-				link: "/dashboard/manage",
-				icon: "tune",
-			},
-		],
-	};
 }

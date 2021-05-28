@@ -1,19 +1,22 @@
-import { alertType, controlType, createControl } from "./AllOverviews";
+import { format } from "date-fns";
+import { Alert } from "../../../redux/frameworkSlice";
+import { controlType, createControl } from "./AllOverviews";
 
-export const PCIAlerts: alertType[] = [
+export const PCIAlerts: Alert[] = [
 	{
 		title: "Control 4.1.1",
-		text: (
+		child: (
 			<>
 				<strong>High Risk Alert:</strong> A PCI transaction contains
 				unencrypted data and is in violation of PCI Control 4.1.1
 			</>
 		),
 		severity: "error",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control 5.2",
-		text: (
+		child: (
 			<>
 				<strong>Medium Risk Alert:</strong> 4 systems currently do not
 				have functioning antivirus and are in violation of PCI Control
@@ -21,10 +24,11 @@ export const PCIAlerts: alertType[] = [
 			</>
 		),
 		severity: "warning",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control 6.5.1",
-		text: (
+		child: (
 			<>
 				<strong>Medium Risk Alert:</strong> A data server is vulnerable
 				to SQL injection attacks, and is in violation of PCI Control
@@ -32,6 +36,7 @@ export const PCIAlerts: alertType[] = [
 			</>
 		),
 		severity: "warning",
+		timestamp: format(new Date(), "T"),
 	},
 ];
 

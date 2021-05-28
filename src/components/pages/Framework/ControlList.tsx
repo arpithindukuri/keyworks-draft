@@ -53,11 +53,7 @@ const useStyles = makeStyles((theme) =>
 	})
 );
 
-export default function FrameworkControlList({
-	rows,
-}: {
-	rows: controlType[];
-}) {
+export default function ControlList({ controls }: { controls: controlType[] }) {
 	const classes = useStyles();
 
 	return (
@@ -90,7 +86,7 @@ export default function FrameworkControlList({
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row) => (
+					{controls.map((row) => (
 						<Row row={row} />
 					))}
 				</TableBody>

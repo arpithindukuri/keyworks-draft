@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { dashboardSlice } from "./dashboardSlice";
+import { frameworkSlice } from "./frameworkSlice";
 
 export const store = configureStore({
 	reducer: {
 		dashboard: dashboardSlice.reducer,
+		framework: frameworkSlice.reducer,
 	},
 	devTools: true,
 });

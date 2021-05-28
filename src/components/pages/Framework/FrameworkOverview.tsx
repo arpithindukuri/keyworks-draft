@@ -13,11 +13,9 @@ import { AlertTitle } from "@material-ui/lab";
 import Alert from "@material-ui/lab/Alert";
 import { createStyles } from "@material-ui/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { getColor } from "../../../util";
 import classNames from "classnames";
 import { useState } from "react";
-import FrameworkControlList from "./FrameworkControlList";
+import FrameworkControlList from "./ControlList";
 import { alertType, controlType } from "./AllOverviews";
 import PieChartRating from "../../widgets/PieChartRating";
 
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme) =>
 			padding: theme.spacing(1),
 		},
 		cardTitle: {
-			fontWeight: 800,
+			fontWeight: 600,
 			color: theme.palette.text.secondary,
 			textAlign: "center",
 		},
@@ -224,7 +222,7 @@ export default function FrameworkOverview({
 			</CardActions>
 			<Collapse in={expanded} timeout='auto' unmountOnExit>
 				<CardContent>
-					<FrameworkControlList rows={controls} />
+					<FrameworkControlList controls={controls} />
 				</CardContent>
 			</Collapse>
 		</Card>

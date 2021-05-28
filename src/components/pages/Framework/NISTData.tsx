@@ -1,9 +1,11 @@
-import { alertType, controlType, createControl } from "./AllOverviews";
+import { format } from "date-fns";
+import { Alert } from "../../../redux/frameworkSlice";
+import { controlType, createControl } from "./AllOverviews";
 
-export const NISTAlerts: alertType[] = [
+export const NISTAlerts: Alert[] = [
 	{
 		title: "Control 5.2.2",
-		text: (
+		child: (
 			<>
 				<strong>Medium Risk Alert:</strong> A user ID has failed to
 				enter the correct password in the required number of attempts
@@ -11,16 +13,18 @@ export const NISTAlerts: alertType[] = [
 			</>
 		),
 		severity: "warning",
+		timestamp: format(new Date(), "T"),
 	},
 	{
 		title: "Control 9.1",
-		text: (
+		child: (
 			<>
 				<strong>No Risk:</strong> All systems have passed Privacy Risk
 				Assessments. NIST Control 9.1 is no longer in violation.
 			</>
 		),
 		severity: "success",
+		timestamp: format(new Date(), "T"),
 	},
 ];
 

@@ -3,6 +3,8 @@ import EditDashboard from "./components/pages/Dashboard/EditDashboard";
 import ManageDashboard from "./components/pages/Dashboard/ManageDashboard";
 import ViewDashboard from "./components/pages/Dashboard/ViewDashboard";
 import AllOverviews from "./components/pages/Framework/AllOverviews";
+import ManageFrameworks from "./components/pages/Framework/ManageFrameworks";
+import ViewFramework from "./components/pages/Framework/ViewFramework";
 import Home from "./components/pages/Home/Home";
 
 export interface Route {
@@ -15,6 +17,14 @@ export const routes: Route[] = [
 	{
 		path: "/framework/overview",
 		component: AllOverviews,
+	},
+	{
+		path: "/framework/manage",
+		component: ManageFrameworks,
+	},
+	{
+		path: "/framework/",
+		component: ViewFramework,
 	},
 	{
 		path: "/dashboard/manage/edit",

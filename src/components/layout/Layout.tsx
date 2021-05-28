@@ -12,13 +12,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import logoIpsum from "../assets/logo-12.svg";
+import logoIpsum from "../../assets/logo-12.svg";
 import { Badge, InputBase } from "@material-ui/core";
-import {
-	AccountCircle,
-	Notifications,
-	Search,
-} from "@material-ui/icons";
+import { AccountCircle, Notifications, Search } from "@material-ui/icons";
 import Drawer from "./Drawer";
 
 const drawerWidth = 300;

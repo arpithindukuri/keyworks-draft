@@ -5,7 +5,7 @@ import { SnackbarProvider } from "notistack";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import AppProvider from "./context/AppContext";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -56,6 +56,11 @@ const theme = createMyTheme({
 				// "&:last-child": {
 				// 	marginBottom: 0,
 				// },
+				"&$selected": {
+					background:
+						"linear-gradient(143deg, rgba(90,133,222,1) 0%, rgba(85,57,198,1) 100%)",
+					color: "#fff",
+				},
 			},
 			gutters: {
 				paddingLeft: defaultTheme.spacing(1),
@@ -109,6 +114,14 @@ const theme = createMyTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
+	"@global": {
+		".react-grid-item.react-grid-placeholder": {
+			backgroundColor: "unset",
+			opacity: "unset",
+			borderRadius: theme.shape.borderRadius,
+			border: `1px solid ${theme.palette.primary.light}`,
+		},
+	},
 	container: {
 		// maxWidth: "100%",
 		// maxHeight: "100%",
@@ -135,7 +148,7 @@ function App() {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<AppProvider>
-					<SnackbarProvider maxSnack={3}>
+					<SnackbarProvider maxSnack={5}>
 						<div className={classes.container}>
 							<Layout>
 								<div className={classes.appBody}>
