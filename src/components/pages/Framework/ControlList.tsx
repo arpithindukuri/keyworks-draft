@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) =>
 			display: "flex",
 			flexGrow: 1,
 			width: "100%",
-			height: "100%",
 			boxSizing: "border-box",
 			overflowY: "auto",
 		},
@@ -53,7 +52,13 @@ const useStyles = makeStyles((theme) =>
 	})
 );
 
-export default function ControlList({ controls }: { controls: controlType[] }) {
+export default function ControlList({
+	controls,
+	expandParent,
+}: {
+	controls: controlType[];
+	expandParent?: () => void;
+}) {
 	const classes = useStyles();
 
 	return (
@@ -87,7 +92,12 @@ export default function ControlList({ controls }: { controls: controlType[] }) {
 				</TableHead>
 				<TableBody>
 					{controls.map((row) => (
-						<Row row={row} />
+						<Row
+							row={row}
+							expandParent={
+								expandParent ? expandParent : undefined
+							}
+						/>
 					))}
 				</TableBody>
 			</Table>
@@ -95,7 +105,13 @@ export default function ControlList({ controls }: { controls: controlType[] }) {
 	);
 }
 
-function Row({ row }: { row: controlType }) {
+function Row({
+	row,
+	expandParent,
+}: {
+	row: controlType;
+	expandParent?: () => void;
+}) {
 	const classes = useStyles();
 	const [open, setOpen] = useState(false);
 
@@ -134,6 +150,7 @@ function Row({ row }: { row: controlType }) {
 					<IconButton
 						onClick={() => {
 							setOpen((prev) => !prev);
+							expandParent && expandParent();
 						}}
 					>
 						<Badge

@@ -1,6 +1,5 @@
 import {
 	Button,
-	ButtonGroup,
 	Card,
 	CardContent,
 	CardHeader,
@@ -13,11 +12,13 @@ import {
 	makeStyles,
 	Typography,
 } from "@material-ui/core";
-import { MoreVert } from "@material-ui/icons";
-import { useState } from "react";
+import { ExpandMore, MoreVert } from "@material-ui/icons";
+import { cloneElement, useRef, useState } from "react";
 import { Framework as FrameworkType } from "../../../redux/frameworkSlice";
 import AlertList from "./AlertList";
 import ControlList from "./ControlList";
+import DocumentList from "./DocumentList";
+import ProcessList from "./ProcessList";
 
 const useStyles = makeStyles((theme) =>
 	createStyles({
@@ -26,10 +27,24 @@ const useStyles = makeStyles((theme) =>
 			margin: 0,
 			width: "100%",
 		},
-		frameworkSummary: {
-			display: "flex",
-			minHeight: "50px",
-			padding: theme.spacing(2),
+		frameworkItemContent: {
+			maxHeight: "80vh",
+			width: "100%",
+			overflowX: "visible",
+			overflowY: "auto",
+		},
+		collapseFade: {
+			pointerEvents: "none",
+			touchAction: "none",
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: "50px",
+			backgroundColor: "rgba(0,0,0,0)",
+			background: `linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 100%)`,
+		},
+		iconFlip: {
+			transform: "rotate(180deg)",
 		},
 	})
 );
@@ -56,18 +71,24 @@ export default function Framework({ framework }: { framework: FrameworkType }) {
 								<AlertList alerts={framework.alerts} />
 							</FrameworkItem>
 							<Divider variant='middle' />
-							<FrameworkItem title='CONTROLS'>
+							<FrameworkItem title='CONTROLS' passExpandToChild>
 								<ControlList controls={framework.controls} />
 							</FrameworkItem>
 							<Divider variant='middle' />
-							<FrameworkItem title='INPUTS'>inputs</FrameworkItem>
 							<Divider variant='middle' />
-							<FrameworkItem title='DOCUMENTS'>
-								docs
+							<FrameworkItem title='DOCUMENTS' passExpandToChild>
+								<DocumentList
+									requiredDocs={framework.requiredDocuments}
+								/>
 							</FrameworkItem>
 							<Divider variant='middle' />
-							<FrameworkItem title='PROCESSES'>
-								procs
+							<FrameworkItem title='PROCESSES' passExpandToChild>
+								<ProcessList
+									requiredProcs={framework.requiredProcesses}
+								/>
+							</FrameworkItem>
+							<FrameworkItem title='INPUTS'>
+								<>inputs</>
 							</FrameworkItem>
 						</Grid>
 					</CardContent>
@@ -82,35 +103,80 @@ function FrameworkItem({
 	action,
 	children,
 	xs,
+	passExpandToChild = false,
 }: {
 	title: string;
 	action?: JSX.Element;
-	children: any;
+	children: JSX.Element;
 	xs?: GridSize;
+	passExpandToChild?: boolean;
 }) {
+	const classes = useStyles();
 	const [open, setOpen] = useState(false);
+	const ref = useRef<HTMLDivElement | null>(null);
 
 	return (
 		<Grid item xs={xs || true} container spacing={4}>
 			<Grid item xs={2}>
-				<Typography color='textSecondary' variant='body1' align='right'>
+				<Typography
+					ref={ref}
+					color='textSecondary'
+					variant='h6'
+					align='right'
+				>
 					{title}
 				</Typography>
 			</Grid>
 			<Grid item xs container alignContent='center'>
 				<Grid container direction='column' spacing={1}>
 					<Grid item>{action}</Grid>
-					<Grid item>
-						<Collapse in={open} collapsedHeight={100}>
-							{children}
+					<Grid item style={{ position: "relative" }}>
+						<Collapse
+							className={classes.frameworkItemContent}
+							collapsedHeight={175}
+							in={open}
+						>
+							{children !== undefined &&
+								cloneElement(
+									children,
+									passExpandToChild
+										? {
+												expandParent: () => {
+													setOpen(true);
+													window.scrollTo({
+														behavior: "smooth",
+														top:
+															(ref.current
+																?.offsetTop ||
+																0) - 25,
+													});
+												},
+										  }
+										: undefined
+								)}
 						</Collapse>
+						{!open && <div className={classes.collapseFade} />}
 					</Grid>
 					<Grid item>
 						<Button
 							fullWidth
-							onClick={() => setOpen((prev) => !prev)}
+							onClick={() => {
+								setOpen((prev) => !prev);
+								window.scrollTo({
+									behavior: "smooth",
+									top: (ref.current?.offsetTop || 0) - 25,
+								});
+							}}
+							endIcon={
+								<ExpandMore
+									className={
+										open ? classes.iconFlip : undefined
+									}
+									style={{ transition: "0.3s" }}
+								/>
+							}
 						>
-							Show More
+							Show {open ? "Less" : "More"}
 						</Button>
 					</Grid>
 				</Grid>

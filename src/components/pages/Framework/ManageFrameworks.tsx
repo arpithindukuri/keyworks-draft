@@ -51,8 +51,6 @@ export default function ManageFrameworks() {
 }
 
 function FrameworkSummary({ framework }: { framework: Framework }) {
-	const classes = useStyles();
-
 	return (
 		<Grid item xs={12} md={12}>
 			<Card>

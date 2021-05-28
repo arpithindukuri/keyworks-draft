@@ -7,8 +7,10 @@ const useStyles = makeStyles((theme) =>
 	createStyles({
 		container: {
 			width: "100%",
-			maxHeight: "80vh",
-			overflow: "auto",
+			// height: "100%",
+			// maxHeight: "80vh",
+			// overflow: "auto",
+			// boxSizing: "content-box",
 		},
 		alert: {
 			// width: "100%",
