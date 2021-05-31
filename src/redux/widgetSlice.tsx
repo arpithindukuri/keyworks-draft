@@ -2,14 +2,14 @@ import HighRiskAssets from "../components/widgets/HighRiskAssets";
 import Ratings from "../components/widgets/Ratings";
 import RatingTrends from "../components/widgets/RatingTrends";
 import RegulatoryCompliance from "../components/widgets/RegulatoryCompliance";
+import TopThreats from "../components/widgets/TopThreats";
 
 export type WidgetIdType =
   | "ratings"
   | "trends"
   | "regcomp"
   | "highriskassets"
-  | "globalmap"
-  | "localmap"
+  | "topthreats"
   | null;
 
 export interface Widget {
@@ -33,6 +33,8 @@ export function getWidgetFromId(widgetId: WidgetIdType) {
       return <RegulatoryCompliance />;
     case "highriskassets":
       return <HighRiskAssets />;
+    case "topthreats":
+      return <TopThreats />;
     default:
       return <></>;
   }
@@ -84,20 +86,10 @@ export const widgetList: Widget[] = [
     maxH: 20,
   },
   {
-    title: "Global Map",
-    i: "globalmap",
-    w: 10,
+    title: "Top Threats",
+    i: "topthreats",
+    w: 12,
     h: 8,
-    minW: 6,
-    minH: 4,
-    maxW: 20,
-    maxH: 20,
-  },
-  {
-    title: "Local Map",
-    i: "localmap",
-    w: 8,
-    h: 6,
     minW: 6,
     minH: 4,
     maxW: 20,

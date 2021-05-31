@@ -110,11 +110,14 @@ export default function Dashboard({
           minH: widgetDefaults?.minH,
           maxW: widgetDefaults?.maxW,
           maxH: widgetDefaults?.maxH,
+          isBounded: canEdit,
+          isDraggable: canEdit,
+          isResizable: canEdit,
         };
       })
     );
     console.log("changed");
-  }, [dashboard.layout]);
+  }, [dashboard.layout, canEdit]);
 
   // const layout = dashboard.layout.map((widget) => {
   // 	const widgetDefaults = getWidgetDetailsFromId(

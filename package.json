@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://arpithindukuri.github.io/keyworks-draft",
   "dependencies": {
+    "@craco/craco": "^6.1.2",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
@@ -20,12 +21,14 @@
     "classnames": "^2.3.1",
     "date-fns": "^2.21.3",
     "gh-pages": "^3.1.0",
+    "maplibre-gl": "^1.14.0",
     "notistack": "^1.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-gauge-chart": "^0.3.0",
     "react-grid-layout": "^1.2.5",
     "react-json-view": "^1.21.3",
+    "react-map-gl": "^6.1.15",
     "react-redux": "^7.2.4",
     "react-resize-detector": "^6.7.1",
     "react-router-dom": "^5.2.0",
@@ -36,9 +39,9 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

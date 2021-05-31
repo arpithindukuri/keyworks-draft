@@ -9,7 +9,8 @@ export default function ViewDashboard() {
   const thisId = location.pathname.split("/")[2];
   const dashboard = useAppSelector(selectDashboardById(thisId));
 
-  if (dashboard !== undefined) return <Dashboard dashboard={dashboard} />;
+  if (dashboard !== undefined)
+    return <Dashboard dashboard={dashboard} canEdit={false} />;
 
   return <Typography variant="h4">404: No such dashboard found</Typography>;
 }

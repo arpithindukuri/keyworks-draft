@@ -71,8 +71,9 @@ export default function Module({
 
   return (
     <Card
-      className={classNames(classes.container, {
+      className={classNames(classes.container, "ModuleDragHandle", {
         [classes.isEditing]: isEditable,
+        [classes.grabbable]: isEditable,
       })}
       elevation={3}
       // variant='outlined'
@@ -85,10 +86,10 @@ export default function Module({
           disableTouchListener={isEditable}
         >
           <Typography
-            className={classNames(classes.title, "ModuleDragHandle", {
-              [classes.grabbable]: isEditable,
-            })}
-            // className={`${classes.title} ModuleDragHandle`}
+            // className={classNames(classes.title, "ModuleDragHandle", {
+            //   [classes.grabbable]: isEditable,
+            // })}
+            className={classes.title}
             variant="h6"
           >
             {title}

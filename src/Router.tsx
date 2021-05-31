@@ -40,12 +40,12 @@ export const routes: Route[] = [
     component: ManageDashboard,
   },
   {
-    path: "/home",
-    component: Home,
-  },
-  {
     path: "/dashboard",
     component: ViewDashboard,
+  },
+  {
+    path: "/home",
+    component: Home,
   },
   {
     path: "/",
