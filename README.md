@@ -9,9 +9,11 @@ Do no copy this code. This is a product built for a customer, and is public for 
 ## Screenshots
 
 ### v0.2.0
-  - Governance framework overviews added (for PCI, ISO27001, and NIST)
-  - Can drill down into each framework to view controls and control violations
+
+- Governance framework overviews added (for PCI, ISO27001, and NIST)
+- Can drill down into each framework to view controls and control violations
 
 ### v0.1.0
-  - Customizable Dashboard
-  - Drag and Drop from side bar
+
+- Customizable Dashboard
+- Drag and Drop from side bar

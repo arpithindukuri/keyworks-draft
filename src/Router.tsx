@@ -8,48 +8,48 @@ import ViewFramework from "./components/pages/Framework/ViewFramework";
 import Home from "./components/pages/Home/Home";
 
 export interface Route {
-	path: string;
-	component: any;
-	props?: { [key: string]: any };
+  path: string;
+  component: any;
+  props?: { [key: string]: any };
 }
 
 export const routes: Route[] = [
-	{
-		path: "/framework/overview",
-		component: AllOverviews,
-	},
-	{
-		path: "/framework/manage",
-		component: ManageFrameworks,
-	},
-	{
-		path: "/framework/",
-		component: ViewFramework,
-	},
-	{
-		path: "/dashboard/manage/edit",
-		component: EditDashboard,
-	},
-	{
-		path: "/dashboard/manage",
-		component: ManageDashboard,
-	},
-	{
-		path: "/home",
-		component: Home,
-	},
-	{
-		path: "/dashboard",
-		component: ViewDashboard,
-	},
-	{
-		path: "/",
-		component: RedirectToHome,
-	},
+  {
+    path: "/framework/overview",
+    component: AllOverviews,
+  },
+  {
+    path: "/framework/manage",
+    component: ManageFrameworks,
+  },
+  {
+    path: "/framework/",
+    component: ViewFramework,
+  },
+  {
+    path: "/dashboard/manage/edit",
+    component: EditDashboard,
+  },
+  {
+    path: "/dashboard/manage",
+    component: ManageDashboard,
+  },
+  {
+    path: "/home",
+    component: Home,
+  },
+  {
+    path: "/dashboard",
+    component: ViewDashboard,
+  },
+  {
+    path: "/",
+    component: RedirectToHome,
+  },
 ];
 
 export function RedirectToHome() {
-	return <Redirect to='/home' />;
+  return <Redirect to="/home" />;
 }
 
 // export function getElementFromPath(

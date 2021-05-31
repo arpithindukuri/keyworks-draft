@@ -5,11 +5,11 @@ import { useAppSelector } from "../../../redux/hooks";
 import Dashboard from "./Dashboard";
 
 export default function ViewDashboard() {
-	const location = useLocation();
-	const thisId = location.pathname.split("/")[2];
-	const dashboard = useAppSelector(selectDashboardById(thisId));
+  const location = useLocation();
+  const thisId = location.pathname.split("/")[2];
+  const dashboard = useAppSelector(selectDashboardById(thisId));
 
-	if (dashboard !== undefined) return <Dashboard dashboard={dashboard} />;
+  if (dashboard !== undefined) return <Dashboard dashboard={dashboard} />;
 
-	return <Typography variant='h4'>404: No such dashboard found</Typography>;
+  return <Typography variant="h4">404: No such dashboard found</Typography>;
 }
