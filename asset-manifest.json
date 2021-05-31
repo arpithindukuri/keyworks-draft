@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/keyworks-draft/static/css/main.10eafd42.chunk.css",
-    "main.js": "/keyworks-draft/static/js/main.a341a9df.chunk.js",
-    "main.js.map": "/keyworks-draft/static/js/main.a341a9df.chunk.js.map",
+    "main.js": "/keyworks-draft/static/js/main.9a50eeca.chunk.js",
+    "main.js.map": "/keyworks-draft/static/js/main.9a50eeca.chunk.js.map",
     "runtime-main.js": "/keyworks-draft/static/js/runtime-main.2adc8d22.js",
     "runtime-main.js.map": "/keyworks-draft/static/js/runtime-main.2adc8d22.js.map",
     "static/css/2.0fe8871e.chunk.css": "/keyworks-draft/static/css/2.0fe8871e.chunk.css",
-    "static/js/2.4e3bdef2.chunk.js": "/keyworks-draft/static/js/2.4e3bdef2.chunk.js",
-    "static/js/2.4e3bdef2.chunk.js.map": "/keyworks-draft/static/js/2.4e3bdef2.chunk.js.map",
+    "static/js/2.30950fba.chunk.js": "/keyworks-draft/static/js/2.30950fba.chunk.js",
+    "static/js/2.30950fba.chunk.js.map": "/keyworks-draft/static/js/2.30950fba.chunk.js.map",
     "index.html": "/keyworks-draft/index.html",
     "static/css/2.0fe8871e.chunk.css.map": "/keyworks-draft/static/css/2.0fe8871e.chunk.css.map",
     "static/css/main.10eafd42.chunk.css.map": "/keyworks-draft/static/css/main.10eafd42.chunk.css.map",
-    "static/js/2.4e3bdef2.chunk.js.LICENSE.txt": "/keyworks-draft/static/js/2.4e3bdef2.chunk.js.LICENSE.txt",
+    "static/js/2.30950fba.chunk.js.LICENSE.txt": "/keyworks-draft/static/js/2.30950fba.chunk.js.LICENSE.txt",
     "static/media/logo-12.2ee0e9bc.svg": "/keyworks-draft/static/media/logo-12.2ee0e9bc.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.2adc8d22.js",
     "static/css/2.0fe8871e.chunk.css",
-    "static/js/2.4e3bdef2.chunk.js",
+    "static/js/2.30950fba.chunk.js",
     "static/css/main.10eafd42.chunk.css",
-    "static/js/main.a341a9df.chunk.js"
+    "static/js/main.9a50eeca.chunk.js"
   ]
 }
