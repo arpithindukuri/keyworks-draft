@@ -26,9 +26,8 @@ export function useDrawerItems(): drawerItemType[] {
       isNested: true,
       nestedListItems: [
         { title: "Overview" },
-        { title: "STIX" },
-        { title: "TAXII" },
-        { title: "Manage Threat Feeds", icon: "tune" },
+        { title: "STIX/TAXII" },
+        useTuneItem("Manage Threat Feeds", "/threatfeed/manage"),
       ],
     },
     {

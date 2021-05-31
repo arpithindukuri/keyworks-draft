@@ -6,6 +6,7 @@ import AllOverviews from "./components/pages/Framework/AllOverviews";
 import ManageFrameworks from "./components/pages/Framework/ManageFrameworks";
 import ViewFramework from "./components/pages/Framework/ViewFramework";
 import Home from "./components/pages/Home/Home";
+import ManageThreatFeed from "./components/pages/ThreatFeed/ManageThreatFeed";
 
 export interface Route {
   path: string;
@@ -14,6 +15,10 @@ export interface Route {
 }
 
 export const routes: Route[] = [
+  {
+    path: "/threatfeed/manage",
+    component: ManageThreatFeed,
+  },
   {
     path: "/framework/overview",
     component: AllOverviews,

@@ -1,6 +1,5 @@
 import {
   createStyles,
-  Divider,
   Grid,
   makeStyles,
   Paper,
@@ -55,16 +54,6 @@ export default function Home() {
           <Typography
             className={`${classes.heading} ${classes.fadeIn}`}
             style={{ "--animation-order": 0 } as CSSProperties}
-            variant="h1"
-          >
-            Welcome, Mr. Smith
-          </Typography>
-        </Grid>
-        <Divider style={{ width: "100%" }} />
-        <Grid item xs={12}>
-          <Typography
-            className={`${classes.heading} ${classes.fadeIn}`}
-            style={{ "--animation-order": 2 } as CSSProperties}
             variant="h4"
           >
             Framework Summary
@@ -72,7 +61,7 @@ export default function Home() {
         </Grid>
         <Grid
           className={classes.fadeIn}
-          style={{ "--animation-order": 4 } as CSSProperties}
+          style={{ "--animation-order": 1 } as CSSProperties}
           item
           xs={3}
         >
@@ -88,7 +77,7 @@ export default function Home() {
         </Grid>
         <Grid
           className={classes.fadeIn}
-          style={{ "--animation-order": 5 } as CSSProperties}
+          style={{ "--animation-order": 2 } as CSSProperties}
           item
           xs={3}
         >
@@ -104,7 +93,7 @@ export default function Home() {
         </Grid>
         <Grid
           className={classes.fadeIn}
-          style={{ "--animation-order": 6 } as CSSProperties}
+          style={{ "--animation-order": 3 } as CSSProperties}
           item
           xs={3}
         >
@@ -120,7 +109,7 @@ export default function Home() {
         </Grid>
         <Grid
           className={classes.fadeIn}
-          style={{ "--animation-order": 7 } as CSSProperties}
+          style={{ "--animation-order": 4 } as CSSProperties}
           item
           xs={3}
         >
