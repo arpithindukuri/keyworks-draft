@@ -5,6 +5,7 @@ import {
   Theme,
   createStyles,
   fade,
+  useTheme,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -116,11 +117,17 @@ const useStyles = makeStyles((theme: Theme) =>
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
     },
+    badge: {
+      backgroundColor: theme.palette.info.main,
+      background: theme.gradients.info,
+      color: "white",
+    },
   })
 );
 
 export default function Layout({ children }: { children: any }) {
   const classes = useStyles();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
   const handleDrawerToggle = () => {
@@ -166,7 +173,11 @@ export default function Layout({ children }: { children: any }) {
             />
           </div>
           <IconButton color="inherit">
-            <Badge badgeContent={6} color="primary">
+            <Badge
+              badgeContent={6}
+              color="primary"
+              // classes={{ badge: classes.badge }}
+            >
               <Notifications />
             </Badge>
           </IconButton>

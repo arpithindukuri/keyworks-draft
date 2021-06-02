@@ -37,7 +37,7 @@ export function createControl(
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      display: "flex",
+      // display: "flex",
       flexDirection: "column",
       padding: theme.spacing(3),
     },
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) =>
 
 export default function AllOverviews() {
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
       {/* <FrameworkOverview

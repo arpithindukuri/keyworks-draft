@@ -14,105 +14,149 @@ import { routes } from "./Router";
 declare module "@material-ui/core/styles/createMuiTheme" {
   interface Theme {
     gradients: {
-      [key: string]: string;
+      success: string;
+      warning: string;
+      error: string;
+      info: string;
     };
   }
   // allow configuration using `createMuiTheme`
   interface ThemeOptions {
     gradients?: {
-      [key: string]: string;
+      success: string;
+      warning: string;
+      error: string;
+      info: string;
     };
   }
 }
 
 function createMyTheme(options: ThemeOptions) {
   return createMuiTheme({
-    gradients: {},
+    // gradients: {},
     ...options,
   });
 }
 
-const defaultTheme = createMyTheme({
-  shape: { borderRadius: 4 },
-});
+const defaultBorderRadius = 4;
 
-const theme = createMyTheme({
-  gradients: {
-    green:
-      "radial-gradient(circle at 50% -20.71%, #cbebb7 0, #bfe7b5 12.5%, #afe0af 25%, #9ad6a7 37.5%, #81ca9d 50%, #66be94 62.5%, #4bb48f 75%, #2dad8e 87.5%, #00a991 100%)",
-    orange:
-      "radial-gradient(circle at 50% -20.71%, #ffffcc 0, #e2cf7a 50%, #a69328 100%)",
-    red: "radial-gradient(circle at 50% -20.71%, #f5985e 0, #f18958 16.67%, #e8764f 33.33%, #db5d43 50%, #cd423a 66.67%, #c32836 83.33%, #bb0136 100%)",
-  },
-  overrides: {
-    MuiList: {
-      padding: {
-        padding: defaultTheme.spacing(1),
-      },
+const defaultPrimary = {
+  light: "#ab87ff",
+  main: "#7559e9",
+  dark: "#3c2eb6",
+  contrastText: "#fff",
+};
+
+const defaultSecondary = {
+  light: "#756f7f",
+  main: "#494453",
+  dark: "#211d2a",
+  contrastText: "#000",
+};
+
+const defaultSpacing = (num: number) => num * 8;
+
+export const getTheme = (paletteType: "dark" | "light") =>
+  createMyTheme({
+    shape: {
+      borderRadius: defaultBorderRadius,
     },
-    MuiListItem: {
-      root: {
-        borderRadius: defaultTheme.shape.borderRadius,
-        marginTop: defaultTheme.spacing(0.5),
-        marginBottom: defaultTheme.spacing(0.5),
-        // "&:last-child": {
-        // 	marginBottom: 0,
-        // },
-        "&$selected": {
-          background:
-            "linear-gradient(143deg, rgba(90,133,222,1) 0%, rgba(85,57,198,1) 100%)",
-          color: "#fff",
+    palette: {
+      type: paletteType,
+      primary: defaultPrimary,
+      secondary: defaultSecondary,
+    },
+    spacing: defaultSpacing(1),
+    gradients: {
+      success:
+        "linear-gradient(to left top, #4caf50, #41ac56, #35a95b, #29a560, #1ba265, #119f6a, #069b6e, #009871, #009474, #009177, #008d79, #00897b)",
+      warning:
+        "linear-gradient(to left top, #ff9800, #f29a00, #e59b00, #d99c00, #cd9d00, #c29d00, #b79d00, #ac9d00, #a09d00, #939c00, #869c00, #789b00)",
+      error:
+        "linear-gradient(to left top, #f44336, #f23c42, #ef374e, #eb3458, #e53262, #df326a, #d83472, #d13679, #c83a80, #be3d86, #b4418b, #a9458f)",
+      info: "linear-gradient(to left top, #2196f3, #3693f0, #448fec, #508ce8, #5988e4, #6085e0, #6781dc, #6d7ed8, #737bd3, #7877cf, #7c74ca, #8071c5)",
+    },
+    overrides: {
+      MuiList: {
+        padding: {
+          padding: defaultSpacing(1),
         },
       },
-      gutters: {
-        paddingLeft: defaultTheme.spacing(1),
-        paddingRight: defaultTheme.spacing(1),
+      MuiListItem: {
+        root: {
+          borderRadius: defaultBorderRadius,
+          marginTop: defaultSpacing(0.5),
+          marginBottom: defaultSpacing(0.5),
+          backgroundColor: "transparent",
+          position: "relative",
+          transition: "0.15s !important",
+          // "&:last-child": {
+          // 	marginBottom: 0,
+          // },
+          "&$selected": {
+            backgroundColor: "transparent",
+            // background: `linear-gradient(143deg, ${defaultPrimary.light} 0%, ${defaultPrimary.main} 100%)`,
+            color: defaultPrimary.light,
+            "& .MuiIcon-root": {
+              color: defaultPrimary.light,
+            },
+            "& .MuiSvgIcon-root": {
+              color: defaultPrimary.light,
+            },
+            paddingLeft: defaultSpacing(1.5),
+            "&::after": {
+              transform: "scaleX(1)",
+            },
+          },
+          "&::after": {
+            transform: "scale(0)",
+            transformOrigin: "left",
+            transition: "0.15s",
+            content: '" "',
+            position: "absolute",
+            height: `calc(100% - ${defaultSpacing(2)}px)`,
+            width: 3,
+            top: defaultSpacing(1),
+            left: 0,
+            backgroundColor: defaultPrimary.light,
+            borderRadius: defaultBorderRadius,
+          },
+        },
+        gutters: {
+          paddingLeft: defaultSpacing(1),
+          paddingRight: defaultSpacing(1),
+        },
       },
-    },
-    MuiListItemIcon: {
-      root: {
-        minWidth: 0,
+      MuiListItemIcon: {
+        root: {
+          minWidth: 0,
+        },
       },
-    },
-    MuiListItemText: {
-      root: {
-        marginLeft: defaultTheme.spacing(1),
+      MuiListItemText: {
+        root: {
+          marginLeft: defaultSpacing(1),
+        },
       },
-    },
-    MuiCardContent: {
-      root: {
-        "&:last-child": {
-          paddingBottom: defaultTheme.props?.MuiCardContent?.style?.padding,
+      MuiCardContent: {
+        root: {
+          "&:last-child": {
+            paddingBottom: defaultSpacing(2),
+          },
+        },
+      },
+      MuiChip: {
+        label: {
+          fontWeight: 500,
         },
       },
     },
-    MuiButton: {
-      root: {
-        // borderRadius: 5,
-      },
+    typography: {
+      fontFamily: ["Poppins"].join(","),
+      fontSize: 12,
     },
-    MuiChip: {
-      label: {
-        fontWeight: 500,
-      },
-    },
-  },
-  typography: {
-    fontFamily: ["Poppins"].join(","),
-    fontSize: 12,
-  },
-  shape: {
-    borderRadius: defaultTheme.shape.borderRadius,
-  },
-  palette: {
-    primary: {
-      light: "#6f74dd",
-      main: "#3949ab",
-      dark: "#00227b",
-      contrastText: "#ffffff",
-    },
-  },
-});
+  });
+
+const theme = getTheme("light");
 
 const useStyles = makeStyles((theme) => ({
   "@global": {

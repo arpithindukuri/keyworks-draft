@@ -1,6 +1,5 @@
 import { format } from "date-fns";
-import { Alert } from "../../../redux/frameworkSlice";
-import { controlType, createControl } from "./AllOverviews";
+import { Alert, Control } from "../../../redux/frameworkSlice";
 
 export const ISOAlerts: Alert[] = [
   {
@@ -85,85 +84,78 @@ export const ISOAlerts: Alert[] = [
   },
 ];
 
-export const ISOControls: controlType[] = [
-  createControl("A.13.1.1", "Network Controls", "Medium", 18, false),
-  createControl("A.13.1.2", "Security of Network Services", "High", 0, false),
-  createControl("A.13.1.3", "Segregation in Networks", "Low", 0, false),
-  createControl(
-    "A.13.2.1",
-    "Information Transfer Policies & Procedures",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "A.13.2.2",
-    "Agreements on Information Transfer",
-    "Low",
-    0,
-    false
-  ),
-  createControl("A.13.2.3", "Electronic Messaging", "Medium", 0, false),
-  createControl(
-    "A.13.2.4",
-    "Confidentiality or Non-Disclosure Agreements",
-    "Medium",
-    12,
-    false
-  ),
-  createControl(
-    "A.14.1.1",
-    "Information Security Requirements Analysis & Specification",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "A.14.1.2",
-    "Securing Application Services on Public Networks",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "A.14.1.3",
-    "Protecting Application Services Transactions",
-    "Medium",
-    0,
-    false
-  ),
-  createControl("A.14.2.1", "Secure Development Policy", "Low", 9, false),
-  createControl(
-    "A.14.2.2",
-    "System Change Control Procedures",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "A.14.2.3",
-    "Technical Review of Applications After Operating Platform Changes",
-    "Medium",
-    0,
-    true
-  ),
-  createControl(
-    "A.14.2.4",
-    "Restrictions on Changes to Software Packages",
-    "Low",
-    7,
-    false
-  ),
-  createControl(
-    "A.14.2.5",
-    "Secure System Engineering Principles",
-    "Medium",
-    0,
-    false
-  ),
-  createControl("A.14.2.6", "Secure Development Environment", "Low", 0, false),
-  createControl("A.14.2.7", "Outsourced Development", "Medium", 0, false),
-  createControl("A.14.2.8", "System Security Testing", "Medium", 4, false),
-  createControl("A.14.2.9", "System Acceptance Testing", "Medium", 0, false),
-  createControl("A.14.3.1", "Protection of Test Data", "Low", 0, false),
+export const ISOControls: Control[] = [
+  { id: "A.13.1.1", description: "Network Control", severity: "low" },
+  {
+    id: "A.13.1.2",
+    description: "Security of Network Service",
+    severity: "low",
+  },
+  { id: "A.13.1.3", description: "Segregation in Network", severity: "medium" },
+  {
+    id: "A.13.2.1",
+    description: "Information Transfer Policies & Procedure",
+    severity: "medium",
+  },
+  {
+    id: "A.13.2.2",
+    description: "Agreements on Information Transfe",
+    severity: "medium",
+  },
+  { id: "A.13.2.3", description: "Electronic Messagin", severity: "medium" },
+  {
+    id: "A.13.2.4",
+    description: "Confidentiality or Non-Disclosure Agreement",
+    severity: "low",
+  },
+  {
+    id: "A.14.1.1",
+    description: "Information Security Requirements Analysis & Specificatio",
+    severity: "medium",
+  },
+  {
+    id: "A.14.1.2",
+    description: "Securing Application Services on Public Network",
+    severity: "low",
+  },
+  {
+    id: "A.14.1.3",
+    description: "Protecting Application Services Transaction",
+    severity: "medium",
+  },
+  {
+    id: "A.14.2.1",
+    description: "Secure Development Polic",
+    severity: "medium",
+  },
+  {
+    id: "A.14.2.2",
+    description: "System Change Control Procedure",
+    severity: "low",
+  },
+  {
+    id: "A.14.2.3",
+    description:
+      "Technical Review of Applications After Operating Platform Change",
+    severity: "medium",
+  },
+  {
+    id: "A.14.2.4",
+    description: "Restrictions on Changes to Software Package",
+    severity: "low",
+  },
+  {
+    id: "A.14.2.5",
+    description: "Secure System Engineering Principle",
+    severity: "low",
+  },
+  {
+    id: "A.14.2.6",
+    description: "Secure Development Environmen",
+    severity: "medium",
+  },
+  { id: "A.14.2.7", description: "Outsourced Developmen", severity: "low" },
+  { id: "A.14.2.8", description: "System Security Testin", severity: "medium" },
+  { id: "A.14.2.9", description: "System Acceptance Testin", severity: "low" },
+  { id: "A.14.3.1", description: "Protection of Test Dat", severity: "medium" },
 ];

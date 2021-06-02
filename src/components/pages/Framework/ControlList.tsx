@@ -14,8 +14,14 @@ import { createStyles } from "@material-ui/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { getColor } from "../../../util";
 import { useState } from "react";
-import { controlType } from "./AllOverviews";
 import classNames from "classnames";
+import {
+  Control,
+  RequiredDocument,
+  RequiredProcess,
+} from "../../../redux/frameworkSlice";
+import DocumentList from "./DocumentList";
+import ProcessList from "./ProcessList";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -40,6 +46,9 @@ const useStyles = makeStyles((theme) =>
       boxSizing: "border-box",
       overflowY: "auto",
     },
+    nested: {
+      marginLeft: theme.spacing(3),
+    },
     headerCell: {
       fontWeight: 800,
     },
@@ -53,16 +62,22 @@ const useStyles = makeStyles((theme) =>
 );
 
 export default function ControlList({
+  requiredDocs,
+  requiredProcs,
   controls,
   expandParent,
+  isNested = false,
 }: {
-  controls: controlType[];
+  requiredDocs?: RequiredDocument[];
+  requiredProcs?: RequiredProcess[];
+  controls: Control[];
   expandParent?: () => void;
+  isNested?: boolean;
 }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.tableBody}>
+    <div className={`${classes.tableBody} ${isNested && classes.nested}`}>
       <Table>
         <TableHead>
           <TableRow>
@@ -75,13 +90,25 @@ export default function ControlList({
             <TableCell className={classes.headerCell} align="center">
               Severity
             </TableCell>
-            <TableCell className={classes.headerCell} align="center">
+            {/* <TableCell className={classes.headerCell} align="center">
               Violations
-            </TableCell>
+            </TableCell> */}
             <TableCell className={classes.headerCell} align="center" />
           </TableRow>
         </TableHead>
         <TableBody>
+          {requiredDocs && (
+            <DocumentList
+              requiredDocs={requiredDocs}
+              expandParent={expandParent}
+            />
+          )}
+          {requiredProcs && (
+            <ProcessList
+              requiredProcs={requiredProcs}
+              expandParent={expandParent}
+            />
+          )}
           {controls.map((row) => (
             <Row
               row={row}
@@ -94,11 +121,15 @@ export default function ControlList({
   );
 }
 
+function DocumentRow() {
+  return;
+}
+
 function Row({
   row,
   expandParent,
 }: {
-  row: controlType;
+  row: Control;
   expandParent?: () => void;
 }) {
   const classes = useStyles();
@@ -106,14 +137,14 @@ function Row({
 
   return (
     <>
-      <TableRow key={`${row.control}-tablerow`}>
+      <TableRow key={`${row.id}-tablerow`}>
         <TableCell
           className={classes.tableCell}
           component="th"
           scope="row"
           align="right"
         >
-          {row.control}
+          {row.id}
         </TableCell>
         <TableCell className={classes.tableCell} align="left">
           {row.description}
@@ -121,9 +152,9 @@ function Row({
         <TableCell className={classes.tableCell} align="center">
           <SeverityChip severity={row.severity} title={row.severity} />
         </TableCell>
-        <TableCell className={classes.tableCell} align="center" padding="none">
-          <ViolationsChip number={row.violations} />
-        </TableCell>
+        {/* <TableCell className={classes.tableCell} align="center" padding="none">
+          <ViolationsChip number={row.numViolations} />
+        </TableCell> */}
         <TableCell className={classes.tableCell} align="center" padding="none">
           <IconButton
             onClick={() => {
@@ -131,7 +162,11 @@ function Row({
               expandParent && expandParent();
             }}
           >
-            <Badge invisible={!row.needsReview} color="error" variant="dot">
+            <Badge
+              // invisible={row.numViolations > 0}
+              color="error"
+              variant="dot"
+            >
               <ExpandMoreIcon
                 className={classNames(classes.expandIcon, {
                   [classes.expandIconOpen]: open,
@@ -141,7 +176,7 @@ function Row({
           </IconButton>
         </TableCell>
       </TableRow>
-      <TableRow key={`${row.control}-tablerow-collapsible`}>
+      <TableRow key={`${row.id}-tablerow-collapsible`}>
         <TableCell style={{ padding: 0, borderTop: 0 }} colSpan={5}>
           <Collapse
             in={open}
@@ -152,17 +187,34 @@ function Row({
             <div
               style={{
                 display: "flex",
+                flexDirection: "column",
                 padding: 16,
                 paddingTop: 0,
                 // backgroundColor: "#eee",
                 justifyContent: "center",
               }}
             >
-              DRILL DOWN <br />
-              DRILL DOWN <br />
-              DRILL DOWN <br />
-              DRILL DOWN <br />
-              DRILL DOWN <br />
+              {row.requiredDocuments && (
+                <DocumentList
+                  requiredDocs={row.requiredDocuments}
+                  expandParent={expandParent}
+                />
+              )}
+              {row.requiredProcesses && (
+                <ProcessList
+                  requiredProcs={row.requiredProcesses}
+                  expandParent={expandParent}
+                />
+              )}
+              {row.nestedControls && (
+                <ControlList
+                  controls={row.nestedControls}
+                  expandParent={expandParent}
+                  requiredDocs={row.requiredDocuments}
+                  requiredProcs={row.requiredProcesses}
+                  isNested
+                />
+              )}
             </div>
           </Collapse>
         </TableCell>

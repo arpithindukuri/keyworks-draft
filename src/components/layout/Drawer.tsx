@@ -122,7 +122,9 @@ function DrawerItem({
     <div>
       <ListItem button onClick={handleClick} selected={selected}>
         <ListItemIcon>
-          <Icon style={{ color: selected ? "white" : undefined }}>
+          <Icon
+          // style={{ color: selected ? "white" : undefined }}
+          >
             {item.icon !== "tune" && item.icon}
           </Icon>
         </ListItemIcon>
@@ -132,13 +134,13 @@ function DrawerItem({
             className={`${classes.drawerItemIcon} ${
               open && classes.drawerItemIconRotated
             }`}
-            style={{ color: selected ? "white" : undefined }}
+            // style={{ color: selected ? "white" : undefined }}
           />
         )}
         {item.icon === "tune" && (
           <Icon
             className={classes.drawerItemIcon}
-            style={{ color: selected ? "white" : undefined }}
+            // style={{ color: selected ? "white" : undefined }}
           >
             {item.icon}
           </Icon>

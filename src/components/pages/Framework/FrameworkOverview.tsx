@@ -16,8 +16,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import classNames from "classnames";
 import { useState } from "react";
 import FrameworkControlList from "./ControlList";
-import { alertType, controlType } from "./AllOverviews";
 import PieChartRating from "../../widgets/PieChartRating";
+import { Alert as AlertType, Control } from "../../../redux/frameworkSlice";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -111,8 +111,8 @@ export default function FrameworkOverview({
 }: {
   title: string;
   percent: number;
-  alerts: alertType[];
-  controls: controlType[];
+  alerts: AlertType[];
+  controls: Control[];
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
@@ -122,14 +122,14 @@ export default function FrameworkOverview({
   };
 
   let numViolations = 0;
-  controls.forEach((item) => {
-    numViolations += item.violations;
-  });
+  // controls.forEach((item) => {
+  //   numViolations += item.violations;
+  // });
 
   let numAlerts = 0;
-  controls.forEach((item) => {
-    if (item.needsReview) numAlerts += 1;
-  });
+  // controls.forEach((item) => {
+  //   if (item.needsReview) numAlerts += 1;
+  // });
 
   return (
     <Card className={classes.card} elevation={3}>
@@ -188,7 +188,7 @@ export default function FrameworkOverview({
                 }
               >
                 <AlertTitle>{item.title}</AlertTitle>
-                {item.text}
+                {item.child}
               </Alert>
             ))}
           </Collapse>

@@ -76,13 +76,13 @@ export default function Framework({ framework }: { framework: FrameworkType }) {
               </FrameworkItem>
               <Divider variant="middle" />
               <Divider variant="middle" />
-              <FrameworkItem title="DOCUMENTS" passExpandToChild>
+              {/* <FrameworkItem title="DOCUMENTS" passExpandToChild>
                 <DocumentList requiredDocs={framework.requiredDocuments} />
               </FrameworkItem>
               <Divider variant="middle" />
               <FrameworkItem title="PROCESSES" passExpandToChild>
                 <ProcessList requiredProcs={framework.requiredProcesses} />
-              </FrameworkItem>
+              </FrameworkItem> */}
               <FrameworkItem title="INPUTS">
                 <>inputs</>
               </FrameworkItem>

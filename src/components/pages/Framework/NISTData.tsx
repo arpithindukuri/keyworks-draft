@@ -1,6 +1,5 @@
 import { format } from "date-fns";
-import { Alert } from "../../../redux/frameworkSlice";
-import { controlType, createControl } from "./AllOverviews";
+import { Alert, Control } from "../../../redux/frameworkSlice";
 
 export const NISTAlerts: Alert[] = [
   {
@@ -28,118 +27,166 @@ export const NISTAlerts: Alert[] = [
   },
 ];
 
-export const NISTControls: controlType[] = [
-  createControl("5.1", "Requirements by Authenticator Type", "High", 0, false),
-  createControl("5.1.1", "Memorized Secrets", "Low", 0, true),
-  createControl("5.1.1.1", "Memorized Secret Authenticators", "Low", 5, false),
-  createControl("5.1.1.2", "Memorized Secret Verifiers", "Low", 0, false),
-  createControl("5.1.2", "Look-Up Secrets", "Medium", 0, false),
-  createControl("5.1.2.1", "Look-Up Secret Authenticators", "Low", 0, false),
-  createControl("5.1.2.2", "Look-Up Secret Verifiers", "Medium", 0, false),
-  createControl("5.1.3", "Out-of-Band Devices", "Medium", 6, false),
-  createControl("5.1.3.1", "Out-of-Band Authenticators", "Medium", 0, false),
-  createControl("5.1.3.2", "Out-of-Band Verifiers", "Medium", 0, false),
-  createControl(
-    "5.1.3.3",
-    "Authentication using the Public Switched Telephone Network",
-    "Medium",
-    0,
-    false
-  ),
-  createControl("5.1.4", "Single-Factor OTP Device", "Medium", 0, false),
-  createControl("5.1.4.1", "Single-Factor OTP Authenticators", "Low", 9, false),
-  createControl("5.1.4.2", "Single-Factor OTP Verifiers", "Medium", 0, false),
-  createControl("5.1.5", "Multi-Factor OTP Devices", "Medium", 0, false),
-  createControl(
-    "5.1.5.1",
-    "Multi-Factor OTP Authenticators",
-    "Medium",
-    0,
-    false
-  ),
-  createControl("5.1.5.2", "Multi-Factor OTP Verifiers", "Medium", 14, false),
-  createControl(
-    "5.1.6",
-    "Single-Factor Cryptographic Software",
-    "Medium",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.6.1",
-    "Single-Factor Cryptographic Software Authenticators",
-    "Medium",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.6.2",
-    "Single-Factor Cryptographic Software Verifiers",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.7",
-    "Single-Factor Cryptographic Devices",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.7.1",
-    "Single-Factor Cryptographic Device Authenticators",
-    "Medium",
-    18,
-    false
-  ),
-  createControl(
-    "5.1.7.2",
-    "Single-Factor Cryptographic Device Verifiers",
-    "Low",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.8",
-    "Multi-Factor Cryptographic Software",
-    "High",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.8.1",
-    "Multi-Factor Cryptographic Software Authenticators",
-    "Low",
-    10,
-    false
-  ),
-  createControl(
-    "5.1.8.2",
-    "Multi-Factor Cryptographic Software Verifiers",
-    "Medium",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.9",
-    "Multi-Factor Cryptographic Devices",
-    "Medium",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.9.1",
-    "Multi-Factor Cryptographic Device Authenticators",
-    "Medium",
-    0,
-    false
-  ),
-  createControl(
-    "5.1.9.2",
-    "Multi-Factor Cryptographic Device Verifier",
-    "Medium",
-    0,
-    false
-  ),
+export const NISTControls: Control[] = [
+  {
+    id: "5.1",
+    description: "Requirements by Authenticator Typ",
+    severity: "medium",
+    nestedControls: [
+      {
+        id: "5.1.1",
+        description: "Memorized Secret",
+        severity: "low",
+        nestedControls: [
+          {
+            id: "5.1.1.1",
+            description: "Memorized Secret Authenticator",
+            severity: "medium",
+          },
+          {
+            id: "5.1.1.2",
+            description: "Memorized Secret Verifier",
+            severity: "low",
+          },
+        ],
+      },
+      {
+        id: "5.1.2",
+        description: "Look-Up Secret",
+        severity: "medium",
+        nestedControls: [
+          {
+            id: "5.1.2.1",
+            description: "Look-Up Secret Authenticator",
+            severity: "medium",
+          },
+          {
+            id: "5.1.2.2",
+            description: "Look-Up Secret Verifier",
+            severity: "medium",
+          },
+        ],
+      },
+      {
+        id: "5.1.3",
+        description: "Out-of-Band Device",
+        severity: "high",
+        nestedControls: [
+          {
+            id: "5.1.3.1",
+            description: "Out-of-Band Authenticator",
+            severity: "medium",
+          },
+          {
+            id: "5.1.3.2",
+            description: "Out-of-Band Verifier",
+            severity: "medium",
+          },
+          {
+            id: "5.1.3.3",
+            description:
+              "Authentication using the Public Switched Telephone Networ",
+            severity: "medium",
+          },
+        ],
+      },
+      {
+        id: "5.1.4",
+        description: "Single-Factor OTP Devic",
+        severity: "high",
+        nestedControls: [
+          {
+            id: "5.1.4.1",
+            description: "Single-Factor OTP Authenticator",
+            severity: "medium",
+          },
+          {
+            id: "5.1.4.2",
+            description: "Single-Factor OTP Verifier",
+            severity: "medium",
+          },
+        ],
+      },
+      {
+        id: "5.1.5",
+        description: "Multi-Factor OTP Device",
+        severity: "medium",
+        nestedControls: [
+          {
+            id: "5.1.5.1",
+            description: "Multi-Factor OTP Authenticator",
+            severity: "medium",
+          },
+          {
+            id: "5.1.5.2",
+            description: "Multi-Factor OTP Verifier",
+            severity: "low",
+          },
+        ],
+      },
+      {
+        id: "5.1.6",
+        description: "Single-Factor Cryptographic Softwar",
+        severity: "medium",
+        nestedControls: [
+          {
+            id: "5.1.6.1",
+            description: "Single-Factor Cryptographic Software Authenticator",
+            severity: "medium",
+          },
+          {
+            id: "5.1.6.2",
+            description: "Single-Factor Cryptographic Software Verifier",
+            severity: "medium",
+          },
+        ],
+      },
+      {
+        id: "5.1.7",
+        description: "Single-Factor Cryptographic Device",
+        severity: "medium",
+        nestedControls: [
+          {
+            id: "5.1.7.1",
+            description: "Single-Factor Cryptographic Device Authenticator",
+            severity: "high",
+          },
+          {
+            id: "5.1.7.2",
+            description: "Single-Factor Cryptographic Device Verifier",
+            severity: "medium",
+          },
+        ],
+      },
+      {
+        id: "5.1.8",
+        description: "Multi-Factor Cryptographic Softwar",
+        severity: "medium",
+        nestedControls: [
+          {
+            id: "5.1.8.1",
+            description: "Multi-Factor Cryptographic Software Authenticator",
+            severity: "high",
+          },
+          {
+            id: "5.1.8.2",
+            description: "Multi-Factor Cryptographic Software Verifier",
+            severity: "medium",
+          },
+        ],
+      },
+      {
+        id: "5.1.9",
+        description: "Multi-Factor Cryptographic Device",
+        severity: "low",
+        nestedControls: [
+          {
+            id: "5.1.9.1",
+            description: "Multi-Factor Cryptographic Device Authenticator",
+            severity: "low",
+          },
+        ],
+      },
+    ],
+  },
 ];
