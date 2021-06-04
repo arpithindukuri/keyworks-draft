@@ -1,11 +1,7 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { format } from "date-fns";
-import { ISOAlerts, ISOControls } from "../components/pages/Framework/ISOData";
-import {
-  NISTAlerts,
-  NISTControls,
-} from "../components/pages/Framework/NISTData";
-import { PCIAlerts, PCIControls } from "../components/pages/Framework/PCIData";
+import { ISOAlerts, ISOControls } from "../data/ISOData";
+import { NISTAlerts, NISTControls } from "../data/NISTData";
+import { PCIAlerts, PCIControls } from "../data/PCIData";
 import { RootState } from "./store";
 
 export interface Alert {
@@ -23,6 +19,7 @@ export interface Input {
 
 export interface Control {
   id: string;
+  isActive: boolean;
   description: string;
   severity: "low" | "medium" | "high";
   requiredDocuments?: RequiredDocument[];
@@ -32,9 +29,7 @@ export interface Control {
 
 export interface RequiredDocument {
   name: string;
-  description?: string;
-  link?: string;
-  documents: Document[];
+  document?: Document;
 }
 
 export interface Document {
@@ -42,19 +37,27 @@ export interface Document {
   name: string;
   dateUploaded: string;
   link: string;
+  status: "in-effect" | "needs-review" | "out-of-date";
 }
 
 export interface RequiredProcess {
   name: string;
   description?: string;
   link?: string;
-  processes: Process[];
+  process?: Process;
 }
 
 export interface Process {
   id: string;
   name: string;
   dateUploaded: string;
+  link: string;
+  status: "in-effect" | "needs-review" | "out-of-date";
+}
+
+export interface AvailableFramework {
+  id: string;
+  name: string;
   link: string;
 }
 
@@ -96,6 +99,36 @@ const initialState: FrameworkState = {
   ],
 };
 
+// export function getControlFromId(framework: Framework, controlId: string) {
+//   if (!framework.controls) return undefined;
+
+//   for (let i = 0; i < framework.controls.length; i++) {
+//     const element = getControlFromIdHelper(framework.controls[i], controlId);
+//     if (element) return element;
+//   }
+
+//   return undefined;
+// }
+
+// function getControlFromIdHelper(
+//   control: Control,
+//   controlId: string
+// ): Control | undefined {
+//   if (!control.nestedControls) return undefined;
+
+//   if (control.id === controlId) return control;
+
+//   for (let i = 0; i < control.nestedControls.length; i++) {
+//     const element = getControlFromIdHelper(
+//       control.nestedControls[i],
+//       controlId
+//     );
+//     if (element) return element;
+//   }
+
+//   return undefined;
+// }
+
 export const frameworkSlice = createSlice({
   name: "framework",
   initialState,
@@ -109,10 +142,47 @@ export const frameworkSlice = createSlice({
       );
       if (index > -1) state.frameworks.splice(index, 1);
     },
+    updateControl: (
+      state,
+      action: PayloadAction<{
+        frameworkId: string;
+        controlId: string;
+        newControl: Control;
+      }>
+    ) => {
+      const index = state.frameworks.findIndex(
+        (frame) => frame.id === action.payload.frameworkId
+      );
+
+      if (index > -1 && state.frameworks[index]) {
+        const replaceControl = (control: Control): Control => {
+          if (control.id === action.payload.controlId)
+            return action.payload.newControl;
+
+          const result: Control =
+            control.nestedControls !== undefined
+              ? {
+                  ...control,
+                  nestedControls: control.nestedControls.map((item) =>
+                    replaceControl(item)
+                  ),
+                }
+              : control;
+
+          return result;
+        };
+
+        for (let i = 0; i < state.frameworks[index].controls.length; i++) {
+          state.frameworks[index].controls[i] = replaceControl(
+            state.frameworks[index].controls[i]
+          );
+        }
+      }
+    },
   },
 });
 
-export const { add, remove } = frameworkSlice.actions;
+export const { add, remove, updateControl } = frameworkSlice.actions;
 
 export const selectFrameworkSlice = (state: RootState) => state.framework;
 export const selectFrameworks = (state: RootState) =>
@@ -124,3 +194,31 @@ export const selectFrameworkById = (id: string) =>
   );
 
 export default frameworkSlice.reducer;
+
+export function recurseActiveControls(
+  controls: Control[],
+  predicate: (control: Control) => boolean
+) {
+  return controls
+    .map((control) => control && countActiveControlsHelper(control, predicate))
+    .reduce((prev, curr) => prev + curr, 0);
+}
+
+function countActiveControlsHelper(
+  control: Control,
+  predicate: (control: Control) => boolean
+): number {
+  console.log(control.id);
+
+  let num = 0;
+
+  if (control.nestedControls === undefined) num = predicate(control) ? 1 : 0;
+  else
+    num = control.nestedControls
+      .map((nestedControl) =>
+        countActiveControlsHelper(nestedControl, predicate)
+      )
+      .reduce((prev, curr) => prev + curr, 0);
+
+  return num;
+}

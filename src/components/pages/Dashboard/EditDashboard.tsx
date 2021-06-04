@@ -88,8 +88,14 @@ export default function EditDashboard() {
                   variant="contained"
                   startIcon={<Save />}
                   onClick={() => {
-                    enqueueSnackbar("Layout Saved");
-                    history.push(`/dashboard/manage`);
+                    history.push(`/dashboard/${dashboardId}`);
+                    enqueueSnackbar(
+                      <>
+                        Successfully saved dashboard:&nbsp;
+                        <strong>{dashboard.name}</strong>
+                      </>,
+                      { variant: "success" }
+                    );
                   }}
                 >
                   Save

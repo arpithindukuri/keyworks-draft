@@ -184,7 +184,7 @@ export default function Dashboard({
           isDraggable={canEdit}
           isResizable={canEdit}
           isDroppable={canEdit}
-          // measureBeforeMount
+          measureBeforeMount
           className={`layout ${classes.container}`}
           // style={{ height: `${height}px` }}
           layouts={{
@@ -195,7 +195,6 @@ export default function Dashboard({
             xxs: layout,
           }}
           width={1000}
-          resizeHandles={["nw", "se"]}
           rowHeight={rowHeight}
           cols={{ lg: 16, md: 16, sm: 16, xs: 16, xxs: 16 }}
           margin={[margin, margin]}
@@ -299,7 +298,7 @@ export default function Dashboard({
               <div
                 key={widget.i}
                 className={
-                  widget.i === "__dropping-elem__" ? "" : classes.selector
+                  widget.i === "__dropping-elem__" ? "" : "" // classes.selector
                 }
               >
                 {widgetEl ? widgetEl : ""}

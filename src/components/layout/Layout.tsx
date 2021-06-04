@@ -5,7 +5,6 @@ import {
   Theme,
   createStyles,
   fade,
-  useTheme,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -14,9 +13,11 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import logoIpsum from "../../assets/logo-12.svg";
-import { Badge, InputBase } from "@material-ui/core";
-import { AccountCircle, Notifications, Search } from "@material-ui/icons";
+import { Badge } from "@material-ui/core";
+import { AccountCircle, Notifications } from "@material-ui/icons";
 import Drawer from "./Drawer";
+import { useLocation } from "react-router";
+import DashboardActions from "../pages/Dashboard/DashboardActions";
 
 const drawerWidth = 300;
 
@@ -127,7 +128,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Layout({ children }: { children: any }) {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
   const handleDrawerToggle = () => {
@@ -160,18 +160,7 @@ export default function Layout({ children }: { children: any }) {
           <Typography className={classes.title} variant="h6" noWrap>
             11:40 am (MST)
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <Search color="inherit" />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-          </div>
+          <PageActions />
           <IconButton color="inherit">
             <Badge
               badgeContent={6}
@@ -197,4 +186,13 @@ export default function Layout({ children }: { children: any }) {
       </main>
     </div>
   );
+}
+
+function PageActions() {
+  const location = useLocation();
+  const path = location.pathname;
+
+  if (path.includes("/dashboard")) return <DashboardActions />;
+
+  return <></>;
 }

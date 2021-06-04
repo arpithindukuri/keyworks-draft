@@ -15,7 +15,6 @@ import { createStyles } from "@material-ui/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import classNames from "classnames";
 import { useState } from "react";
-import FrameworkControlList from "./ControlList";
 import PieChartRating from "../../widgets/PieChartRating";
 import { Alert as AlertType, Control } from "../../../redux/frameworkSlice";
 
@@ -210,9 +209,7 @@ export default function FrameworkOverview({
         </Button>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <FrameworkControlList controls={controls} />
-        </CardContent>
+        <CardContent></CardContent>
       </Collapse>
     </Card>
   );

@@ -24,11 +24,7 @@ export function useDrawerItems(): drawerItemType[] {
       title: "Threat Intelligence Feeds",
       icon: "wifi_tethering_error_rounded",
       isNested: true,
-      nestedListItems: [
-        { title: "Overview" },
-        { title: "STIX/TAXII" },
-        useTuneItem("Manage Threat Feeds", "/threatfeed/manage"),
-      ],
+      nestedListItems: [{ title: "Overview" }, { title: "STIX/TAXII" }],
     },
     {
       title: "AI/ML",
@@ -38,10 +34,6 @@ export function useDrawerItems(): drawerItemType[] {
         { title: "Overview" },
         { title: "AI Feeds" },
         { title: "ML Feeds" },
-        {
-          title: "Manage AI/ML Feeds",
-          icon: "tune",
-        },
       ],
     },
     {
@@ -51,10 +43,6 @@ export function useDrawerItems(): drawerItemType[] {
       nestedListItems: [
         { title: "Global" },
         { title: "Calgary International Airport" },
-        {
-          title: "Manage GIS",
-          icon: "tune",
-        },
       ],
     },
     {
@@ -65,10 +53,16 @@ export function useDrawerItems(): drawerItemType[] {
         { title: "My API" },
         { title: "API2" },
         { title: "HVAC Sensors" },
-        {
-          title: "Manage APIs",
-          icon: "tune",
-        },
+      ],
+    },
+    {
+      title: "Admin",
+      isNested: true,
+      nestedListItems: [
+        useTuneItem("Users", "/admin/users"),
+        useTuneItem("Frameworks", "/admin/framework"),
+        useTuneItem("Manage Threat Feeds", "/admin/threatfeed"),
+        useTuneItem("APIs", "/admin/api"),
       ],
     },
   ];
@@ -110,7 +104,6 @@ export function useFrameworkItems() {
     nestedListItems: [
       useOverviewItem("/framework/overview"),
       ...nestedListItems,
-      useTuneItem("Manage Frameworks", "/framework/manage"),
     ],
   };
 }

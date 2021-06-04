@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
 } from "recharts";
 import Module from "../Module";
 
@@ -19,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     padding: theme.spacing(2),
-    paddingTop: 0,
     boxSizing: "border-box",
   },
 }));
@@ -121,9 +118,9 @@ export default function RegulatoryCompliance() {
           minWidth="0px"
         >
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
+            {/* <CartesianGrid strokeDasharray="3 3" /> */}
             <XAxis dataKey="name" />
-            <YAxis type="number" domain={[0, 100]} />
+            {/* <YAxis type="number" domain={[0, 100]} /> */}
             <Tooltip />
             <Legend />
             <Bar

@@ -1,15 +1,15 @@
-import { Card, makeStyles, Tooltip, Typography } from "@material-ui/core";
+import { Box, Card, CardHeader, makeStyles, Tooltip } from "@material-ui/core";
 import classNames from "classnames";
+import { useState } from "react";
 import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    height: "100%",
-    width: "100%",
+    // height: "100%",
+    // width: "100%",
     display: "flex",
-    flexDirection: "column",
-    // borderRadius: 0,
-    boxSizing: "content-box",
+    flexGrow: 1,
+    // flexDirection: "column",
   },
   "@keyframes fadeIn": {
     "0%": {
@@ -32,29 +32,14 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: theme.shadows[15],
     },
   },
-  header: {
-    display: "flex",
-    justifyContent: "center",
-    padding: theme.spacing(1),
-  },
-  title: {
-    fontWeight: 600,
-    color: theme.palette.text.secondary,
-    transition: "0.3s",
-  },
   grabbable: {
-    cursor: "grab",
+    cursor: "move !important",
     "&:hover": {
       color: theme.palette.text.primary,
     },
   },
-  body: {
-    // display: "flex",
-    // flexGrow: 1,
-    width: "100%",
-    height: `calc(100% - ${theme.typography.h6.lineHeight}rem - ${theme.spacing(
-      3
-    )}px)`,
+  isDragging: {
+    boxShadow: theme.shadows[15],
   },
 }));
 
@@ -68,35 +53,39 @@ export default function Module({
   const classes = useStyles();
   const location = useLocation();
   const isEditable = location.pathname.includes("/dashboard/manage/edit");
+  const [dragging, setDragging] = useState(false);
 
   return (
-    <Card
-      className={classNames(classes.container, "ModuleDragHandle", {
-        [classes.isEditing]: isEditable,
+    <Box
+      className={classNames("ModuleDragHandle", {
         [classes.grabbable]: isEditable,
       })}
-      elevation={3}
-      // variant='outlined'
+      height="100%"
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      onMouseDown={() => setDragging(isEditable && true)}
+      onMouseUp={() => setDragging(isEditable && false)}
     >
-      <div className={classes.header}>
-        <Tooltip
-          title={`To edit, go to "Manage Dashboards", find this dashboard, and click "Edit"`}
-          disableFocusListener={isEditable}
-          disableHoverListener={isEditable}
-          disableTouchListener={isEditable}
-        >
-          <Typography
-            // className={classNames(classes.title, "ModuleDragHandle", {
-            //   [classes.grabbable]: isEditable,
-            // })}
-            className={classes.title}
-            variant="h6"
-          >
-            {title}
-          </Typography>
-        </Tooltip>
-      </div>
-      <div className={classes.body}>{children}</div>
-    </Card>
+      <Tooltip
+        title={`To edit, go to "Manage Dashboards", find this dashboard, and click "Edit"`}
+        disableFocusListener={isEditable}
+        disableHoverListener={isEditable}
+        disableTouchListener={isEditable}
+      >
+        <CardHeader
+          title={title}
+          titleTypographyProps={{ variant: "h6" }}
+          style={{ paddingTop: 0, paddingBottom: 0 }}
+        />
+      </Tooltip>
+      <Card
+        className={classes.container}
+        elevation={dragging ? 15 : 3}
+        // variant='outlined'
+      >
+        {children}
+      </Card>
+    </Box>
   );
 }

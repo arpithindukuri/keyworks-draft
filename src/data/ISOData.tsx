@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { Alert, Control } from "../../../redux/frameworkSlice";
+import { Alert, Control } from "../redux/frameworkSlice";
 
 export const ISOAlerts: Alert[] = [
   {
@@ -85,77 +85,125 @@ export const ISOAlerts: Alert[] = [
 ];
 
 export const ISOControls: Control[] = [
-  { id: "A.13.1.1", description: "Network Control", severity: "low" },
+  {
+    id: "A.13.1.1",
+    isActive: true,
+    description: "Network Control",
+    severity: "low",
+  },
   {
     id: "A.13.1.2",
+    isActive: true,
     description: "Security of Network Service",
     severity: "low",
   },
-  { id: "A.13.1.3", description: "Segregation in Network", severity: "medium" },
+  {
+    id: "A.13.1.3",
+    isActive: true,
+    description: "Segregation in Network",
+    severity: "medium",
+  },
   {
     id: "A.13.2.1",
+    isActive: true,
     description: "Information Transfer Policies & Procedure",
     severity: "medium",
   },
   {
     id: "A.13.2.2",
+    isActive: true,
     description: "Agreements on Information Transfe",
     severity: "medium",
   },
-  { id: "A.13.2.3", description: "Electronic Messagin", severity: "medium" },
+  {
+    id: "A.13.2.3",
+    isActive: true,
+    description: "Electronic Messagin",
+    severity: "medium",
+  },
   {
     id: "A.13.2.4",
+    isActive: true,
     description: "Confidentiality or Non-Disclosure Agreement",
     severity: "low",
   },
   {
     id: "A.14.1.1",
+    isActive: true,
     description: "Information Security Requirements Analysis & Specificatio",
     severity: "medium",
   },
   {
     id: "A.14.1.2",
+    isActive: true,
     description: "Securing Application Services on Public Network",
     severity: "low",
   },
   {
     id: "A.14.1.3",
+    isActive: true,
     description: "Protecting Application Services Transaction",
     severity: "medium",
   },
   {
     id: "A.14.2.1",
+    isActive: true,
     description: "Secure Development Polic",
     severity: "medium",
   },
   {
     id: "A.14.2.2",
+    isActive: true,
     description: "System Change Control Procedure",
     severity: "low",
   },
   {
     id: "A.14.2.3",
+    isActive: true,
     description:
       "Technical Review of Applications After Operating Platform Change",
     severity: "medium",
   },
   {
     id: "A.14.2.4",
+    isActive: true,
     description: "Restrictions on Changes to Software Package",
     severity: "low",
   },
   {
     id: "A.14.2.5",
+    isActive: true,
     description: "Secure System Engineering Principle",
     severity: "low",
   },
   {
     id: "A.14.2.6",
+    isActive: true,
     description: "Secure Development Environmen",
     severity: "medium",
   },
-  { id: "A.14.2.7", description: "Outsourced Developmen", severity: "low" },
-  { id: "A.14.2.8", description: "System Security Testin", severity: "medium" },
-  { id: "A.14.2.9", description: "System Acceptance Testin", severity: "low" },
-  { id: "A.14.3.1", description: "Protection of Test Dat", severity: "medium" },
+  {
+    id: "A.14.2.7",
+    isActive: true,
+    description: "Outsourced Developmen",
+    severity: "low",
+  },
+  {
+    id: "A.14.2.8",
+    isActive: true,
+    description: "System Security Testin",
+    severity: "medium",
+  },
+  {
+    id: "A.14.2.9",
+    isActive: true,
+    description: "System Acceptance Testin",
+    severity: "low",
+  },
+  {
+    id: "A.14.3.1",
+    isActive: true,
+    description: "Protection of Test Dat",
+    severity: "medium",
+  },
 ];
