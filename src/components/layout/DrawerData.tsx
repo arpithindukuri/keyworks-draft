@@ -48,12 +48,10 @@ export function useDrawerItems(): drawerItemType[] {
 export function useDashboardItems() {
   const dashboards = useAppSelector(selectDashboards);
 
-  const nestedListItems = dashboards
-    .filter((dash) => dash.isActive)
-    .map((dash) => ({
-      title: dash.name,
-      link: `/dashboard/${dash.id}`,
-    }));
+  const nestedListItems = dashboards.map((dash) => ({
+    title: dash.name,
+    link: `/dashboard/${dash.id}`,
+  }));
 
   return {
     title: "Dashboards",

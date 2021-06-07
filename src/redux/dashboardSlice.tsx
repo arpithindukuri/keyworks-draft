@@ -4,10 +4,7 @@ import { Layout } from "react-grid-layout";
 
 export interface Dashboard {
   id: string;
-  isActive: boolean;
   name: string;
-  owner: string;
-  hasAccess: boolean;
   layout: Layout[];
 }
 
@@ -19,10 +16,7 @@ const initialState: DashboardState = {
   dashboards: [
     {
       id: "home",
-      isActive: true,
       name: "My Home",
-      owner: "Stuart Smith",
-      hasAccess: true,
       layout: [
         {
           w: 5,
@@ -140,10 +134,7 @@ const initialState: DashboardState = {
     },
     {
       id: "risk-analysis-dashboard",
-      isActive: true,
       name: "Risk Analysis",
-      owner: "Stuart Smith",
-      hasAccess: true,
       layout: [
         {
           w: 16,
