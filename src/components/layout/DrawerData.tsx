@@ -21,25 +21,6 @@ export function useDrawerItems(): drawerItemType[] {
       nestedListItems: [{ title: "Overview" }, { title: "STIX/TAXII" }],
     },
     {
-      title: "AI/ML",
-      icon: "memory",
-      isNested: true,
-      nestedListItems: [
-        { title: "Overview" },
-        { title: "AI Feeds" },
-        { title: "ML Feeds" },
-      ],
-    },
-    {
-      title: "GIS",
-      icon: "place",
-      isNested: true,
-      nestedListItems: [
-        { title: "Global" },
-        { title: "Calgary International Airport" },
-      ],
-    },
-    {
       title: "APIs",
       icon: "power",
       isNested: true,
@@ -53,10 +34,12 @@ export function useDrawerItems(): drawerItemType[] {
       title: "Admin",
       isNested: true,
       nestedListItems: [
-        useTuneItem("Users", "/admin/users"),
-        useTuneItem("Frameworks", "/admin/framework"),
+        useTuneItem("Manage Users", "/admin/users"),
+        useTuneItem("Manage Frameworks", "/admin/framework"),
+        useTuneItem("Manage Corporate GIS", "/admin/corporateGIS"),
+        useTuneItem("Manage Global GIS", "/admin/globalGIS"),
         useTuneItem("Manage Threat Feeds", "/admin/threatfeed"),
-        useTuneItem("APIs", "/admin/api"),
+        useTuneItem("Manage APIs", "/admin/api"),
       ],
     },
   ];
@@ -70,7 +53,6 @@ export function useDashboardItems() {
     .map((dash) => ({
       title: dash.name,
       link: `/dashboard/${dash.id}`,
-      icon: dash.name.toLowerCase() === "home" ? "home" : undefined,
     }));
 
   return {
@@ -96,13 +78,6 @@ export function useFrameworkItems() {
     nestedListItems: [...nestedListItems],
   };
 }
-
-// function useOverviewItem(link: string) {
-//   return {
-//     title: "Overview",
-//     link,
-//   };
-// }
 
 function useTuneItem(title: string, link: string) {
   return {

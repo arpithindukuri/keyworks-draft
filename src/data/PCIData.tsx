@@ -40,7 +40,7 @@ export const PCIAlerts: Alert[] = [
 export const PCIControls: Control[] = [
   {
     id: "1.1",
-    isActive: true,
+    isActive: false,
     description:
       "Establish and implement firewall and router configuration standards that include the following:",
     severity: "low",
@@ -51,6 +51,7 @@ export const PCIControls: Control[] = [
         description:
           "A formal process for approving and testing all network connections and changes to the firewall and router configuration",
         severity: "high",
+        compliance: Math.random(),
         requiredProcesses: [
           {
             name: "An inventory of authorized wireless access points with listed business justifications (11.1.1)",
@@ -131,7 +132,7 @@ export const PCIControls: Control[] = [
   },
   {
     id: "1.2",
-    isActive: true,
+    isActive: false,
     description:
       "Build firewall and router configurations that restrict connections between untrusted networks and any system components in the cardholder data environment",
     severity: "medium",
@@ -163,7 +164,7 @@ export const PCIControls: Control[] = [
   },
   {
     id: "1.3",
-    isActive: true,
+    isActive: false,
     description:
       "Prohibit direct public access between the Internet and any system component in the cardholder data environment",
     severity: "low",

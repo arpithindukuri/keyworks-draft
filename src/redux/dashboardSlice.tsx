@@ -20,7 +20,7 @@ const initialState: DashboardState = {
     {
       id: "home",
       isActive: true,
-      name: "Home",
+      name: "My Home",
       owner: "Stuart Smith",
       hasAccess: true,
       layout: [

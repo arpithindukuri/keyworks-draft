@@ -31,6 +31,7 @@ import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { AvailableFrameworks } from "../../../data/AvailableFrameworks";
+import { PCIAlerts, PCIControls } from "../../../data/PCIData";
 import {
   add,
   AvailableFramework,
@@ -306,8 +307,8 @@ function ValidateFramework({
   const handleAdd = () => {
     console.log(license.length, error);
     if (license.length === 0) setError(() => "Cannot be empty");
-    else if (error !== "Invalid License Key")
-      setError(() => "Invalid License Key");
+    // else if (error !== "Invalid License Key")
+    //   setError(() => "Invalid License Key");
     else {
       setError("success");
       dispatch(
@@ -315,8 +316,8 @@ function ValidateFramework({
           newFramework: {
             id: framework.id,
             name: framework.name,
-            alerts: [],
-            controls: [],
+            alerts: framework.name === "PCI DSS" ? PCIAlerts : [],
+            controls: framework.name === "PCI DSS" ? PCIControls : [],
             dateAdopted: format(new Date(), "T"),
           },
         })

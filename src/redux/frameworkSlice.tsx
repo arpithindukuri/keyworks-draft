@@ -79,13 +79,6 @@ export interface FrameworkState {
 const initialState: FrameworkState = {
   frameworks: [
     {
-      id: "pci-framework-id",
-      name: "PCI",
-      dateAdopted: "111111111",
-      alerts: PCIAlerts,
-      controls: PCIControls,
-    },
-    {
       id: "iso27001-framework-id",
       name: "ISO27001",
       dateAdopted: "111111111",
@@ -217,6 +210,8 @@ export function countActiveControlDocuments(controls: Control[]) {
   return result;
 }
 function countActiveControlDocumentsHelper(control: Control): number {
+  if (!control.isActive) return 0;
+
   if (control.requiredDocuments !== undefined)
     return control.requiredDocuments.length;
 
@@ -239,6 +234,8 @@ export function countValidControlDocuments(controls: Control[]) {
   return result;
 }
 function countValidControlDocumentsHelper(control: Control): number {
+  if (!control.isActive) return 0;
+
   if (control.requiredDocuments !== undefined) {
     let result = 0;
     for (let i = 0; i < control.requiredDocuments.length; i++) {
@@ -267,6 +264,8 @@ export function countActiveControlProcesses(controls: Control[]) {
   return result;
 }
 function countActiveControlProcessesHelper(control: Control): number {
+  if (!control.isActive) return 0;
+
   if (control.requiredProcesses !== undefined)
     return control.requiredProcesses.length;
 
@@ -289,6 +288,8 @@ export function countValidControlProcesses(controls: Control[]) {
   return result;
 }
 function countValidControlProcessesHelper(control: Control): number {
+  if (!control.isActive) return 0;
+
   if (control.requiredProcesses !== undefined) {
     let result = 0;
     for (let i = 0; i < control.requiredProcesses.length; i++) {
@@ -340,6 +341,8 @@ export function countCompliantControls(controls: Control[]) {
   return result;
 }
 function countCompliantControlsHelper(control: Control): number {
+  if (!control.isActive) return 0;
+
   if (control.compliance !== undefined) return control.compliance === 1 ? 1 : 0;
 
   if (control.nestedControls === undefined) return 0;

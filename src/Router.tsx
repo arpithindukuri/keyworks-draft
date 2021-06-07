@@ -5,7 +5,8 @@ import AllOverviews from "./components/pages/Framework/AllOverviews";
 import FrameworkAdmin from "./components/pages/Framework/FrameworkAdmin";
 import ManageFramework from "./components/pages/Framework/ManageFramework";
 import ViewFramework from "./components/pages/Framework/ViewFramework";
-import ManageThreatFeed from "./components/pages/ThreatFeed/ManageThreatFeed";
+import ManageThreatFeed from "./components/pages/API/ManageThreatFeed";
+import ManageAPI from "./components/pages/API/ManageAPI";
 
 export interface Route {
   path: string;
@@ -14,6 +15,10 @@ export interface Route {
 }
 
 export const routes: Route[] = [
+  {
+    path: "/admin/api",
+    component: ManageAPI,
+  },
   {
     path: "/admin/threatfeed",
     component: ManageThreatFeed,

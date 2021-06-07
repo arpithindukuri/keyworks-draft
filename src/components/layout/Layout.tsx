@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import {
   makeStyles,
@@ -13,8 +13,12 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import logoIpsum from "../../assets/logo-12.svg";
-import { Badge } from "@material-ui/core";
-import { AccountCircle, Notifications } from "@material-ui/icons";
+import { Badge, Button, Menu, MenuItem } from "@material-ui/core";
+import {
+  AccountCircle,
+  ArrowDropDown,
+  Notifications,
+} from "@material-ui/icons";
 import Drawer from "./Drawer";
 import { useLocation } from "react-router";
 import DashboardActions, {
@@ -132,10 +136,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Layout({ children }: { children: any }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
+  };
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -165,7 +178,7 @@ export default function Layout({ children }: { children: any }) {
             {format(new Date(), "hh:mm bbb, eee LLLL Mo (OOO)")}
           </Typography>
           <PageActions />
-          <IconButton color="inherit">
+          <IconButton color="inherit" style={{ marginLeft: 16 }}>
             <Badge
               badgeContent={6}
               color="primary"
@@ -174,9 +187,36 @@ export default function Layout({ children }: { children: any }) {
               <Notifications />
             </Badge>
           </IconButton>
-          <IconButton edge="end" color="inherit">
-            <AccountCircle />
-          </IconButton>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClick}
+            startIcon={<AccountCircle />}
+            endIcon={<ArrowDropDown />}
+            style={{ borderRadius: 20, marginLeft: 16 }}
+            size="large"
+          >
+            Admin
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer drawerWidth={drawerWidth} open={open} />

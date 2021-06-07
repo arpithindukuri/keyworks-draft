@@ -10,6 +10,7 @@ import {
   Collapse,
   createStyles,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -31,7 +32,9 @@ import {
 } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import classNames from "classnames";
-import { ChangeEvent, useState } from "react";
+import { format } from "date-fns";
+import { ChangeEvent, useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import {
   Control as ControlType,
   countActiveControlDocuments,
@@ -41,9 +44,11 @@ import {
   countCompliantControls,
   countValidControlDocuments,
   countValidControlProcesses,
+  Document,
   DataItem,
   Framework as FrameworkType,
   getControlsCompliance,
+  Process,
   RequiredDocument,
   RequiredProcess,
   updateControl,
@@ -277,7 +282,17 @@ function Control({
       updateControl({
         frameworkId: frameworkId,
         controlId: control.id,
-        newControl: { ...control, isActive: checked },
+        newControl: {
+          ...control,
+          isActive: checked,
+          nestedControls:
+            control.nestedControls === undefined
+              ? undefined
+              : control.nestedControls.map((item) => ({
+                  ...item,
+                  isActive: checked,
+                })),
+        },
       })
     );
   };
@@ -323,16 +338,12 @@ function Control({
           <Grid container spacing={3}>
             {canEdit && (
               <Grid item xs={1}>
-                {control.nestedControls === undefined ? (
-                  <Checkbox
-                    onClick={(event) => event.stopPropagation()}
-                    onFocus={(event) => event.stopPropagation()}
-                    checked={control.isActive}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  ""
-                )}
+                <Checkbox
+                  onClick={(event) => event.stopPropagation()}
+                  onFocus={(event) => event.stopPropagation()}
+                  checked={control.isActive}
+                  onChange={handleChange}
+                />
               </Grid>
             )}
             <Grid item xs={1}>
@@ -360,13 +371,14 @@ function Control({
               </Grid>
               <Grid item>
                 {canEdit ? (
-                  isValid ? (
+                  control.isActive &&
+                  (isValid ? (
                     <CheckCircle
                       style={{ color: theme.palette.success.main }}
                     />
                   ) : (
                     <NewReleases color="error" />
-                  )
+                  ))
                 ) : (
                   <PieChartRating
                     inverse
@@ -390,7 +402,12 @@ function Control({
                 style={{ backgroundColor: "#f9f7ff" }}
               >
                 {control.requiredDocuments.map((reqDoc) => (
-                  <ControlRequiredDocument reqDoc={reqDoc} canEdit={canEdit} />
+                  <ControlRequiredDocument
+                    frameworkId={frameworkId}
+                    control={control}
+                    reqDoc={reqDoc}
+                    canEdit={canEdit}
+                  />
                 ))}
               </Grid>
             </Box>
@@ -405,7 +422,12 @@ function Control({
                 style={{ backgroundColor: "#f9f7ff" }}
               >
                 {control.requiredProcesses.map((reqProc) => (
-                  <ControlRequiredProcess reqProc={reqProc} canEdit={canEdit} />
+                  <ControlRequiredProcess
+                    frameworkId={frameworkId}
+                    control={control}
+                    reqProc={reqProc}
+                    canEdit={canEdit}
+                  />
                 ))}
               </Grid>
             </Box>
@@ -454,20 +476,47 @@ function Control({
 }
 
 function ControlRequiredDocument({
+  frameworkId,
+  control,
   reqDoc,
   canEdit,
 }: {
+  frameworkId: string;
+  control: ControlType;
   reqDoc: RequiredDocument;
   canEdit: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
+  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [addOpen, setAddOpen] = useState(false);
+  const handleAddOpen = () => {
+    setAddOpen(true);
+  };
+  const handleAddClose = (document?: Document) => {
+    setAddOpen(false);
+    dispatch(
+      updateControl({
+        frameworkId,
+        controlId: control.id,
+        newControl: {
+          ...control,
+          requiredDocuments:
+            control.requiredDocuments === undefined
+              ? undefined
+              : control.requiredDocuments.map((doc) =>
+                  doc.name === reqDoc.name ? { name: doc.name, document } : doc
+                ),
+        },
+      })
+    );
   };
 
   return (
@@ -515,6 +564,7 @@ function ControlRequiredDocument({
                 variant="contained"
                 fullWidth
                 startIcon={<NoteAdd />}
+                onClick={handleAddOpen}
               >
                 ADD A DOCUMENT
               </Button>
@@ -524,25 +574,55 @@ function ControlRequiredDocument({
           </Grid>
         )}
       </Grid>
+      <AddDocumentDialog open={addOpen} handleClose={handleAddClose} />
     </>
   );
 }
 
 function ControlRequiredProcess({
+  frameworkId,
+  control,
   reqProc,
   canEdit,
 }: {
+  frameworkId: string;
+  control: ControlType;
   reqProc: RequiredProcess;
   canEdit: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
+  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [addOpen, setAddOpen] = useState(false);
+  const handleAddOpen = () => {
+    setAddOpen(true);
+  };
+  const handleAddClose = (process?: Process) => {
+    setAddOpen(false);
+    dispatch(
+      updateControl({
+        frameworkId,
+        controlId: control.id,
+        newControl: {
+          ...control,
+          requiredProcesses:
+            control.requiredProcesses === undefined
+              ? undefined
+              : control.requiredProcesses.map((proc) =>
+                  proc.name === reqProc.name
+                    ? { name: proc.name, process }
+                    : proc
+                ),
+        },
+      })
+    );
   };
 
   return (
@@ -590,6 +670,7 @@ function ControlRequiredProcess({
                 variant="contained"
                 fullWidth
                 startIcon={<NoteAdd />}
+                onClick={handleAddOpen}
               >
                 ADD A PROCESS
               </Button>
@@ -599,6 +680,7 @@ function ControlRequiredProcess({
           </Grid>
         )}
       </Grid>
+      <AddProcessDialog open={addOpen} handleClose={handleAddClose} />
     </>
   );
 }
@@ -703,6 +785,192 @@ function PdfDialog({
             link to <a href={link}>link to{link}</a>
           </p>
         </object>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function AddProcessDialog({
+  open,
+  handleClose,
+}: {
+  open: boolean;
+  handleClose: (process?: Process) => void;
+}) {
+  const classes = useStyles();
+
+  const [file, setFile] = useState<File | null>(null);
+
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles[0]);
+    setFile(acceptedFiles[0]);
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  return (
+    <Dialog onClose={() => handleClose()} open={open} fullWidth maxWidth="md">
+      <DialogTitle
+        id="simple-dialog-title"
+        style={{
+          position: "relative",
+          justifyContent: "space-between",
+        }}
+      >
+        Upload a Process
+        <IconButton
+          onClick={() => handleClose()}
+          className={classes.closeButton}
+        >
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        {file ? (
+          <>
+            <Box
+              border="2px dashed grey"
+              bgcolor="#eee"
+              height={300}
+              marginBottom={2}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h6">
+                Upload File: <u>{file.name}</u>?
+              </Typography>
+            </Box>
+            <DialogActions>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() =>
+                  handleClose({
+                    id: file.name,
+                    name: file.name,
+                    dateUploaded: format(new Date(), "T"),
+                    link: "https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf",
+                    status: "in-effect",
+                  })
+                }
+              >
+                Upload
+              </Button>
+            </DialogActions>
+          </>
+        ) : (
+          <Box
+            {...getRootProps()}
+            border="2px dashed grey"
+            bgcolor="#eee"
+            height={300}
+            marginBottom={2}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop file here ...</p>
+            ) : (
+              <p>Drag 'n' drop some files here, or click to select files</p>
+            )}
+          </Box>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function AddDocumentDialog({
+  open,
+  handleClose,
+}: {
+  open: boolean;
+  handleClose: (document?: Document) => void;
+}) {
+  const classes = useStyles();
+
+  const [file, setFile] = useState<File | null>(null);
+
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles[0]);
+    setFile(acceptedFiles[0]);
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  return (
+    <Dialog onClose={() => handleClose()} open={open} fullWidth maxWidth="md">
+      <DialogTitle
+        id="simple-dialog-title"
+        style={{
+          position: "relative",
+          justifyContent: "space-between",
+        }}
+      >
+        Upload a Document
+        <IconButton
+          onClick={() => handleClose()}
+          className={classes.closeButton}
+        >
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        {file ? (
+          <>
+            <Box
+              border="2px dashed grey"
+              bgcolor="#eee"
+              height={300}
+              marginBottom={2}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h6">
+                Upload File: <u>{file.name}</u>?
+              </Typography>
+            </Box>
+            <DialogActions>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() =>
+                  handleClose({
+                    id: file.name,
+                    name: file.name,
+                    dateUploaded: format(new Date(), "T"),
+                    link: "https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf",
+                    status: "in-effect",
+                  })
+                }
+              >
+                Upload
+              </Button>
+            </DialogActions>
+          </>
+        ) : (
+          <Box
+            {...getRootProps()}
+            border="2px dashed grey"
+            bgcolor="#eee"
+            height={300}
+            marginBottom={2}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop file here ...</p>
+            ) : (
+              <p>Drag 'n' drop some files here, or click to select files</p>
+            )}
+          </Box>
+        )}
       </DialogContent>
     </Dialog>
   );
