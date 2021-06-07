@@ -209,7 +209,7 @@ function EditHeader({ framework }: { framework: FrameworkType }) {
                 <strong>{numProcs}</strong> of {totalProcs} Processes Present
               </Typography>
             </Box>
-            <Box display="flex">
+            {/* <Box display="flex">
               <PieChartRating inverse variant="tiny" percent={34 / 42} />
               <Typography
                 variant="h6"
@@ -218,7 +218,7 @@ function EditHeader({ framework }: { framework: FrameworkType }) {
               >
                 <strong>34</strong> of 42 Inputs Set
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
           <Box>
             <Typography variant="h4" color="textSecondary">
@@ -308,9 +308,11 @@ function Control({
           marginBottom: control.nestedControls ? 0 : undefined,
           borderBottomLeftRadius: last ? theme.shape.borderRadius : undefined,
           borderBottomRightRadius: last ? theme.shape.borderRadius : undefined,
-          backgroundColor: control.isActive
-            ? undefined
-            : theme.palette.background.default,
+          backgroundColor:
+            control.isActive ||
+            countActiveControls(control?.nestedControls || []) > 0
+              ? undefined
+              : theme.palette.background.default,
         }}
         square={square}
       >
