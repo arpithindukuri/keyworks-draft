@@ -12,9 +12,10 @@ export interface Alert {
   dismissalMessageChild?: JSX.Element;
 }
 
-export interface Input {
+export interface DataItem {
   name: string;
-  status: "active" | "inactive";
+  type: "checkbox" | "number";
+  value: boolean | number;
 }
 
 export interface Control {
@@ -25,6 +26,8 @@ export interface Control {
   requiredDocuments?: RequiredDocument[];
   requiredProcesses?: RequiredProcess[];
   nestedControls?: Control[];
+  dataItems?: DataItem[];
+  compliance?: number;
 }
 
 export interface RequiredDocument {
@@ -99,36 +102,6 @@ const initialState: FrameworkState = {
   ],
 };
 
-// export function getControlFromId(framework: Framework, controlId: string) {
-//   if (!framework.controls) return undefined;
-
-//   for (let i = 0; i < framework.controls.length; i++) {
-//     const element = getControlFromIdHelper(framework.controls[i], controlId);
-//     if (element) return element;
-//   }
-
-//   return undefined;
-// }
-
-// function getControlFromIdHelper(
-//   control: Control,
-//   controlId: string
-// ): Control | undefined {
-//   if (!control.nestedControls) return undefined;
-
-//   if (control.id === controlId) return control;
-
-//   for (let i = 0; i < control.nestedControls.length; i++) {
-//     const element = getControlFromIdHelper(
-//       control.nestedControls[i],
-//       controlId
-//     );
-//     if (element) return element;
-//   }
-
-//   return undefined;
-// }
-
 export const frameworkSlice = createSlice({
   name: "framework",
   initialState,
@@ -195,30 +168,186 @@ export const selectFrameworkById = (id: string) =>
 
 export default frameworkSlice.reducer;
 
-export function recurseActiveControls(
-  controls: Control[],
-  predicate: (control: Control) => boolean
-) {
-  return controls
-    .map((control) => control && countActiveControlsHelper(control, predicate))
-    .reduce((prev, curr) => prev + curr, 0);
+// ------------- HELPER FUNCTIONS --------------
+
+export function countActiveControls(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countActiveControlsHelper(element);
+  }
+  return result;
+}
+function countActiveControlsHelper(control: Control): number {
+  if (control.nestedControls === undefined) return control.isActive ? 1 : 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countActiveControlsHelper(element);
+  }
+  return result;
 }
 
-function countActiveControlsHelper(
-  control: Control,
-  predicate: (control: Control) => boolean
-): number {
-  console.log(control.id);
+export function countAllControls(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countAllControlsHelper(element);
+  }
+  return result;
+}
+function countAllControlsHelper(control: Control): number {
+  if (control.nestedControls === undefined) return 1;
 
-  let num = 0;
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countAllControlsHelper(element);
+  }
+  return result;
+}
 
-  if (control.nestedControls === undefined) num = predicate(control) ? 1 : 0;
-  else
-    num = control.nestedControls
-      .map((nestedControl) =>
-        countActiveControlsHelper(nestedControl, predicate)
-      )
-      .reduce((prev, curr) => prev + curr, 0);
+export function countActiveControlDocuments(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countActiveControlDocumentsHelper(element);
+  }
+  return result;
+}
+function countActiveControlDocumentsHelper(control: Control): number {
+  if (control.requiredDocuments !== undefined)
+    return control.requiredDocuments.length;
 
-  return num;
+  if (control.nestedControls === undefined) return 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countActiveControlDocumentsHelper(element);
+  }
+  return result;
+}
+
+export function countValidControlDocuments(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countValidControlDocumentsHelper(element);
+  }
+  return result;
+}
+function countValidControlDocumentsHelper(control: Control): number {
+  if (control.requiredDocuments !== undefined) {
+    let result = 0;
+    for (let i = 0; i < control.requiredDocuments.length; i++) {
+      const element = control.requiredDocuments[i];
+      if (element.document !== undefined) result += 1;
+    }
+    return result;
+  }
+
+  if (control.nestedControls === undefined) return 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countValidControlDocumentsHelper(element);
+  }
+  return result;
+}
+
+export function countActiveControlProcesses(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countActiveControlProcessesHelper(element);
+  }
+  return result;
+}
+function countActiveControlProcessesHelper(control: Control): number {
+  if (control.requiredProcesses !== undefined)
+    return control.requiredProcesses.length;
+
+  if (control.nestedControls === undefined) return 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countActiveControlProcessesHelper(element);
+  }
+  return result;
+}
+
+export function countValidControlProcesses(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countValidControlProcessesHelper(element);
+  }
+  return result;
+}
+function countValidControlProcessesHelper(control: Control): number {
+  if (control.requiredProcesses !== undefined) {
+    let result = 0;
+    for (let i = 0; i < control.requiredProcesses.length; i++) {
+      const element = control.requiredProcesses[i];
+      if (element.process !== undefined) result += 1;
+    }
+    return result;
+  }
+
+  if (control.nestedControls === undefined) return 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countValidControlProcessesHelper(element);
+  }
+  return result;
+}
+
+export function getControlsCompliance(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += getControlsComplianceHelper(element);
+  }
+  return result / controls.length;
+}
+function getControlsComplianceHelper(control: Control): number {
+  if (control.compliance !== undefined) {
+    return control.compliance;
+  }
+
+  if (control.nestedControls === undefined) return 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += getControlsComplianceHelper(element);
+  }
+  return result / control.nestedControls.length;
+}
+
+export function countCompliantControls(controls: Control[]) {
+  let result = 0;
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    result += countCompliantControlsHelper(element);
+  }
+  return result;
+}
+function countCompliantControlsHelper(control: Control): number {
+  if (control.compliance !== undefined) return control.compliance === 1 ? 1 : 0;
+
+  if (control.nestedControls === undefined) return 0;
+
+  let result = 0;
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    result += countCompliantControlsHelper(element);
+  }
+  return result;
 }

@@ -1,12 +1,10 @@
 import { Redirect } from "react-router";
 import EditDashboard from "./components/pages/Dashboard/EditDashboard";
-import ManageDashboard from "./components/pages/Dashboard/ManageDashboard";
 import ViewDashboard from "./components/pages/Dashboard/ViewDashboard";
 import AllOverviews from "./components/pages/Framework/AllOverviews";
 import FrameworkAdmin from "./components/pages/Framework/FrameworkAdmin";
 import ManageFramework from "./components/pages/Framework/ManageFramework";
 import ViewFramework from "./components/pages/Framework/ViewFramework";
-import Home from "./components/pages/Home/Home";
 import ManageThreatFeed from "./components/pages/ThreatFeed/ManageThreatFeed";
 
 export interface Route {
@@ -37,20 +35,12 @@ export const routes: Route[] = [
     component: ViewFramework,
   },
   {
-    path: "/dashboard/manage/edit",
+    path: "/dashboard/edit",
     component: EditDashboard,
-  },
-  {
-    path: "/dashboard/manage",
-    component: ManageDashboard,
   },
   {
     path: "/dashboard",
     component: ViewDashboard,
-  },
-  {
-    path: "/home",
-    component: Home,
   },
   {
     path: "/",
@@ -59,7 +49,7 @@ export const routes: Route[] = [
 ];
 
 export function RedirectToHome() {
-  return <Redirect to="/home" />;
+  return <Redirect to="/dashboard/home" />;
 }
 
 // export function getElementFromPath(

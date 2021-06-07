@@ -2,8 +2,12 @@
 
 module.exports = {
   webpack: {
-    alias: {
-    //   "mapbox-gl": "maplibre-gl",
+    configure: {
+      resolve: {
+        alias: {
+          "mapbox-gl": "maplibre-gl",
+        },
+      },
     },
   },
 };

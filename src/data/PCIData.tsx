@@ -51,6 +51,7 @@ export const PCIControls: Control[] = [
         description:
           "A formal process for approving and testing all network connections and changes to the firewall and router configuration",
         severity: "high",
+        compliance: Math.random(),
         requiredDocuments: [
           {
             name: "requirement 1",
@@ -73,6 +74,13 @@ export const PCIControls: Control[] = [
             },
           },
         ],
+        dataItems: [
+          {
+            name: "Number of failed login attempts",
+            type: "number",
+            value: 7,
+          },
+        ],
       },
       {
         id: "1.1.2",
@@ -80,7 +88,7 @@ export const PCIControls: Control[] = [
         description:
           "Current network diagram that identifies all connections between the cardholder data environment and other networks, including any wireless network",
         severity: "medium",
-
+        compliance: Math.random(),
         requiredProcesses: [
           {
             name: "requirement 1",
@@ -103,6 +111,7 @@ export const PCIControls: Control[] = [
         description:
           "Current diagram that shows all cardholder data flows across systems and network",
         severity: "low",
+        compliance: 1,
       },
       {
         id: "1.1.4",
@@ -110,6 +119,7 @@ export const PCIControls: Control[] = [
         description:
           "Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zon",
         severity: "medium",
+        compliance: 1,
       },
       {
         id: "1.1.5",
@@ -117,6 +127,7 @@ export const PCIControls: Control[] = [
         description:
           "Description of groups, roles, and responsibilities for management of network component",
         severity: "high",
+        compliance: 1,
       },
       {
         id: "1.1.6",
@@ -124,6 +135,7 @@ export const PCIControls: Control[] = [
         description:
           "Documentation of business justification and approval for use of all services, protocols, and ports allowed, including documentation of security features implemented for those protocols considered to be insecure",
         severity: "low",
+        compliance: 1,
       },
       {
         id: "1.1.7",
@@ -131,6 +143,7 @@ export const PCIControls: Control[] = [
         description:
           "Requirement to review firewall and router rule sets at least every six month",
         severity: "low",
+        compliance: 1,
       },
     ],
   },
@@ -147,12 +160,14 @@ export const PCIControls: Control[] = [
         description:
           "Restrict inbound and outbound traffic to that which is necessary for the cardholder data environment, and specifically deny all other traffic",
         severity: "medium",
+        compliance: Math.random(),
       },
       {
         id: "1.2.2",
         isActive: true,
         description: "Secure and synchronize router configuration files",
         severity: "medium",
+        compliance: 1,
       },
       {
         id: "1.2.3",
@@ -160,6 +175,7 @@ export const PCIControls: Control[] = [
         description:
           "Install perimeter firewalls between all wireless networks and the cardholder data environment, and configure these firewalls to deny or, if traffic is necessary for business purposes, permit only authorized traffic between the wireless environment and the cardholder data environment",
         severity: "medium",
+        compliance: 1,
       },
     ],
   },
@@ -176,6 +192,7 @@ export const PCIControls: Control[] = [
         description:
           "Implement a DMZ to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports",
         severity: "medium",
+        compliance: Math.random(),
       },
       {
         id: "1.3.2",
@@ -183,6 +200,7 @@ export const PCIControls: Control[] = [
         description:
           "Limit inbound Internet traffic to IP addresses within the DMZ",
         severity: "low",
+        compliance: 1,
       },
       {
         id: "1.3.3",
@@ -190,6 +208,7 @@ export const PCIControls: Control[] = [
         description:
           "Implement anti-spoofing measures to detect and block forged source IP addresses from entering the network",
         severity: "medium",
+        compliance: 1,
       },
       {
         id: "1.3.4",
@@ -197,12 +216,14 @@ export const PCIControls: Control[] = [
         description:
           "Do not allow unauthorized outbound traffic from the cardholder data environment to the Internet",
         severity: "medium",
+        compliance: 1,
       },
       {
         id: "1.3.5",
         isActive: true,
         description: "Permit only “established” connections into the network",
         severity: "medium",
+        compliance: 1,
       },
       {
         id: "1.3.6",
@@ -210,6 +231,7 @@ export const PCIControls: Control[] = [
         description:
           "Place system components that store cardholder data (such as a database) in an internal network zone, segregated from the DMZ and other untrusted networks",
         severity: "low",
+        compliance: Math.random(),
       },
       {
         id: "1.3.7",
@@ -217,6 +239,7 @@ export const PCIControls: Control[] = [
         description:
           "Do not disclose private IP addresses and routing information to unauthorized parties",
         severity: "low",
+        compliance: Math.random(),
       },
     ],
   },
@@ -226,6 +249,7 @@ export const PCIControls: Control[] = [
     description:
       "Install personal firewall software or equivalent functionality on any portable computing devices (including company and/or employee-owned) that connect to the Internet when outside the network (for example, laptops used by employees), and which are also used to access the CDE",
     severity: "low",
+    compliance: 1,
   },
   {
     id: "1.5",
@@ -233,5 +257,6 @@ export const PCIControls: Control[] = [
     description:
       "Ensure that security policies and operational procedures for managing firewalls are documented, in use, and known to all affected parties",
     severity: "medium",
+    compliance: 1,
   },
 ];

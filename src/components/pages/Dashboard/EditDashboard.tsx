@@ -1,6 +1,4 @@
 import {
-  Button,
-  ButtonGroup,
   createStyles,
   Divider,
   Drawer,
@@ -8,13 +6,10 @@ import {
   ListItem,
   ListItemText,
   makeStyles,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Cancel, Save } from "@material-ui/icons";
 import { useContext } from "react";
-import { useHistory, useLocation } from "react-router";
-import { useSnackbar } from "notistack";
+import { useLocation } from "react-router";
 import { AppContext } from "../../../context/AppContext";
 import { selectDashboardById } from "../../../redux/dashboardSlice";
 import { useAppSelector } from "../../../redux/hooks";
@@ -48,13 +43,10 @@ const useStyles = makeStyles((theme) =>
 
 export default function EditDashboard() {
   const location = useLocation();
-  const dashboardId = location.pathname.split("/")[4];
+  const dashboardId = location.pathname.split("/")[3];
   const dashboard = useAppSelector(selectDashboardById(dashboardId));
-  const history = useHistory();
 
   const classes = useStyles();
-
-  const { enqueueSnackbar } = useSnackbar();
 
   if (dashboard === undefined)
     return <Typography variant="h4">404: No such dashboard found</Typography>;
@@ -76,10 +68,10 @@ export default function EditDashboard() {
             </ListItem>
             <ListItem>
               <Typography variant="h6" color="textSecondary">
-                {dashboard?.name} - Owned By {dashboard?.owner}
+                {dashboard?.name}
               </Typography>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <ButtonGroup fullWidth color="primary" disableElevation>
                 <Tooltip title="Does not work LOL">
                   <Button startIcon={<Cancel />}>Cancel</Button>
@@ -101,7 +93,7 @@ export default function EditDashboard() {
                   Save
                 </Button>
               </ButtonGroup>
-            </ListItem>
+            </ListItem> */}
             <Divider />
             {widgetList.map((widget) => (
               <WidgetListItem

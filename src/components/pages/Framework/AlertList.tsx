@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
       // boxSizing: "content-box",
     },
     alert: {
-      // width: "100%",
+      width: "100%",
     },
   })
 );

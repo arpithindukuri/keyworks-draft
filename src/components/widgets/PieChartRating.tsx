@@ -61,10 +61,7 @@ export default function PieChartRating({
             paddingAngle={5}
             innerRadius="85%"
             outerRadius="100%"
-            // animationDuration={1000}
-            // onAnimationEnd={() => {
-            // 	if (num !== percent) setNum(percent);
-            // }}
+            stroke="none"
           >
             {data.map((entry, index) => (
               <Cell
@@ -88,41 +85,41 @@ export default function PieChartRating({
 
   if (variant === "tiny" || variant === "small")
     return (
-      <ResponsiveContainer
+      <PieChart
+        margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
         height={variant === "tiny" ? 24 : 32}
         width={variant === "tiny" ? 24 : 32}
       >
-        <PieChart margin={{ top: 0, bottom: 0, left: 0, right: 0 }}>
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="name"
-            startAngle={90}
-            endAngle={-270}
-            paddingAngle={5}
-            innerRadius="60%"
-            outerRadius="100%"
-            animationDuration={800}
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`${v4()}-${entry.name}`}
-                fill={index === 0 ? color : fade(color, 0.2)}
-              />
-            ))}
-            {color === "#f1462f" && (
-              <Label
-                value="!"
-                position="center"
-                dominantBaseline="center"
-                fontSize={theme.typography.h6.fontSize}
-                fontWeight={800}
-                fill={color}
-              />
-            )}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+        <Pie
+          data={data}
+          dataKey="value"
+          nameKey="name"
+          startAngle={90}
+          endAngle={-270}
+          paddingAngle={0}
+          innerRadius="60%"
+          outerRadius="100%"
+          animationDuration={800}
+          stroke="none"
+        >
+          {data.map((entry, index) => (
+            <Cell
+              key={`${v4()}-${entry.name}`}
+              fill={index === 0 ? color : fade(color, 0.2)}
+            />
+          ))}
+          {color === "#f1462f" && (
+            <Label
+              value="!"
+              position="center"
+              dominantBaseline="center"
+              fontSize={theme.typography.h6.fontSize}
+              fontWeight={800}
+              fill={color}
+            />
+          )}
+        </Pie>
+      </PieChart>
     );
 
   return <></>;

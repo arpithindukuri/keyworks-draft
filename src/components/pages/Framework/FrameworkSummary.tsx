@@ -1,10 +1,5 @@
 import { createStyles, Grid, makeStyles, Typography } from "@material-ui/core";
-import {
-  ArrowDropDown,
-  ArrowDropUp,
-  Notifications,
-  ReportProblem,
-} from "@material-ui/icons";
+import { CheckCircle, Notifications, ReportProblem } from "@material-ui/icons";
 
 import PieChartRating from "../../widgets/PieChartRating";
 
@@ -29,16 +24,18 @@ export default function FrameworkSummary({
   title,
   subtitle = "compliance",
   percent,
-  difference,
-  newAlerts,
-  violations,
+  numControls,
+  numControlsCompliant,
+  numAlerts,
+  numViolations,
 }: {
   title: string;
   subtitle?: string;
   percent: number;
-  difference?: number;
-  newAlerts?: number;
-  violations?: number;
+  numControls?: number;
+  numControlsCompliant?: number;
+  numAlerts?: number;
+  numViolations?: number;
 }) {
   const classes = useStyles();
 
@@ -54,41 +51,42 @@ export default function FrameworkSummary({
         <Grid item className={classes.pieContainer} xs={7}>
           <PieChartRating percent={percent} inverse />
         </Grid>
-        <Grid item xs={5}>
-          {difference && (
-            <Grid container direction="row">
-              <Grid item xs={3}>
-                {difference >= 0 ? <ArrowDropUp /> : <ArrowDropDown />}
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="body1" align="left">
-                  {Math.round(difference * 100)}%
-                </Typography>
-              </Grid>
-            </Grid>
-          )}
-          {newAlerts && (
-            <Grid container direction="row">
+        <Grid item xs={5} container spacing={2}>
+          {numAlerts !== undefined && (
+            <Grid item container direction="row">
               <Grid item xs={3}>
                 <Notifications />
               </Grid>
               <Grid item xs={9}>
                 <Typography variant="body1" align="left">
-                  {newAlerts} new alert
-                  {newAlerts > 1 ? "s" : ""}
+                  {numAlerts} alert
+                  {numAlerts > 1 ? "s" : ""}
                 </Typography>
               </Grid>
             </Grid>
           )}
-          {violations && (
-            <Grid container direction="row">
+          {numControls !== undefined && numControlsCompliant !== undefined && (
+            <Grid item container direction="row">
+              <Grid item xs={3}>
+                <CheckCircle />
+              </Grid>
+              <Grid item xs={9}>
+                <Typography variant="body1" align="left">
+                  {numControlsCompliant} of&nbsp;
+                  {numControls} controls compliant
+                </Typography>
+              </Grid>
+            </Grid>
+          )}
+          {numViolations !== undefined && (
+            <Grid item container direction="row">
               <Grid item xs={3}>
                 <ReportProblem />
               </Grid>
               <Grid item xs={9}>
                 <Typography variant="body1" align="left">
-                  {violations} violation
-                  {violations > 1 ? "s" : ""} found
+                  {numViolations} violation
+                  {numViolations > 1 ? "s" : ""} found
                 </Typography>
               </Grid>
             </Grid>

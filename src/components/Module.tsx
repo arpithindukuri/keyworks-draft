@@ -1,6 +1,12 @@
-import { Box, Card, CardHeader, makeStyles, Tooltip } from "@material-ui/core";
+import {
+  Box,
+  Card,
+  CardHeader,
+  makeStyles,
+  TypographyProps,
+} from "@material-ui/core";
 import classNames from "classnames";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,14 +51,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Module({
   title,
+  titleTypographyProps,
   children,
+  useCard = true,
+  cardStyles,
+  actions,
 }: {
   title: string;
+  titleTypographyProps?: TypographyProps;
   children?: any;
+  useCard?: boolean;
+  cardStyles?: CSSProperties;
+  actions?: any;
 }) {
   const classes = useStyles();
+
   const location = useLocation();
-  const isEditable = location.pathname.includes("/dashboard/manage/edit");
+  const isEditable = location.pathname.includes("/dashboard/edit");
   const [dragging, setDragging] = useState(false);
 
   return (
@@ -67,25 +82,24 @@ export default function Module({
       onMouseDown={() => setDragging(isEditable && true)}
       onMouseUp={() => setDragging(isEditable && false)}
     >
-      <Tooltip
-        title={`To edit, go to "Manage Dashboards", find this dashboard, and click "Edit"`}
-        disableFocusListener={isEditable}
-        disableHoverListener={isEditable}
-        disableTouchListener={isEditable}
-      >
-        <CardHeader
-          title={title}
-          titleTypographyProps={{ variant: "h6" }}
-          style={{ paddingTop: 0, paddingBottom: 0 }}
-        />
-      </Tooltip>
-      <Card
-        className={classes.container}
-        elevation={dragging ? 15 : 3}
-        // variant='outlined'
-      >
-        {children}
-      </Card>
+      <CardHeader
+        title={title}
+        titleTypographyProps={{ variant: "h6", ...titleTypographyProps }}
+        style={{ paddingTop: 0, paddingBottom: 0 }}
+        action={<Box marginRight={isEditable ? 5 : undefined}>{actions}</Box>}
+      />
+      {useCard ? (
+        <Card
+          className={classes.container}
+          elevation={dragging ? 15 : 2}
+          // variant='outlined'
+          style={cardStyles}
+        >
+          {children}
+        </Card>
+      ) : (
+        children
+      )}
     </Box>
   );
 }

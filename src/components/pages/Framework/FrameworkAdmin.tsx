@@ -156,9 +156,13 @@ function FrameworkSummary({ framework }: { framework: Framework }) {
               </Button>
               <Box marginTop={1}>
                 <ButtonGroup fullWidth>
-                  <Button>View</Button>
+                  <Button
+                    onClick={() => history.push(`/framework/${framework.id}`)}
+                  >
+                    View
+                  </Button>
                   <Button>Renew</Button>
-                  <Button>Do</Button>
+                  <Button>Remove</Button>
                 </ButtonGroup>
               </Box>
             </SubItem>

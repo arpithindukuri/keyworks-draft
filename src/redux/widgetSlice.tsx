@@ -1,3 +1,5 @@
+import FrameworkCompliance from "../components/widgets/FrameworkCompliance";
+import FrameworkAlerts from "../components/widgets/FrameworkAlerts";
 import HighRiskAssets from "../components/widgets/HighRiskAssets";
 import Ratings from "../components/widgets/Ratings";
 import RatingTrends from "../components/widgets/RatingTrends";
@@ -10,6 +12,8 @@ export type WidgetIdType =
   | "regcomp"
   | "highriskassets"
   | "topthreats"
+  | "compliance"
+  | "alerts"
   | null;
 
 export interface Widget {
@@ -35,6 +39,10 @@ export function getWidgetFromId(widgetId: WidgetIdType) {
       return <HighRiskAssets />;
     case "topthreats":
       return <TopThreats />;
+    case "compliance":
+      return <FrameworkCompliance />;
+    case "alerts":
+      return <FrameworkAlerts />;
     default:
       return <></>;
   }
@@ -91,6 +99,26 @@ export const widgetList: Widget[] = [
     w: 12,
     h: 8,
     minW: 6,
+    minH: 4,
+    maxW: 20,
+    maxH: 20,
+  },
+  {
+    title: "Compliance",
+    i: "compliance",
+    w: 4,
+    h: 6,
+    minW: 3,
+    minH: 4,
+    maxW: 10,
+    maxH: 10,
+  },
+  {
+    title: "Alerts",
+    i: "alerts",
+    w: 9,
+    h: 6,
+    minW: 5,
     minH: 4,
     maxW: 20,
     maxH: 20,

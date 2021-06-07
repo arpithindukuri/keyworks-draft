@@ -12,12 +12,6 @@ export type drawerItemType = {
 
 export function useDrawerItems(): drawerItemType[] {
   return [
-    {
-      title: "Home",
-      link: "/home",
-      icon: "home",
-      isNested: false,
-    },
     useDashboardItems(),
     useFrameworkItems(),
     {
@@ -76,19 +70,17 @@ export function useDashboardItems() {
     .map((dash) => ({
       title: dash.name,
       link: `/dashboard/${dash.id}`,
+      icon: dash.name.toLowerCase() === "home" ? "home" : undefined,
     }));
 
   return {
     title: "Dashboards",
     icon: "dashboard",
     isNested: true,
-    nestedListItems: [
-      ...nestedListItems,
-      useTuneItem("Manage Dashboards", "/dashboard/manage"),
-    ],
+    nestedListItems: [...nestedListItems],
   };
 }
-
+// OVERDUE
 export function useFrameworkItems() {
   const frameworks = useAppSelector(selectFrameworks);
 
@@ -101,19 +93,16 @@ export function useFrameworkItems() {
     title: "Frameworks",
     icon: "device_hub",
     isNested: true,
-    nestedListItems: [
-      useOverviewItem("/framework/overview"),
-      ...nestedListItems,
-    ],
+    nestedListItems: [...nestedListItems],
   };
 }
 
-function useOverviewItem(link: string) {
-  return {
-    title: "Overview",
-    link,
-  };
-}
+// function useOverviewItem(link: string) {
+//   return {
+//     title: "Overview",
+//     link,
+//   };
+// }
 
 function useTuneItem(title: string, link: string) {
   return {

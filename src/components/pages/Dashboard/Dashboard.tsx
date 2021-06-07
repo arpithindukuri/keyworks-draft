@@ -1,4 +1,7 @@
 import {
+  Box,
+  Button,
+  ButtonGroup,
   createStyles,
   Fade,
   makeStyles,
@@ -15,6 +18,7 @@ import {
   updateDashboardLayout,
   dropLayout,
   Dashboard as DashboardType,
+  removeWidget,
 } from "../../../redux/dashboardSlice";
 import {
   getWidgetDetailsFromId,
@@ -23,6 +27,7 @@ import {
 } from "../../../redux/widgetSlice";
 import DotGrid from "../../DotGrid";
 import ErrorBoundary from "../../ErrorBoundary";
+import { Close } from "@material-ui/icons";
 
 const ReactGridLayout = WidthProvider(
   withResizeDetector(Responsive, {
@@ -174,7 +179,7 @@ export default function Dashboard({
             style={{ position: "absolute" }}
           >
             This Dashboard is Empty <br />
-            {`Go to "Manage Dashboards" -> Find ${dashboard.name} -> Click edit`}
+            {`Click "Edit" in the top right to add a widget`}
           </Typography>
         )}
       </div>
@@ -301,6 +306,11 @@ export default function Dashboard({
                   widget.i === "__dropping-elem__" ? "" : "" // classes.selector
                 }
               >
+                {canEdit && widgetEl ? (
+                  <Actions dashboardId={dashboard.id} widgetId={widget.i} />
+                ) : (
+                  ""
+                )}
                 {widgetEl ? widgetEl : ""}
               </div>
             );
@@ -308,5 +318,27 @@ export default function Dashboard({
         </ReactGridLayout>
       </ErrorBoundary>
     </div>
+  );
+}
+
+function Actions({
+  dashboardId,
+  widgetId,
+}: {
+  dashboardId: string;
+  widgetId: string;
+}) {
+  const dispatch = useAppDispatch();
+
+  return (
+    <Box position="absolute" right={0}>
+      <ButtonGroup size="small" variant="text">
+        <Button
+          onClick={() => dispatch(removeWidget({ dashboardId, widgetId }))}
+        >
+          <Close />
+        </Button>
+      </ButtonGroup>
+    </Box>
   );
 }

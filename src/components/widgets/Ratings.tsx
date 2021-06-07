@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
     minWidth: "130px",
     maxHeight: "100%",
     marginLeft: `${theme.spacing(3)}px`,
@@ -78,6 +78,7 @@ export default function Ratings() {
       <div className={classes.body}>
         <RatingCard title="Risk" percent={0.17} />
         <RatingCard title="Compliance" percent={0.55} />
+        <RatingCard title="Threats" percent={0.11} />
       </div>
       {/* </div> */}
     </Module>

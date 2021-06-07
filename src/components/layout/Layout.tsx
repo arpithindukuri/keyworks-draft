@@ -17,7 +17,11 @@ import { Badge } from "@material-ui/core";
 import { AccountCircle, Notifications } from "@material-ui/icons";
 import Drawer from "./Drawer";
 import { useLocation } from "react-router";
-import DashboardActions from "../pages/Dashboard/DashboardActions";
+import DashboardActions, {
+  DashboardEditActions,
+} from "../pages/Dashboard/DashboardActions";
+import { FrameworkEditActions } from "../pages/Framework/FrameworkActions";
+import { format } from "date-fns";
 
 const drawerWidth = 300;
 
@@ -158,7 +162,7 @@ export default function Layout({ children }: { children: any }) {
             alt="Placeholder Logo"
           />
           <Typography className={classes.title} variant="h6" noWrap>
-            11:40 am (MST)
+            {format(new Date(), "hh:mm bbb, eee LLLL Mo (OOO)")}
           </Typography>
           <PageActions />
           <IconButton color="inherit">
@@ -192,7 +196,10 @@ function PageActions() {
   const location = useLocation();
   const path = location.pathname;
 
+  if (path.includes("/dashboard/edit")) return <DashboardEditActions />;
   if (path.includes("/dashboard")) return <DashboardActions />;
+  if (path.includes("/admin/framework/manage/"))
+    return <FrameworkEditActions />;
 
   return <></>;
 }
