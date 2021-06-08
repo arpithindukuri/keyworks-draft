@@ -747,7 +747,7 @@ function RequirementSubItem({
   );
 }
 
-function PdfDialog({
+export function PdfDialog({
   title,
   open,
   link,

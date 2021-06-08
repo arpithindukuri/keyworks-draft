@@ -45,7 +45,7 @@ export const defaultSecondary = {
   light: "#756f7f",
   main: "#494453",
   dark: "#211d2a",
-  contrastText: "#000",
+  contrastText: "#fff",
 };
 
 export const defaultSpacing = (num: number) => num * 8;

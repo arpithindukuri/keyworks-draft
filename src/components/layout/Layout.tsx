@@ -24,7 +24,9 @@ import { useLocation } from "react-router";
 import DashboardActions, {
   DashboardEditActions,
 } from "../pages/Dashboard/DashboardActions";
-import { FrameworkEditActions } from "../pages/Framework/FrameworkActions";
+import FrameworkActions, {
+  FrameworkEditActions,
+} from "../pages/Framework/FrameworkActions";
 import { format } from "date-fns";
 
 const drawerWidth = 300;
@@ -188,7 +190,7 @@ export default function Layout({ children }: { children: any }) {
             </Badge>
           </IconButton>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={handleClick}
             startIcon={<AccountCircle />}
@@ -238,8 +240,8 @@ function PageActions() {
 
   if (path.includes("/dashboard/edit")) return <DashboardEditActions />;
   if (path.includes("/dashboard")) return <DashboardActions />;
-  if (path.includes("/admin/framework/manage/"))
-    return <FrameworkEditActions />;
+  if (path.includes("/framework")) return <FrameworkActions />;
+  if (path.includes("/admin/framework/manage")) return <FrameworkEditActions />;
 
   return <></>;
 }

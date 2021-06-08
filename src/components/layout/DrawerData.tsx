@@ -32,6 +32,7 @@ export function useDrawerItems(): drawerItemType[] {
     },
     {
       title: "Admin",
+      icon: "supervisor_account",
       isNested: true,
       nestedListItems: [
         useTuneItem("Manage Users", "/admin/users"),
