@@ -1,7 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ISOAlerts, ISOControls } from "../data/ISOData";
 import { NISTAlerts, NISTControls } from "../data/NISTData";
-import { PCIAlerts, PCIControls } from "../data/PCIData";
 import { RootState } from "./store";
 
 export interface Alert {

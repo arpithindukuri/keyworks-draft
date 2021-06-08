@@ -1,37 +1,18 @@
 import {
   Box,
   Button,
-  ButtonBase,
   ButtonGroup,
   CardHeader,
-  Checkbox,
   createStyles,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Divider,
   fade,
   Grid,
-  GridSize,
-  IconButton,
   InputAdornment,
-  Link,
   makeStyles,
-  Paper,
   TextField,
-  Typography,
 } from "@material-ui/core";
-import {
-  AssignmentTurnedIn,
-  Close,
-  MoreVert,
-  Search,
-} from "@material-ui/icons";
-import ReactJson from "react-json-view";
-import { API, selectAPIs, updateAPI } from "../../../redux/threatFeedSlice";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { format, parse } from "date-fns";
-import { useEffect, useState } from "react";
+import { Search } from "@material-ui/icons";
+import { selectAPIs } from "../../../redux/threatFeedSlice";
+import { useAppSelector } from "../../../redux/hooks";
 import { ThreatFeedSummary } from "./ManageThreatFeed";
 
 const useStyles = makeStyles((theme) =>

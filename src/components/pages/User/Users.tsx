@@ -7,7 +7,10 @@ import {
   CardHeader,
   Chip,
   createStyles,
+  Divider,
+  FormControlLabel,
   makeStyles,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -15,6 +18,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TextField,
 } from "@material-ui/core";
 import { ChangeEvent, useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
@@ -31,7 +35,7 @@ const useStyles = makeStyles((theme) =>
     container: {
       // paddingLeft: theme.spacing(2),
       // paddingRight: theme.spacing(2),
-      maxHeight: "60vh",
+      maxHeight: "70vh",
     },
     tableHeader: {
       backgroundColor: theme.palette.background.paper,
@@ -78,8 +82,64 @@ const columns: Column[] = [
 export default function Users() {
   return (
     <Box padding={3}>
+      <ActiveDirectory />
+      <Box marginBottom={3} />
       <LocalUserList />
     </Box>
+  );
+}
+
+function ActiveDirectory() {
+  const [state, setState] = useState(false);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setState(event.target.checked);
+  };
+
+  return (
+    <>
+      <CardHeader
+        title="Active Directory"
+        action={
+          <FormControlLabel
+            control={
+              <Switch
+                checked={state}
+                onChange={handleChange}
+                name="checkedA"
+                color="primary"
+              />
+            }
+            label={state ? "Active" : "Inactive"}
+          />
+        }
+      />
+      <Card>
+        <CardContent>
+          <Box display="flex">
+            <Box flex={8}>
+              <TextField
+                id="fqdn-field"
+                label="Active Directory Server FQDN"
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box marginX={3}>
+              <Divider orientation="vertical" />
+            </Box>
+            <Box flex={4}>
+              <TextField
+                id="port-field"
+                label="Port"
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+          </Box>
+        </CardContent>
+      </Card>
+    </>
   );
 }
 
@@ -118,7 +178,6 @@ function LocalUserList() {
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell
-                      className={classes.tableHeader}
                       key={column.id}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}

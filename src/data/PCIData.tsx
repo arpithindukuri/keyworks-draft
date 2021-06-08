@@ -75,6 +75,13 @@ export const PCIControls: Control[] = [
           "Current network diagram that identifies all connections between the cardholder data environment and other networks, including any wireless network",
         severity: "medium",
         compliance: Math.random(),
+        dataItems: [
+          {
+            name: "How many days until this diagram should be updated",
+            type: "number",
+            value: 200,
+          },
+        ],
       },
       {
         id: "1.1.3",
@@ -88,7 +95,7 @@ export const PCIControls: Control[] = [
         id: "1.1.4",
         isActive: false,
         description:
-          "Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zon",
+          "Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zone",
         severity: "medium",
         compliance: 1,
       },
