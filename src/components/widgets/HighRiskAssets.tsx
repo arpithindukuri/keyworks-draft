@@ -39,11 +39,11 @@ function createData(
 }
 
 const rows = [
-  createData("Frozen yoghurt", "Owner A", "High", 24),
-  createData("Ice cream sandwich", "Owner B", "Low", 37),
-  createData("Eclair", "Owner D", "Low", 24),
-  createData("Cupcake", "Owner A", "Low", 67),
-  createData("Gingerbread", "Owner A", "Medium", 49),
+  createData("Database", "Owner A", "High", 24),
+  createData("ERP Server", "Owner B", "Low", 37),
+  createData("RH Servers", "Owner B", "Low", 24),
+  createData("R&D Servers", "Owner A", "Low", 67),
+  createData("CRM Servers", "Owner A", "Medium", 49),
 ];
 
 function SeverityChip({
