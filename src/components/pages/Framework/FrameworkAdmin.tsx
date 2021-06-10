@@ -28,7 +28,7 @@ import { Add, MoreVert, Search } from "@material-ui/icons";
 import { format, parse } from "date-fns";
 import Fuse from "fuse.js";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { AvailableFrameworks } from "../../../data/AvailableFrameworks";
 import { ISOAlerts, ISOControls } from "../../../data/ISOData";
@@ -198,6 +198,10 @@ function AddFrameworkDialog({
 }) {
   const [selectedFramework, setSelectedFramework] =
     useState<AvailableFramework | null>(null);
+
+  useEffect(() => {
+    if (isOpen) setSelectedFramework(null);
+  }, [isOpen]);
 
   return (
     <Dialog
