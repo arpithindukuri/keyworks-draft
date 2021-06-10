@@ -1,5 +1,11 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Box,
+  Typography,
+} from "@material-ui/core";
 import { default as MuiDrawer } from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -30,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerContainer: {
       overflow: "auto",
+      flexGrow: 1,
     },
     drawerItemIcon: {
       color: theme.palette.text.secondary,
@@ -76,6 +83,12 @@ export default function Drawer({
           ))}
         </List>
       </div>
+      <Divider />
+      <Box padding={2} display="flex" justifyContent="center">
+        <Typography variant="subtitle2" color="primary">
+          v0.0.6
+        </Typography>
+      </Box>
     </MuiDrawer>
   );
 }

@@ -259,6 +259,10 @@ function TestDialog({
   useEffect(() => {
     setData(null);
   }, []);
+  
+  useEffect(() => {
+    if (open) setData(null);
+  }, [open]);
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
