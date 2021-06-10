@@ -31,10 +31,14 @@ import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { AvailableFrameworks } from "../../../data/AvailableFrameworks";
+import { ISOAlerts, ISOControls } from "../../../data/ISOData";
+import { NISTAlerts, NISTControls } from "../../../data/NISTData";
 import { PCIAlerts, PCIControls } from "../../../data/PCIData";
 import {
   add,
+  Alert,
   AvailableFramework,
+  Control,
   Framework,
   selectFrameworks,
 } from "../../../redux/frameworkSlice";
@@ -304,6 +308,20 @@ function ValidateFramework({
   const [error, setError] =
     useState<"Cannot be empty" | "Invalid License Key" | "success">("success");
 
+  const getAlerts = (name: string): Alert[] => {
+    if (name === "PCI DSS") return PCIAlerts;
+    if (name === "ISO 27001") return ISOAlerts;
+    if (name === "NIST") return NISTAlerts;
+    return [];
+  };
+
+  const getControls = (name: string): Control[] => {
+    if (name === "PCI DSS") return PCIControls;
+    if (name === "ISO 27001") return ISOControls;
+    if (name === "NIST") return NISTControls;
+    return [];
+  };
+
   const handleAdd = () => {
     console.log(license.length, error);
     if (license.length === 0) setError(() => "Cannot be empty");
@@ -316,8 +334,8 @@ function ValidateFramework({
           newFramework: {
             id: framework.id,
             name: framework.name,
-            alerts: framework.name === "PCI DSS" ? PCIAlerts : [],
-            controls: framework.name === "PCI DSS" ? PCIControls : [],
+            alerts: getAlerts(framework.name),
+            controls: getControls(framework.name),
             dateAdopted: format(new Date(), "T"),
           },
         })

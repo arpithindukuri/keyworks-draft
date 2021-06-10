@@ -241,6 +241,7 @@ function PageActions() {
   if (path.includes("/dashboard/edit")) return <DashboardEditActions />;
   if (path.includes("/dashboard")) return <DashboardActions />;
   if (path.includes("/admin/framework/manage")) return <FrameworkEditActions />;
+  if (path.includes("/admin/framework")) return <></>;
   if (path.includes("/framework")) return <FrameworkActions />;
 
   return <></>;

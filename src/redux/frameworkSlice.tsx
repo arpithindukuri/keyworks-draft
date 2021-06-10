@@ -1,6 +1,4 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ISOAlerts, ISOControls } from "../data/ISOData";
-import { NISTAlerts, NISTControls } from "../data/NISTData";
 import { RootState } from "./store";
 
 export interface Alert {
@@ -76,22 +74,7 @@ export interface FrameworkState {
 }
 
 const initialState: FrameworkState = {
-  frameworks: [
-    {
-      id: "iso27001-framework-id",
-      name: "ISO27001",
-      dateAdopted: "111111111",
-      alerts: ISOAlerts,
-      controls: ISOControls,
-    },
-    {
-      id: "nist-framework-id",
-      name: "NIST",
-      dateAdopted: "111111111",
-      alerts: NISTAlerts,
-      controls: NISTControls,
-    },
-  ],
+  frameworks: [],
 };
 
 export const frameworkSlice = createSlice({
