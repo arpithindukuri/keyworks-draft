@@ -1,4 +1,4 @@
-import { makeStyles, useTheme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import {
   Legend,
@@ -113,7 +113,6 @@ const newData = [
 
 export default function RatingTrends() {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [data, setData] = useState(oldData);
 
@@ -138,24 +137,24 @@ export default function RatingTrends() {
             <Tooltip />
             <Legend />
             <Line
-              strokeWidth={2}
+              strokeWidth={3}
               type="natural"
               dataKey="Compliance"
-              stroke={theme.palette.primary.dark}
+              stroke={"#5c6bc0"}
               dot={false}
             />
             <Line
-              strokeWidth={2}
+              strokeWidth={3}
               type="natural"
               dataKey="Risk"
-              stroke={theme.palette.primary.main}
+              stroke={"#29b6f6"}
               dot={false}
             />
             <Line
-              strokeWidth={2}
+              strokeWidth={3}
               type="natural"
               dataKey="Threat"
-              stroke={theme.palette.primary.light}
+              stroke={"#66bb6a"}
               dot={false}
             />
           </LineChart>

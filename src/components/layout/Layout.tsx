@@ -12,7 +12,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import logoIpsum from "../../assets/logo-12.svg";
+import logo from "../../assets/BluesPoint on navy - long.png";
 import { Badge, Button, Menu, MenuItem } from "@material-ui/core";
 import {
   AccountCircle,
@@ -56,12 +56,13 @@ const useStyles = makeStyles((theme: Theme) =>
     menuButton: {
       // marginRight: theme.spacing(1),
     },
-    logoIpsum: {
+    logo: {
       display: "flex",
       height: "56px",
-      padding: theme.spacing(2),
+      margin: theme.spacing(0.5),
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
+      borderRadius: theme.shape.borderRadius,
     },
     title: {
       flexGrow: 1,
@@ -171,11 +172,7 @@ export default function Layout({ children }: { children: any }) {
           >
             <MenuIcon />
           </IconButton>
-          <img
-            className={classes.logoIpsum}
-            src={logoIpsum}
-            alt="Placeholder Logo"
-          />
+          <img className={classes.logo} src={logo} alt="Placeholder Logo" />
           <Typography className={classes.title} variant="h6" noWrap>
             {format(new Date(), "hh:mm bbb, eee LLLL Mo (OOO)")}
           </Typography>

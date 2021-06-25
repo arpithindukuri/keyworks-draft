@@ -35,9 +35,9 @@ function createMyTheme(options: ThemeOptions) {
 export const defaultBorderRadius = 10;
 
 export const defaultPrimary = {
-  light: "#ab87ff",
-  main: "#7559e9",
-  dark: "#3c2eb6",
+  light: "#6296b9",
+  main: "#306889",
+  dark: "#003e5c",
   contrastText: "#fff",
 };
 
