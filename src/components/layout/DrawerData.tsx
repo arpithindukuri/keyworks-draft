@@ -1,6 +1,7 @@
 import { useAppSelector } from "../../redux/hooks";
 import { selectDashboards } from "../../redux/dashboardSlice";
 import { selectFrameworks } from "../../redux/frameworkSlice";
+import { selectThreatFeeds } from "../../redux/threatFeedSlice";
 
 export type drawerItemType = {
   title: string;
@@ -14,20 +15,14 @@ export function useDrawerItems(): drawerItemType[] {
   return [
     useDashboardItems(),
     useFrameworkItems(),
-    {
-      title: "Threat Intelligence Feeds",
-      icon: "wifi_tethering_error_rounded",
-      isNested: true,
-      nestedListItems: [{ title: "Overview" }, { title: "STIX/TAXII" }],
-    },
+    useThreatFeedItems(),
     {
       title: "APIs",
       icon: "power",
       isNested: true,
       nestedListItems: [
-        { title: "My API" },
-        { title: "API2" },
-        { title: "HVAC Sensors" },
+        { title: "External", link: "/api/external" },
+        { title: "Internal", link: "/api/internal" },
       ],
     },
     {
@@ -40,7 +35,8 @@ export function useDrawerItems(): drawerItemType[] {
         useTuneItem("Manage Corporate GIS", "/admin/corporateGIS"),
         useTuneItem("Manage Global GIS", "/admin/globalGIS"),
         useTuneItem("Manage Threat Feeds", "/admin/threatfeed"),
-        useTuneItem("Manage APIs", "/admin/api"),
+        useTuneItem("Manage External APIs", "/admin/api"),
+        useTuneItem("Manage Internal APIs", "/admin/internal-api"),
       ],
     },
   ];
@@ -61,6 +57,7 @@ export function useDashboardItems() {
     nestedListItems: [...nestedListItems],
   };
 }
+
 // OVERDUE
 export function useFrameworkItems() {
   const frameworks = useAppSelector(selectFrameworks);
@@ -71,8 +68,29 @@ export function useFrameworkItems() {
   }));
 
   return {
-    title: "Frameworks",
+    title: "Framework Overviews",
     icon: "device_hub",
+    isNested: true,
+    nestedListItems: [...nestedListItems],
+  };
+}
+
+export function useThreatFeedItems() {
+  const threatFeeds = useAppSelector(selectThreatFeeds);
+
+  const num = Math.min(threatFeeds.length, 5);
+  const nestedListItems: drawerItemType[] = [];
+
+  for (let i = 0; i < num; i++) {
+    const element = threatFeeds[i];
+    nestedListItems.push({
+      title: `${element.name} (${element.isActive ? "Active" : "Inactive"})`,
+    });
+  }
+
+  return {
+    title: "Threat Intelligence Feeds",
+    icon: "wifi_tethering_error_rounded",
     isNested: true,
     nestedListItems: [...nestedListItems],
   };

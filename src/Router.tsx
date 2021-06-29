@@ -7,6 +7,9 @@ import ManageFramework from "./components/pages/Framework/ManageFramework";
 import ViewFramework from "./components/pages/Framework/ViewFramework";
 import ManageThreatFeed from "./components/pages/API/ManageThreatFeed";
 import ManageAPI from "./components/pages/API/ManageAPI";
+import ViewAPI from "./components/pages/API/ViewAPI";
+import ViewInternalAPI from "./components/pages/API/ViewInternalAPI";
+import ManageInternalAPI from "./components/pages/API/ManageInternalAPI";
 import ViewUsers from "./components/pages/User/ViewUsers";
 
 export interface Route {
@@ -19,6 +22,10 @@ export const routes: Route[] = [
   {
     path: "/admin/users",
     component: ViewUsers,
+  },
+  {
+    path: "/admin/internal-api",
+    component: ManageInternalAPI,
   },
   {
     path: "/admin/api",
@@ -35,6 +42,14 @@ export const routes: Route[] = [
   {
     path: "/admin/framework",
     component: FrameworkAdmin,
+  },
+  {
+    path: "/api/external",
+    component: ViewAPI,
+  },
+  {
+    path: "/api/internal",
+    component: ViewInternalAPI,
   },
   {
     path: "/framework/overview",

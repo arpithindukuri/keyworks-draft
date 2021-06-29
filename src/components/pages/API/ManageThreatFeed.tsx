@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   CardHeader,
   Checkbox,
+  Chip,
   createStyles,
   Dialog,
   DialogContent,
@@ -22,6 +23,8 @@ import {
 } from "@material-ui/core";
 import {
   AssignmentTurnedIn,
+  Cancel,
+  CheckCircle,
   Close,
   MoreVert,
   Search,
@@ -122,7 +125,13 @@ function Header() {
   );
 }
 
-export function ThreatFeedSummary({ threatFeed }: { threatFeed: API }) {
+export function ThreatFeedSummary({
+  threatFeed,
+  canEdit = true,
+}: {
+  threatFeed: API;
+  canEdit?: boolean;
+}) {
   const classes = useStyles();
   const dispatch = useAppDispatch();
 
@@ -140,23 +149,25 @@ export function ThreatFeedSummary({ threatFeed }: { threatFeed: API }) {
     <Grid item xs={12}>
       <Paper className={classes.threatFeedSummary}>
         <Grid container direction="row" spacing={2}>
-          <ThreatFeedSummaryItem title="ACTIVE">
-            <Checkbox
-              checked={threatFeed.isActive}
-              color="primary"
-              onChange={(e, checked) => {
-                dispatch(
-                  updateThreatFeed({
-                    id: threatFeed.id,
-                    newThreatFeed: {
-                      ...threatFeed,
-                      isActive: checked,
-                    },
-                  })
-                );
-              }}
-            />
-          </ThreatFeedSummaryItem>
+          {canEdit ? (
+            <ThreatFeedSummaryItem title="ACTIVE">
+              <Checkbox
+                checked={threatFeed.isActive}
+                color="primary"
+                onChange={(e, checked) => {
+                  dispatch(
+                    updateThreatFeed({
+                      id: threatFeed.id,
+                      newThreatFeed: {
+                        ...threatFeed,
+                        isActive: checked,
+                      },
+                    })
+                  );
+                }}
+              />
+            </ThreatFeedSummaryItem>
+          ) : null}
           <ThreatFeedSummaryItem title="NAME">
             <Typography>{threatFeed.name}</Typography>
           </ThreatFeedSummaryItem>
@@ -183,27 +194,38 @@ export function ThreatFeedSummary({ threatFeed }: { threatFeed: API }) {
             {threatFeed.pollInterval}
           </ThreatFeedSummaryItem>
         </Grid>
-        <Divider flexItem orientation="vertical" variant="middle" />
-        <ThreatFeedSummaryItem title="ACTIONS">
-          <ButtonGroup
-            variant="outlined"
-            color="primary"
-            disableElevation
-            size="small"
-          >
-            <Button
-              variant="contained"
-              startIcon={<AssignmentTurnedIn />}
-              onClick={handleClickOpen}
-            >
-              Test
-            </Button>
-            <Button>auth</Button>
-            <Button onClick={handleClickOpen}>
-              <MoreVert />
-            </Button>
-          </ButtonGroup>
-        </ThreatFeedSummaryItem>
+        {canEdit ? (
+          <>
+            <Divider flexItem orientation="vertical" variant="middle" />
+            <ThreatFeedSummaryItem title="ACTIONS">
+              <ButtonGroup
+                variant="outlined"
+                color="primary"
+                disableElevation
+                size="small"
+              >
+                <Button
+                  variant="contained"
+                  startIcon={<AssignmentTurnedIn />}
+                  onClick={handleClickOpen}
+                >
+                  Test
+                </Button>
+                <Button>auth</Button>
+                <Button onClick={handleClickOpen}>
+                  <MoreVert />
+                </Button>
+              </ButtonGroup>
+            </ThreatFeedSummaryItem>
+          </>
+        ) : (
+          <Chip
+            label={threatFeed.isActive ? "Active" : "Inactive"}
+            icon={
+              threatFeed.isActive ? <CheckCircle /> : <Cancel color="error" />
+            }
+          />
+        )}
         <TestDialog
           title={threatFeed.name}
           open={open}
@@ -259,7 +281,7 @@ function TestDialog({
   useEffect(() => {
     setData(null);
   }, []);
-  
+
   useEffect(() => {
     if (open) setData(null);
   }, [open]);

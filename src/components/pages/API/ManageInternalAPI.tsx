@@ -5,13 +5,11 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Chip,
   createStyles,
-  Divider,
-  FormControlLabel,
+  fade,
+  Grid,
   InputAdornment,
   makeStyles,
-  Switch,
   Table,
   TableBody,
   TableCell,
@@ -22,19 +20,53 @@ import {
   TextField,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
-import { ChangeEvent, useState } from "react";
+import { selectAPIs } from "../../../redux/threatFeedSlice";
 import { useAppSelector } from "../../../redux/hooks";
-import { Role, selectUsers } from "../../../redux/userSlice";
+import { ThreatFeedSummary } from "./ManageThreatFeed";
+import { ChangeEvent, useState } from "react";
+import { selectUsers } from "../../../redux/userSlice";
+import { v4 } from "uuid";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    container: {
+      padding: theme.spacing(3),
+      width: "100%",
+    },
+    threatFeedSummary: {
+      display: "flex",
+      minHeight: "50px",
+      padding: theme.spacing(2),
+    },
+    addNew: {
+      display: "flex",
+      minHeight: "50px",
+      width: "100%",
+      padding: theme.spacing(3.5),
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.primary.light, 0.1),
+      border: `3px dashed ${fade(theme.palette.primary.main, 0.1)}`,
+      color: fade(theme.palette.primary.dark, 0.7),
+      fontSize: theme.typography.h6.fontSize,
+    },
+    dialog: {
+      // width: "80vw",
+      height: "75vh",
+      overflow: "visible",
+      paddingBottom: theme.spacing(3),
+    },
+    closeButton: {
+      position: "absolute",
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+    },
     root: {
       // boxSizing: "border-box",
       // margin: theme.spacing(3),
       flexGrow: 1,
       // overflow: "hidden",
     },
-    container: {
+    tableContainer: {
       // paddingLeft: theme.spacing(2),
       // paddingRight: theme.spacing(2),
       maxHeight: "70vh",
@@ -46,7 +78,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Column {
-  id: "name" | "email" | "role" | "actions";
+  id: "name" | "email" | "hash";
   label: string;
   minWidth?: number;
   align: "right" | "center" | "left";
@@ -67,101 +99,20 @@ const columns: Column[] = [
     align: "left",
   },
   {
-    id: "role",
-    label: "Role",
-    minWidth: 60,
-    align: "center",
-    format: (item: Role) => <Chip label={item} size="small" />,
-  },
-  {
-    id: "actions",
-    label: "Actions",
-    minWidth: 60,
-    align: "right",
+    id: "hash",
+    label: "Hash",
+    minWidth: 400,
+    align: "left",
   },
 ];
 
-export default function Users() {
+export default function ManageAPI() {
+  const classes = useStyles();
+
   return (
-    <Box padding={3}>
-      <ActiveDirectory />
-      <Box marginBottom={3} />
+    <Grid className={classes.container} container spacing={2}>
       <LocalUserList />
-    </Box>
-  );
-}
-
-function ActiveDirectory() {
-  const [state, setState] = useState(false);
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.checked);
-  };
-
-  return (
-    <>
-      <CardHeader
-        title="Active Directory"
-        action={
-          <FormControlLabel
-            control={
-              <Switch
-                checked={state}
-                onChange={handleChange}
-                name="checkedA"
-                color="primary"
-              />
-            }
-            label={state ? "Active" : "Inactive"}
-          />
-        }
-      />
-      <Card>
-        <CardContent>
-          <Box display="flex">
-            <Box flex={8}>
-              <Box display="flex" flexDirection="column">
-                <TextField
-                  id="fqdn-field"
-                  label="Active Directory Server FQDN"
-                  variant="outlined"
-                  fullWidth
-                />
-                <Box display="flex" marginTop={3}>
-                  <TextField
-                    id="username-field"
-                    label="Username"
-                    variant="outlined"
-                    fullWidth
-                  />
-                  <Box marginX={3}>
-                    <Divider orientation="vertical" />
-                  </Box>
-                  <TextField
-                    id="password-field"
-                    label="Password"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                  />
-                </Box>
-              </Box>
-            </Box>
-            <Box marginX={3}>
-              <Divider orientation="vertical" />
-            </Box>
-            <Box flex={4}>
-              <TextField
-                id="port-field"
-                label="Port"
-                variant="outlined"
-                fullWidth
-              />
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
-    </>
+    </Grid>
   );
 }
 
@@ -184,8 +135,8 @@ function LocalUserList() {
   return (
     <>
       <CardHeader
-        title="Local Users"
-        // style={{ paddingBottom: 0 }}
+        title="API Users"
+        style={{ width: "100%" }}
         action={
           <Box display="flex">
             <TextField
@@ -213,7 +164,7 @@ function LocalUserList() {
       />
       <Card className={classes.root}>
         <CardContent>
-          <TableContainer className={classes.container}>
+          <TableContainer className={classes.tableContainer}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -241,14 +192,7 @@ function LocalUserList() {
                       >
                         {columns.map((column) => {
                           const value =
-                            column.id === "actions" ? (
-                              <ButtonGroup size="small" color="primary">
-                                <Button>Edit User</Button>
-                                <Button>Remove User</Button>
-                              </ButtonGroup>
-                            ) : (
-                              user[column.id]
-                            );
+                            column.id === "hash" ? `${v4()}` : user[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
                               {column.format ? column.format(value) : value}

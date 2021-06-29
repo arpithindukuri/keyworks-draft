@@ -86,7 +86,7 @@ export default function Drawer({
       <Divider />
       <Box padding={2} display="flex" justifyContent="center">
         <Typography variant="subtitle2" color="primary">
-          v0.0.6
+          v0.0.8
         </Typography>
       </Box>
     </MuiDrawer>
