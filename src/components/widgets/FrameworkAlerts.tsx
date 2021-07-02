@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FrameworkCompliance() {
+export default function FrameworkAlerts() {
   const classes = useStyles();
 
   const [selectedFrameworkId, setSelectedFrameworkId] = useState<string>("");
@@ -72,7 +72,7 @@ export default function FrameworkCompliance() {
     >
       <Box padding={2} maxHeight="60vh" overflow="auto">
         {selectedFramework ? (
-          <AlertList alerts={selectedFramework.alerts} />
+          <AlertList framework={selectedFramework} />
         ) : (
           <Typography>Select a framework</Typography>
         )}

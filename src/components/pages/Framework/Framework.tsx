@@ -142,7 +142,7 @@ export default function Framework({
         <Grid item xs={8}>
           <Module title="ALERTS">
             <Box padding={2} maxHeight="60vh" overflow="auto">
-              <AlertList alerts={framework.alerts} />
+              <AlertList framework={framework} />
             </Box>
           </Module>
         </Grid>

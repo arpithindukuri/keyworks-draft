@@ -20,6 +20,8 @@ export interface User {
   name: string;
   email: string;
   role: Role;
+  start: string;
+  end: string;
 }
 
 export interface UserState {

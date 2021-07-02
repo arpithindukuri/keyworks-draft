@@ -11,6 +11,7 @@ import ViewAPI from "./components/pages/API/ViewAPI";
 import ViewInternalAPI from "./components/pages/API/ViewInternalAPI";
 import ManageInternalAPI from "./components/pages/API/ManageInternalAPI";
 import ViewUsers from "./components/pages/User/ViewUsers";
+import GIS from "./components/pages/GIS/GIS";
 
 export interface Route {
   path: string;
@@ -19,6 +20,14 @@ export interface Route {
 }
 
 export const routes: Route[] = [
+  {
+    path: "/admin/corporateGIS",
+    component: GIS,
+  },
+  {
+    path: "/admin/globalGIS",
+    component: GIS,
+  },
   {
     path: "/admin/users",
     component: ViewUsers,

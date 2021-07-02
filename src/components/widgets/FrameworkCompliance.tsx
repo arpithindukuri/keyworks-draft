@@ -47,7 +47,7 @@ export default function FrameworkCompliance() {
   const frameworks = useAppSelector(selectFrameworks);
 
   useEffect(() => {
-    setSelectedFrameworkId(frameworks[0].id);
+    setSelectedFrameworkId(frameworks.length > 0 ? frameworks[0].id : "");
   }, [frameworks]);
 
   return (
@@ -89,7 +89,14 @@ export default function FrameworkCompliance() {
             numViolations={numActive - numCompliant}
           />
         ) : (
-          <Typography>Select a framework</Typography>
+          <Box
+            justifyContent="center"
+            alignItems="center"
+            height="100%"
+            width="100%"
+          >
+            <Typography>No Frameworks</Typography>
+          </Box>
         )}
       </Box>
     </Module>

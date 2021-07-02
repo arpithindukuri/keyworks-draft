@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { fade, makeStyles, Typography, useTheme } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import {
   Bar,
@@ -8,6 +8,8 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+import { selectFrameworks } from "../../redux/frameworkSlice";
+import { useAppSelector } from "../../redux/hooks";
 import Module from "../Module";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const oldData = [
+type dataType = {
+  name: string;
+  Low: number;
+  Medium: number;
+  High: number;
+  Complete: number;
+};
+
+const oldData: dataType[] = [
   {
     name: "PCI",
     Low: 0,
@@ -44,13 +54,6 @@ const oldData = [
     Complete: 0,
   },
   {
-    name: "HIPAA",
-    Low: 0,
-    Medium: 0,
-    High: 0,
-    Complete: 0,
-  },
-  {
     name: "Overall",
     Low: 0,
     Medium: 0,
@@ -59,7 +62,7 @@ const oldData = [
   },
 ];
 
-const newData = [
+const newData: dataType[] = [
   {
     name: "PCI",
     Low: 40,
@@ -82,14 +85,34 @@ const newData = [
     Complete: 40,
   },
   {
-    name: "HIPAA",
-    Low: 27,
-    Medium: 40,
+    name: "Overall",
+    Low: 18,
+    Medium: 42,
     High: 20,
-    Complete: 13,
+    Complete: 20,
+  },
+];
+
+const values = [
+  {
+    Low: 40,
+    Medium: 24,
+    High: 26,
+    Complete: 10,
   },
   {
-    name: "Overall",
+    Low: 30,
+    Medium: 13,
+    High: 27,
+    Complete: 30,
+  },
+  {
+    Low: 20,
+    Medium: 28,
+    High: 12,
+    Complete: 40,
+  },
+  {
     Low: 18,
     Medium: 42,
     High: 20,
@@ -99,56 +122,88 @@ const newData = [
 
 export default function RegulatoryCompliance() {
   const classes = useStyles();
+  const theme = useTheme();
+  const frameworks = useAppSelector(selectFrameworks);
 
-  const [data, setData] = useState(oldData);
+  const [data, setData] = useState<dataType[]>([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setData(newData);
-    }, 1500);
-  }, []);
+    const newData = frameworks.map((item, index) => {
+      const valNum = index % values.length;
+      return valNum < values.length
+        ? {
+            name: item.name,
+            Low: values[valNum].Low,
+            Medium: values[valNum].Medium,
+            High: values[valNum].High,
+            Complete: values[valNum].Complete,
+          }
+        : {
+            name: item.name,
+            Low: 0,
+            Medium: 0,
+            High: 0,
+            Complete: 0,
+          };
+    });
+    if (frameworks.length > 0)
+      newData.push({
+        name: "Overall",
+        Low: 0,
+        Medium: 0,
+        High: 0,
+        Complete: 0,
+      });
+    setData(newData);
+  }, [frameworks]);
 
   return (
     <Module title="REGULATORY COMPLIANCE">
       <div className={classes.body}>
-        <ResponsiveContainer
-          height="99%"
-          width="99%"
-          minHeight="0px"
-          minWidth="0px"
-        >
-          <BarChart data={data}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <XAxis dataKey="name" />
-            {/* <YAxis type="number" domain={[0, 100]} /> */}
-            <Tooltip />
-            <Legend />
-            <Bar
-              animationDuration={1000}
-              dataKey="Low"
-              stackId="a"
-              fill="#3adf5d"
-            />
-            <Bar
-              animationDuration={1000}
-              dataKey="Medium"
-              stackId="a"
-              fill="#ffa339"
-            />
-            <Bar
-              animationDuration={1000}
-              dataKey="High"
-              stackId="a"
-              fill="#f1462f"
-            />
-            <Bar
-              animationDuration={1000}
-              dataKey="Complete"
-              stackId="a"
-              fill="#49a9e9"
-            />
-          </BarChart>
-        </ResponsiveContainer>
+        {data.length > 0 ? (
+          <ResponsiveContainer
+            height="99%"
+            width="99%"
+            minHeight="0px"
+            minWidth="0px"
+          >
+            <BarChart data={data}>
+              <XAxis dataKey="name" />
+              <Tooltip />
+              <Legend />
+              <Bar
+                animationDuration={1000}
+                dataKey="Low"
+                stackId="a"
+                fill={theme.palette.success.light}
+                stroke={theme.palette.success.main}
+              />
+              <Bar
+                animationDuration={1000}
+                dataKey="Medium"
+                stackId="a"
+                fill={theme.palette.warning.light}
+                stroke={theme.palette.warning.main}
+              />
+              <Bar
+                animationDuration={1000}
+                dataKey="High"
+                stackId="a"
+                fill={theme.palette.error.light}
+                stroke={theme.palette.error.main}
+              />
+              <Bar
+                animationDuration={1000}
+                dataKey="Complete"
+                stackId="a"
+                fill={theme.palette.info.light}
+                stroke={theme.palette.info.main}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <Typography>No Frameworks</Typography>
+        )}
       </div>
     </Module>
   );

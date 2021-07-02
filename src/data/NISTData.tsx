@@ -3,23 +3,23 @@ import { Alert, Control } from "../redux/frameworkSlice";
 
 export const NISTAlerts: Alert[] = [
   {
-    title: "Control 5.2.2",
+    title: "Control ID.AM-1",
     child: (
       <>
-        <strong>Medium Risk Alert:</strong> A user ID has failed to enter the
-        correct password in the required number of attempts and is in violation
-        of NIST Control 5.2.2
+        <strong>Medium Risk Alert:</strong> Not all physical systems in the
+        system are inventoried, which violates NIST Control ID.AM-1.
       </>
     ),
     severity: "warning",
     timestamp: format(new Date(), "T"),
   },
   {
-    title: "Control 9.1",
+    title: "Control ID.BE-1",
     child: (
       <>
-        <strong>No Risk:</strong> All systems have passed Privacy Risk
-        Assessments. NIST Control 9.1 is no longer in violation.
+        <strong>No Risk:</strong> All information regarding the organization's
+        supply chain is now in effect. NIST Control ID.BE-1 is no longer in
+        violation.
       </>
     ),
     severity: "success",
@@ -39,7 +39,7 @@ export const NISTControls: Control[] = [
         id: "ID.AM",
         description:
           "Asset Management The data, personnel, devices, systems, and facilities that enable the organization to achieve business purposes are identified and managed consistent with their relative importance to organizational objectives and the organization’s risk strategy.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 0.7,
         nestedControls: [
@@ -47,7 +47,7 @@ export const NISTControls: Control[] = [
             id: "ID.AM-1",
             description:
               "Physical devices and systems within the organization are inventoried",
-            isActive: false,
+            isActive: true,
             severity: "high",
             compliance: 0.8,
           },
@@ -96,7 +96,7 @@ export const NISTControls: Control[] = [
         id: "ID.BE",
         description:
           "Business Environment The organization’s mission, objectives, stakeholders, and activities are understood and prioritized; this information is used to inform cybersecurity roles, responsibilities, and risk management decisions.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 0.9,
         nestedControls: [
@@ -104,7 +104,7 @@ export const NISTControls: Control[] = [
             id: "ID.BE-1",
             description:
               "The organization’s role in the supply chain is identified and communicated",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.8,
           },

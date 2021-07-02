@@ -45,10 +45,16 @@ export function useDrawerItems(): drawerItemType[] {
 export function useDashboardItems() {
   const dashboards = useAppSelector(selectDashboards);
 
-  const nestedListItems = dashboards.map((dash) => ({
-    title: dash.name,
-    link: `/dashboard/${dash.id}`,
-  }));
+  const nestedListItems = dashboards.map((dash) => {
+    const link =
+      dash.id === "compliance-dashboard"
+        ? "/framework/overview"
+        : `/dashboard/${dash.id}`;
+    return {
+      title: dash.name,
+      link,
+    };
+  });
 
   return {
     title: "Dashboards",

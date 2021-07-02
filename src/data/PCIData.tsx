@@ -473,7 +473,7 @@ export const PCIControls: Control[] = [
             id: "4.1.1",
             description:
               "Develop configuration standards for all system components. Assure that these standards address all known security vulnerabilities and are consistent with industry-accepted system hardening standards. Sources of industry-accepted system hardening standards may include",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 0.5,
           },
@@ -514,7 +514,7 @@ export const PCIControls: Control[] = [
       {
         id: "5.2",
         description: " and DNS should be implemented on separate servers.)",
-        isActive: false,
+        isActive: true,
         severity: "low",
         compliance: 1,
       },
@@ -537,7 +537,7 @@ export const PCIControls: Control[] = [
   {
     id: "6",
     description: " daemons",
-    isActive: false,
+    isActive: true,
     severity: "medium",
     compliance: 0.4,
     nestedControls: [
@@ -573,7 +573,7 @@ export const PCIControls: Control[] = [
       {
         id: "6.5",
         description: " or daemons that are considered to be insecure.",
-        isActive: false,
+        isActive: true,
         severity: "low",
         compliance: 0.4,
         nestedControls: [
@@ -581,7 +581,7 @@ export const PCIControls: Control[] = [
             id: "6.5.1",
             description:
               "Configure system security parameters to prevent misuse.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },

@@ -3,6 +3,7 @@ import {
   Button,
   ButtonGroup,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   Chip,
@@ -160,6 +161,15 @@ function ActiveDirectory() {
             </Box>
           </Box>
         </CardContent>
+        <Divider />
+        <CardActions style={{ justifyContent: "flex-end" }}>
+          <Button variant="contained" color="primary">
+            Save
+          </Button>
+          <Button variant="outlined" color="primary">
+            Cancel
+          </Button>
+        </CardActions>
       </Card>
     </>
   );

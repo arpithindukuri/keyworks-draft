@@ -69,9 +69,9 @@ export default function FrameworkActions() {
           <Typography variant="h6">Fetching Report</Typography>
         </Box>
       </Backdrop>
-      {framework && (
+      {(framework || location.pathname === "/framework/overview") && (
         <PdfDialog
-          title={framework.name}
+          title={framework?.name || "Overview"}
           open={open}
           link="https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf"
           handleClose={handleClose}

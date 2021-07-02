@@ -336,3 +336,30 @@ function countCompliantControlsHelper(control: Control): number {
   }
   return result;
 }
+
+export function getControlById(
+  controls: Control[],
+  id: string
+): Control | undefined {
+  for (let i = 0; i < controls.length; i++) {
+    const element = controls[i];
+    const newItem = getControlByIdHelper(element, id);
+    if (newItem !== undefined) return newItem;
+  }
+  return undefined;
+}
+function getControlByIdHelper(
+  control: Control,
+  id: string
+): Control | undefined {
+  if (control.id === id) return control;
+
+  if (control.nestedControls === undefined) return undefined;
+
+  for (let i = 0; i < control.nestedControls.length; i++) {
+    const element = control.nestedControls[i];
+    const newItem = getControlByIdHelper(element, id);
+    if (newItem !== undefined) return newItem;
+  }
+  return undefined;
+}

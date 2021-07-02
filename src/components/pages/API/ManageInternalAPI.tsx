@@ -19,13 +19,14 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
+import { MoreVert, Search } from "@material-ui/icons";
 import { selectAPIs } from "../../../redux/threatFeedSlice";
 import { useAppSelector } from "../../../redux/hooks";
 import { ThreatFeedSummary } from "./ManageThreatFeed";
 import { ChangeEvent, useState } from "react";
 import { selectUsers } from "../../../redux/userSlice";
 import { v4 } from "uuid";
+import { format, parse } from "date-fns";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Column {
-  id: "name" | "email" | "hash";
+  id: "name" | "email" | "hash" | "start" | "end" | "actions";
   label: string;
   minWidth?: number;
   align: "right" | "center" | "left";
@@ -100,23 +101,47 @@ const columns: Column[] = [
   },
   {
     id: "hash",
-    label: "Hash",
+    label: "Token",
     minWidth: 400,
     align: "left",
   },
+  {
+    id: "start",
+    label: "Start Date",
+    minWidth: 60,
+    align: "left",
+    format: (item) => <>{format(parse(item, "T", new Date()), "LLLL Mo, y")}</>,
+  },
+  {
+    id: "end",
+    label: "End Date",
+    minWidth: 60,
+    align: "left",
+    format: (item) => <>{format(parse(item, "T", new Date()), "LLLL Mo, y")}</>,
+  },
+  {
+    id: "actions",
+    label: "Actions",
+    minWidth: 60,
+    align: "right",
+  },
 ];
 
-export default function ManageAPI() {
+export default function ManageInternalAPIs({
+  canEdit = true,
+}: {
+  canEdit?: boolean;
+}) {
   const classes = useStyles();
 
   return (
     <Grid className={classes.container} container spacing={2}>
-      <LocalUserList />
+      <LocalUserList canEdit={canEdit} />
     </Grid>
   );
 }
 
-function LocalUserList() {
+function LocalUserList({ canEdit }: { canEdit: boolean }) {
   const classes = useStyles();
 
   const [page, setPage] = useState(0);
@@ -153,11 +178,13 @@ function LocalUserList() {
               }}
             />
             <Box marginLeft={3} display="flex">
-              <ButtonGroup color="primary">
-                <Button color="primary" variant="contained">
-                  Add User
-                </Button>
-              </ButtonGroup>
+              {canEdit ? (
+                <ButtonGroup color="primary">
+                  <Button color="primary" variant="contained">
+                    Add User
+                  </Button>
+                </ButtonGroup>
+              ) : null}
             </Box>
           </Box>
         }
@@ -168,15 +195,19 @@ function LocalUserList() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
+                  {columns.map((column) =>
+                    canEdit || column.id !== "actions" ? (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ) : (
+                      <TableCell />
+                    )
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -192,11 +223,30 @@ function LocalUserList() {
                       >
                         {columns.map((column) => {
                           const value =
-                            column.id === "hash" ? `${v4()}` : user[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
+                            column.id === "hash" ? (
+                              `${user.id}`
+                            ) : column.id === "actions" ? (
+                              <ButtonGroup size="small" color="primary">
+                                <Button>Remove</Button>
+                                <Button>
+                                  <MoreVert />
+                                </Button>
+                              </ButtonGroup>
+                            ) : (
+                              user[column.id]
+                            );
+                          return canEdit || column.id !== "actions" ? (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              padding={
+                                column.id === "actions" ? "none" : undefined
+                              }
+                            >
                               {column.format ? column.format(value) : value}
                             </TableCell>
+                          ) : (
+                            <TableCell />
                           );
                         })}
                       </TableRow>
