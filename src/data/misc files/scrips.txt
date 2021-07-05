@@ -1,0 +1,43 @@
+awk '{print "createData(\x22" $1 "\x22, \x22" substr($0, index($0,$2)) "\x22, \x22medium\x22, 0, false),"}' PCI.txt
+
+
+
+
+#                             Online Bash Shell.
+#                 Code, Compile, Run and Debug Bash script online.
+# Write your code in this editor and press "Run" button to execute it.
+
+
+while read line
+do
+    first=$(echo $line | cut -d' ' -f1)
+    rest=$(echo $line | cut -d' ' -f2-)
+    text=$(echo "${rest::-1}")
+    
+    num=$(shuf -i 0-100 -n 1)
+    vol=0
+    if [ $num -lt 20 ]
+    then
+        vol=$num
+    fi
+    
+    num2=$(shuf -i 0-100 -n 1)
+    sev="medium"
+    if [ $num2 -lt 35 ]
+    then
+        sev="low"
+    fi
+    if [ $num2 -gt 90 ]
+    then
+        sev="high"
+    fi
+    
+    num3=$(shuf -i 0-100 -n 1)
+    need="false"
+    if [ $num3 -lt 15 ]
+    then
+        need="true"
+    fi
+    
+    echo "{id: \"$first\", description:\"$text\", severity: \"$sev\"},"
+done

@@ -1,0 +1,89 @@
+Install and maintain a firewall configuration to protect cardholder data
+Establish and implement firewall and router configuration standards that include the following
+A formal process for approving and testing all network connections and changes to the firewall and router configurations
+Current network diagram that identifies all connections between the cardholder data environment and other networks, including any wireless networks
+Current diagram that shows all cardholder data flows across systems and networks
+Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zone
+Description of groups, roles, and responsibilities for management of network components
+Documentation of business justification and approval for use of all services, protocols, and ports allowed, including documentation of security features implemented for those protocols considered to be insecure.
+Requirement to review firewall and router rule sets at least every six months
+Build firewall and router configurations that restrict connections between untrusted networks and any system components in the cardholder data environment
+Restrict inbound and outbound traffic to that which is necessary for the cardholder data environment, and specifically deny all other traffic.
+Secure and synchronize router configuration files.
+Install perimeter firewalls between all wireless networks and the cardholder data environment, and configure these firewalls to deny or, if traffic is necessary for business purposes, permit only authorized traffic between the wireless environment and the cardholder data environment.
+Prohibit direct public access between the Internet and any system component in the cardholder data environment.
+Implement a DMZ to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports.
+Limit inbound Internet traffic to IP addresses within the DMZ.
+Implement anti-spoofing measures to detect and block forged source IP addresses from entering the network.
+Do not allow unauthorized outbound traffic from the cardholder data environment to the Internet.
+Permit only “established” connections into the network.
+Place system components that store cardholder data (such as a database) in an internal network zone, segregated from the DMZ and other untrusted networks.
+Do not disclose private IP addresses and routing information to unauthorized parties
+Install personal firewall software or equivalent functionality on any portable computing devices (including company and/or employee-owned) that connect to the Internet when outside the network (for example, laptops used by employees), and which are also used to access the CDE. Firewall (or equivalent) configurations include: • Specific configuration settings are defined. • Personal firewall (or equivalent functionality) is actively running. • Personal firewall (or equivalent functionality) is not alterable by users of the portable computing devices.
+Ensure that security policies and operational procedures for managing firewalls are documented, in use, and known to all affected parties.
+Do not use vendor-supplied defaults for system passwords and other security parameters
+Always change vendor-supplied defaults and remove or disable unnecessary default accounts before installing a system on the network. This applies to ALL default passwords, including but not limited to those used by operating systems, software that provides security services, application and system accounts, point-of-sale(POS) terminals, payment applications, Simple Network Management Protocol (SNMP) community strings, etc.).
+For wireless environments connected to the cardholder data environment or transmitting cardholder data, change ALL wireless vendor defaults at installation, including but not limited to default wireless encryption keys, passwords, and SNMP community strings. 
+Develop configuration standards for all system components. Assure that these standards address all known security vulnerabilities and are consistent with industry-accepted system hardening standards. Sources of industry-accepted system hardening standards may include, but are not limited to: • Center for Internet Security (CIS) • International Organization for Standardization (ISO) • SysAdmin Audit Network Security (SANS) Institute • National Institute of Standards Technology (NIST).
+Implement only one primary function per server to prevent functions that require different security levels from co-existing on the same server. (For example, web servers, database servers, and DNS should be implemented on separate servers.)
+Enable only necessary services, protocols, daemons, etc., as required for the function of the system. 
+Implement additional security features for any required services, protocols, or daemons that are considered to be insecure.
+Configure system security parameters to prevent misuse.
+Remove all unnecessary functionality, such as scripts, drivers, features, subsystems, file systems, and unnecessary web servers.
+Encrypt all non-console administrative access using strong cryptography. 
+Maintain an inventory of system components that are in scope for PCI DSS.
+Ensure that security policies and operational procedures for managing vendor defaults and other security parameters are documented, in use, and known to all affected parties.
+Shared hosting providers must protect each entity’s hosted environment and cardholder data. These providers must meet specific requirements as detailed in Appendix A1: Additional PCI DSS Requirements for Shared Hosting Providers.
+Protect stored cardholder data
+Keep cardholder data storage to a minimum by implementing data retention and disposal policies, procedures and processes that include at least the following for all cardholder data (CHD) storage: • Limiting data storage amount and retention time to that which is required for legal, regulatory, and/or business requirements • Specific retention requirements for cardholder data • Processes for secure deletion of data when no longer needed • A quarterly process for identifying and securely deleting stored cardholder data that exceeds defined retention.
+Do not store sensitive authentication data after authorization (even if encrypted). If sensitive authentication data is received, render all data unrecoverable upon completion of the authorization process.
+Do not store the full contents of any track (from the magnetic stripe located on the back of a card, equivalent data contained on a chip, or elsewhere) after authorization. This data is alternatively called full track, track, track 1, track 2, and magnetic-stripe data.
+Do not store the card verification code or value (three-digit or four-digit number printed on the front or back of a payment card used to verify card-notpresent transactions) after authorization.
+Do not store the personal identification number (PIN) or the encrypted PIN block after authorization.
+Mask PAN when displayed (the first six and last four digits are the maximum number of digits to be displayed), such that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN.
+Render PAN unreadable anywhere it is stored (including on portable digital media, backup media, and in logs) by using any of the following approaches: • One-way hashes based on strong cryptography, (hash must be of the entire PAN) • Truncation (hashing cannot be used to replace the truncated segment of PAN) • Index tokens and pads (pads must be securely stored) • Strong cryptography with associated key-management processes and procedures.
+If disk encryption is used (rather than file- or column-level database encryption), logical access must be managed separately and independently of native operating system authentication and access control mechanisms (for example, by not using local user account databases or general network login credentials). Decryption keys must not be associated with user accounts. 
+Document and implement procedures to protect keys used to secure stored cardholder data against disclosure and misuse:
+Additional requirement for service providers only: Maintain a documented description of the cryptographic architecture that includes: • Details of all algorithms, protocols, and keys used for the protection of cardholder data, including key strength and expiry date • Description of the key usage for each key • Inventory of any HSMs and other SCDs used for key management 
+Restrict access to cryptographic keys to the fewest number of custodians necessary
+Store secret and private keys used to encrypt/decrypt cardholder data in one (or more) of the following forms at all times: • Encrypted with a key-encrypting key that is at least as strong as the dataencrypting key, and that is stored separately from the data-encrypting key • Within a secure cryptographic device (such as a hardware (host) security module (HSM) or PTS-approved point-of-interaction device) • As at least two full-length key components or key shares, in accordance with an industryaccepted method 
+Store cryptographic keys in the fewest possible locations.
+Fully document and implement all keymanagement processes and procedures for cryptographic keys used for encryption of cardholder data, including the following:
+Ensure that security policies and operational procedures for protecting stored cardholder data are documented, in use, and known to all affected parties.
+Encrypt transmission of cardholder data across open, public networks
+Use strong cryptography and security protocols to safeguard sensitive cardholder data during transmission over open, public networks, including the following: • Only trusted keys and certificates are accepted. • The protocol in use only supports secure versions or configurations. • The encryption strength is appropriate for the encryption methodology in use.
+Ensure wireless networks transmitting cardholder data or connected to the cardholder data environment, use industry best practices to implement strong encryption for authentication and transmission.
+Never send unprotected PANs by end user messaging technologies (for example, email, instant messaging, SMS, chat, etc.).
+Ensure that security policies and operational procedures for encrypting transmissions of cardholder data are documented, in use, and known to all affected parties.
+Protect all systems against malware and regularly update anti-virus software or programs
+Deploy anti-virus software on all systems commonly affected by malicious software (particularly personal computers and servers).
+Ensure that all anti-virus mechanisms are maintained as follows: • Are kept current, • Perform periodic scans • Generate audit logs which are retained per PCI DSS Requirement 10.7.
+Ensure that anti-virus mechanisms are actively running and cannot be disabled or altered by users, unless specifically authorized by management on a case-by-case basis for a limited time period.
+Ensure that security policies and operational procedures for protecting systems against malware are documented, in use, and known to all affected parties.
+Develop and maintain secure systems and applications
+Establish a process to identify security vulnerabilities, using reputable outside sources for security vulnerability information, and assign a risk ranking (for example, as “high,” “medium,” or “low”) to newly discovered security vulnerabilities. 
+Ensure that all system components and software are protected from known vulnerabilities by installing applicable vendor-supplied security patches. Install critical security patches within one month of release.
+Develop internal and external software applications (including web-based administrative access to applications) securely, as follows: • In accordance with PCI DSS (for example, secure authentication and logging) • Based on industry standards and/or best practices. • Incorporating information security throughout the software-development life cycle 
+Follow change control processes and procedures for all changes to system components. The processes must include the following:
+Address common coding vulnerabilities in software-development processes as follows: • Train developers at least annually in upto-date secure coding techniques, including how to avoid common coding vulnerabilities. • Develop applications based on secure coding guidelines.
+Injection flaws, particularly SQL injection. Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.
+Buffer overflows
+Insecure cryptographic storage
+Insecure communications
+Improper error handling
+All “high risk” vulnerabilities identified in the vulnerability identification process (as defined in PCI DSS Requirement 6.1).
+Cross-site scripting (XSS)
+Improper access control(such as insecure direct object references, failure to restrict URL access, directory traversal, and failure to restrict user access to functions).
+Cross-site request forgery (CSRF)
+Broken authentication and session management.
+For public-facing web applications, address new threats and vulnerabilities on an ongoing basis and ensure these applications are protected against known attacks by either of the following methods:
+Ensure that security policies and operational procedures for developing and maintaining secure systems and applications are documented, in use, and known to all affected parties.
+Restrict access to cardholder data by business need to know
+Limit access to system components and cardholder data to only those individuals whose job requires such access.
+Establish an access control system(s) for systems components that restricts access based on a user’s need to know, and is set to “deny all” unless specifically allowed. This access control system(s) must include the following:
+Ensure that security policies and operational procedures for restricting access to cardholder data are documented, in use, and known to all affected parties.
+Identify and authenticate access to system components 
+Restrict physical access to cardholder data
+Track and monitor all access to network resources and cardholder data
+Regularly test security systems and processes.
+Maintain a policy that addresses information security for all personnel.
