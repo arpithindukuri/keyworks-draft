@@ -66,6 +66,7 @@ export default function PieChartRating({
             paddingAngle={5}
             innerRadius="85%"
             outerRadius="100%"
+            animationDuration={800}
             stroke="none"
           >
             {data.map((entry, index) => (

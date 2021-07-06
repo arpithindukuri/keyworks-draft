@@ -31,94 +31,32 @@ type dataType = {
   Complete: number;
 };
 
-const oldData: dataType[] = [
-  {
-    name: "PCI",
-    Low: 0,
-    Medium: 0,
-    High: 0,
-    Complete: 0,
-  },
-  {
-    name: "ISO",
-    Low: 0,
-    Medium: 0,
-    High: 0,
-    Complete: 0,
-  },
-  {
-    name: "NIST",
-    Low: 0,
-    Medium: 0,
-    High: 0,
-    Complete: 0,
-  },
-  {
-    name: "Overall",
-    Low: 0,
-    Medium: 0,
-    High: 0,
-    Complete: 0,
-  },
-];
-
-const newData: dataType[] = [
-  {
-    name: "PCI",
-    Low: 40,
-    Medium: 24,
-    High: 26,
-    Complete: 10,
-  },
-  {
-    name: "ISO",
-    Low: 30,
-    Medium: 13,
-    High: 27,
-    Complete: 30,
-  },
-  {
-    name: "NIST",
-    Low: 20,
-    Medium: 28,
-    High: 12,
-    Complete: 40,
-  },
-  {
-    name: "Overall",
-    Low: 18,
-    Medium: 42,
-    High: 20,
-    Complete: 20,
-  },
-];
-
-const values = [
-  {
-    Low: 40,
-    Medium: 24,
-    High: 26,
-    Complete: 10,
-  },
-  {
-    Low: 30,
-    Medium: 13,
-    High: 27,
-    Complete: 30,
-  },
-  {
-    Low: 20,
-    Medium: 28,
-    High: 12,
-    Complete: 40,
-  },
-  {
-    Low: 18,
-    Medium: 42,
-    High: 20,
-    Complete: 20,
-  },
-];
+// const values = [
+//   {
+//     Low: 40,
+//     Medium: 24,
+//     High: 26,
+//     Complete: 10,
+//   },
+//   {
+//     Low: 30,
+//     Medium: 13,
+//     High: 27,
+//     Complete: 30,
+//   },
+//   {
+//     Low: 20,
+//     Medium: 28,
+//     High: 12,
+//     Complete: 40,
+//   },
+//   {
+//     Low: 18,
+//     Medium: 42,
+//     High: 20,
+//     Complete: 20,
+//   },
+// ];
 
 export default function RegulatoryCompliance() {
   const classes = useStyles();
@@ -126,6 +64,56 @@ export default function RegulatoryCompliance() {
   const frameworks = useAppSelector(selectFrameworks);
 
   const [data, setData] = useState<dataType[]>([]);
+  const [values, setValues] = useState([
+    {
+      Low: 40,
+      Medium: 24,
+      High: 26,
+      Complete: 10,
+    },
+    {
+      Low: 30,
+      Medium: 13,
+      High: 27,
+      Complete: 30,
+    },
+    {
+      Low: 20,
+      Medium: 28,
+      High: 12,
+      Complete: 40,
+    },
+    {
+      Low: 18,
+      Medium: 42,
+      High: 20,
+      Complete: 20,
+    },
+  ]);
+
+  function getRandomArbitrary(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setValues((prev) => {
+        const arr = prev.map((item) => item);
+        arr.push(
+          arr.shift() || {
+            Low: 18,
+            Medium: 42,
+            High: 20,
+            Complete: 20,
+          }
+        );
+        return arr;
+      });
+    }, getRandomArbitrary(2000, 5000));
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [setValues]);
 
   useEffect(() => {
     const newData = frameworks.map((item, index) => {
@@ -174,7 +162,7 @@ export default function RegulatoryCompliance() {
     }
 
     setData(newData);
-  }, [frameworks]);
+  }, [frameworks, values]);
 
   return (
     <Module title="REGULATORY COMPLIANCE">
