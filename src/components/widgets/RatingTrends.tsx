@@ -117,9 +117,12 @@ export default function RatingTrends() {
   const [data, setData] = useState(oldData);
 
   useEffect(() => {
-    setTimeout(() => {
+    const id = setTimeout(() => {
       setData(newData);
     }, 1000);
+    return () => {
+      clearTimeout(id);
+    };
   }, []);
 
   return (

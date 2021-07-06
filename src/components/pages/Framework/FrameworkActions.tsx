@@ -43,10 +43,13 @@ export default function FrameworkActions() {
 
   useEffect(() => {
     if (loadOpen) {
-      setTimeout(() => {
+      const id = setTimeout(() => {
         setLoadOpen(false);
         setOpen(true);
       }, 1500);
+      return () => {
+        clearTimeout(id);
+      };
     }
   }, [loadOpen]);
 
