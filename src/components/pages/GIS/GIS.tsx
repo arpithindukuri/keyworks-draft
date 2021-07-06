@@ -48,7 +48,7 @@ function GISForms() {
                 label="URI"
                 variant="outlined"
                 fullWidth
-                defaultValue="asd"
+                defaultValue="mapbox://styles/dannywantsmaps/ckplntm0x3ncs17qp8a0ddghl"
               />
               <Box marginY={1.5}>
                 <Divider />
@@ -65,6 +65,7 @@ function GISForms() {
                   label="Token"
                   variant="outlined"
                   fullWidth
+                  defaultValue="pk.eyJ1************************************************************************************7vyWznQ"
                 />
                 <Box display="flex" marginTop={3}>
                   <TextField
