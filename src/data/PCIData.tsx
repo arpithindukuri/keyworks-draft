@@ -461,7 +461,7 @@ export const PCIControls: Control[] = [
             description:
               "Develop configuration standards for all system components. Assure that these standards address all known security vulnerabilities and are consistent with industry-accepted system hardening standards. Sources of industry-accepted system hardening standards may include",
             isActive: true,
-            severity: "low",
+            severity: "high",
             compliance: 0.5,
           },
         ],
@@ -501,7 +501,7 @@ export const PCIControls: Control[] = [
         id: "5.2",
         description: " and DNS should be implemented on separate servers.)",
         isActive: true,
-        severity: "low",
+        severity: "medium",
         compliance: 1,
       },
       {

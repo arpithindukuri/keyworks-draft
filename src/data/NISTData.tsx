@@ -46,7 +46,7 @@ export const NISTControls: Control[] = [
             description:
               "Physical devices and systems within the organization are inventoried",
             isActive: true,
-            severity: "high",
+            severity: "medium",
             compliance: 0.8,
           },
           {

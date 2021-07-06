@@ -60,7 +60,7 @@ export const ISOAlerts: Alert[] = [
     timestamp: format(new Date(), "T"),
   },
   {
-    title: "Control A.11.1.1",
+    title: "Control A.14.2.3",
     child: (
       <>
         <strong>Medium Risk Alert:</strong> Some systems have not been reviewed
@@ -353,7 +353,7 @@ export const ISOControls: Control[] = [
             id: "A.7.1.1",
             isActive: true,
             description: "Prior to employment",
-            severity: "medium",
+            severity: "high",
             compliance: 1,
           },
           {
@@ -1006,7 +1006,7 @@ export const ISOControls: Control[] = [
             id: "A.13.1.3",
             isActive: true,
             description: "Segregation in networks",
-            severity: "low",
+            severity: "high",
             compliance: 1,
           },
         ],
@@ -1387,7 +1387,7 @@ export const ISOControls: Control[] = [
             id: "A.18.1.3",
             isActive: true,
             description: "Protection of records",
-            severity: "medium",
+            severity: "high",
             compliance: 1,
           },
           {
