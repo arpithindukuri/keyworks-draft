@@ -146,14 +146,33 @@ export default function RegulatoryCompliance() {
             Complete: 0,
           };
     });
-    if (frameworks.length > 0)
+
+    if (frameworks.length > 0) {
+      let overallLow = 0;
+      let overallMedium = 0;
+      let overallHigh = 0;
+      let overallComplete = 0;
+      for (let index = 0; index < frameworks.length; index++) {
+        const num = index % values.length;
+        overallLow += values[num].Low;
+        overallMedium += values[num].Medium;
+        overallHigh += values[num].High;
+        overallComplete += values[num].Complete;
+      }
+      overallLow /= frameworks.length;
+      overallMedium /= frameworks.length;
+      overallHigh /= frameworks.length;
+      overallComplete /= frameworks.length;
+
       newData.push({
         name: "Overall",
-        Low: 0,
-        Medium: 0,
-        High: 0,
-        Complete: 0,
+        Low: overallLow,
+        Medium: overallMedium,
+        High: overallHigh,
+        Complete: overallComplete,
       });
+    }
+
     setData(newData);
   }, [frameworks]);
 
@@ -175,29 +194,29 @@ export default function RegulatoryCompliance() {
                 animationDuration={1000}
                 dataKey="Low"
                 stackId="a"
-                fill={theme.palette.success.light}
-                stroke={theme.palette.success.main}
+                fill={fade(theme.palette.success.light, 0.6)}
+                stroke={fade(theme.palette.success.main, 0.6)}
               />
               <Bar
                 animationDuration={1000}
                 dataKey="Medium"
                 stackId="a"
-                fill={theme.palette.warning.light}
-                stroke={theme.palette.warning.main}
+                fill={fade(theme.palette.warning.light, 0.6)}
+                stroke={fade(theme.palette.warning.main, 0.6)}
               />
               <Bar
                 animationDuration={1000}
                 dataKey="High"
                 stackId="a"
-                fill={theme.palette.error.light}
-                stroke={theme.palette.error.main}
+                fill={fade(theme.palette.error.light, 0.6)}
+                stroke={fade(theme.palette.error.main, 0.6)}
               />
               <Bar
                 animationDuration={1000}
                 dataKey="Complete"
                 stackId="a"
-                fill={theme.palette.info.light}
-                stroke={theme.palette.info.main}
+                fill={fade(theme.palette.info.light, 0.6)}
+                stroke={fade(theme.palette.info.main, 0.6)}
               />
             </BarChart>
           </ResponsiveContainer>

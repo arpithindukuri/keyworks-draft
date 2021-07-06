@@ -4,7 +4,6 @@ import {
   CardContent,
   Grid,
   makeStyles,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import { Color } from "@material-ui/lab";
@@ -90,6 +89,7 @@ export default function AllOverviews() {
                           numControlsCompliant={numCompliant}
                           numAlerts={framework.alerts.length}
                           numViolations={numActive - numCompliant}
+                          link={`/framework/${framework.id}`}
                         />
                       </Grid>
                       <Grid item xs={8}>

@@ -1,4 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { format } from "date-fns";
+import { PCIAlerts, PCIControls } from "../data/PCIData";
 import { RootState } from "./store";
 
 export interface Alert {
@@ -74,7 +76,15 @@ export interface FrameworkState {
 }
 
 const initialState: FrameworkState = {
-  frameworks: [],
+  frameworks: [
+    {
+      name: "PCI DSS",
+      dateAdopted: format(1614943978000, "T"),
+      alerts: PCIAlerts,
+      controls: PCIControls,
+      id: "pci-framework-id",
+    },
+  ],
 };
 
 export const frameworkSlice = createSlice({

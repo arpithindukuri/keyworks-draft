@@ -174,7 +174,7 @@ export default function Layout({ children }: { children: any }) {
           </IconButton>
           <img className={classes.logo} src={logo} alt="Placeholder Logo" />
           <Typography className={classes.title} variant="h6" noWrap>
-            {format(new Date(), "hh:mm bbb, eee LLLL Mo (OOO)")}
+            {/* {format(new Date(), "hh:mm bbb, eee LLLL Mo (OOO)")} */}
           </Typography>
           <PageActions />
           <IconButton color="inherit" style={{ marginLeft: 16 }}>

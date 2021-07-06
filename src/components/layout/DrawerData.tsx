@@ -1,7 +1,6 @@
 import { useAppSelector } from "../../redux/hooks";
 import { selectDashboards } from "../../redux/dashboardSlice";
 import { selectFrameworks } from "../../redux/frameworkSlice";
-import { selectThreatFeeds } from "../../redux/threatFeedSlice";
 
 export type drawerItemType = {
   title: string;
@@ -49,6 +48,8 @@ export function useDashboardItems() {
     const link =
       dash.id === "compliance-dashboard"
         ? "/framework/overview"
+        : dash.id === "organizational-dashboard"
+        ? "/organizational"
         : `/dashboard/${dash.id}`;
     return {
       title: dash.name,
@@ -82,23 +83,10 @@ export function useFrameworkItems() {
 }
 
 export function useThreatFeedItems() {
-  const threatFeeds = useAppSelector(selectThreatFeeds);
-
-  const num = Math.min(threatFeeds.length, 5);
-  const nestedListItems: drawerItemType[] = [];
-
-  for (let i = 0; i < num; i++) {
-    const element = threatFeeds[i];
-    nestedListItems.push({
-      title: `${element.name} (${element.isActive ? "Active" : "Inactive"})`,
-    });
-  }
-
   return {
-    title: "Threat Intelligence Feeds",
+    title: "Threat Intelligence Feeds STIX & TAXII",
     icon: "wifi_tethering_error_rounded",
-    isNested: true,
-    nestedListItems: [...nestedListItems],
+    link: "/threat-intel-feeds",
   };
 }
 

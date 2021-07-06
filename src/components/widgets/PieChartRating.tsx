@@ -26,10 +26,12 @@ export default function PieChartRating({
   percent,
   inverse = false,
   variant = "normal",
+  onClickProp,
 }: {
   percent: number;
   inverse?: boolean;
   variant?: "normal" | "small" | "tiny";
+  onClickProp?: () => void;
 }) {
   // const [num, setNum] = useState(0);
 
@@ -51,7 +53,10 @@ export default function PieChartRating({
   if (variant === "normal")
     return (
       <ResponsiveContainer minHeight={150}>
-        <PieChart>
+        <PieChart
+          onClick={onClickProp}
+          style={onClickProp !== undefined ? { cursor: "pointer" } : undefined}
+        >
           <Pie
             data={data}
             dataKey="value"
@@ -89,6 +94,8 @@ export default function PieChartRating({
         margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
         height={variant === "tiny" ? 24 : 32}
         width={variant === "tiny" ? 24 : 32}
+        onClick={onClickProp}
+        style={onClickProp !== undefined ? { cursor: "pointer" } : undefined}
       >
         <Pie
           data={data}

@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function ManageThreatFeed() {
+export default function ViewThreatFeed() {
   const classes = useStyles();
 
   const threatFeeds = useAppSelector(selectThreatFeeds);
@@ -87,6 +87,7 @@ export default function ManageThreatFeed() {
         <ThreatFeedSummary
           key={`threatFeed-summary-${dash.id}`}
           threatFeed={dash}
+          canEdit={false}
         />
       ))}
     </Grid>
@@ -113,11 +114,6 @@ function Header() {
                 ),
               }}
             />
-            <Box marginLeft={3} display="flex">
-              <Button variant="contained" color="primary">
-                Add New Feed
-              </Button>
-            </Box>
           </Box>
         }
       />

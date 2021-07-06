@@ -5,6 +5,7 @@ import Ratings from "../components/widgets/Ratings";
 import RatingTrends from "../components/widgets/RatingTrends";
 import RegulatoryCompliance from "../components/widgets/RegulatoryCompliance";
 import TopThreats from "../components/widgets/TopThreats";
+import { v4 } from "uuid";
 
 export type WidgetIdType =
   | "ratings"
@@ -40,7 +41,7 @@ export function getWidgetFromId(widgetId: WidgetIdType) {
     case "topthreats":
       return <TopThreats />;
     case "compliance":
-      return <FrameworkCompliance />;
+      return <FrameworkCompliance thisId={v4()} />;
     case "alerts":
       return <FrameworkAlerts />;
     default:

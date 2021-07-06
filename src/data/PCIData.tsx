@@ -44,7 +44,6 @@ export const PCIControls: Control[] = [
       "Install and maintain a firewall configuration to protect cardholder data",
     isActive: true,
     severity: "low",
-    compliance: 1,
     nestedControls: [
       {
         id: "1.1",
@@ -52,13 +51,12 @@ export const PCIControls: Control[] = [
           "Establish and implement firewall and router configuration standards that include the following",
         isActive: true,
         severity: "medium",
-        compliance: 0.3,
         nestedControls: [
           {
             id: "1.1.1",
             description:
               "A formal process for approving and testing all network connections and changes to the firewall and router configurations",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -66,7 +64,7 @@ export const PCIControls: Control[] = [
             id: "1.1.2",
             description:
               "Current network diagram that identifies all connections between the cardholder data environment and other networks",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.2,
           },
@@ -113,9 +111,8 @@ export const PCIControls: Control[] = [
         id: "1.2",
         description:
           " and responsibilities for management of network components",
-        isActive: false,
+        isActive: true,
         severity: "medium",
-        compliance: 0.5,
         nestedControls: [
           {
             id: "1.2.1",
@@ -135,7 +132,7 @@ export const PCIControls: Control[] = [
           {
             id: "1.2.3",
             description: " and ports allowed",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 0.5,
           },
@@ -145,15 +142,14 @@ export const PCIControls: Control[] = [
         id: "1.3",
         description:
           " including documentation of security features implemented for those protocols considered to be insecure.",
-        isActive: false,
+        isActive: true,
         severity: "low",
-        compliance: 0.3,
         nestedControls: [
           {
             id: "1.3.1",
             description:
               "Requirement to review firewall and router rule sets at least every six months",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -176,7 +172,7 @@ export const PCIControls: Control[] = [
           {
             id: "1.3.4",
             description: " and specifically deny all other traffic.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -215,7 +211,7 @@ export const PCIControls: Control[] = [
         id: "1.5",
         description:
           " permit only authorized traffic between the wireless environment and the cardholder data environment.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -227,15 +223,13 @@ export const PCIControls: Control[] = [
       "Prohibit direct public access between the Internet and any system component in the cardholder data environment.",
     isActive: true,
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "2.1",
         description:
           "Implement a DMZ to limit inbound traffic to only system components that provide authorized publicly accessible services",
-        isActive: false,
+        isActive: true,
         severity: "medium",
-        compliance: 0.7,
         nestedControls: [
           {
             id: "2.1.1",
@@ -249,9 +243,8 @@ export const PCIControls: Control[] = [
       {
         id: "2.2",
         description: " and ports.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
-        compliance: 0.4,
         nestedControls: [
           {
             id: "2.2.1",
@@ -265,7 +258,7 @@ export const PCIControls: Control[] = [
             id: "2.2.2",
             description:
               "Implement anti-spoofing measures to detect and block forged source IP addresses from entering the network.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.6,
           },
@@ -273,7 +266,7 @@ export const PCIControls: Control[] = [
             id: "2.2.3",
             description:
               "Do not allow unauthorized outbound traffic from the cardholder data environment to the Internet.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -298,7 +291,7 @@ export const PCIControls: Control[] = [
       {
         id: "2.3",
         description: " segregated from the DMZ and other untrusted networks.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -306,7 +299,7 @@ export const PCIControls: Control[] = [
         id: "2.4",
         description:
           "Do not disclose private IP addresses and routing information to unauthorized parties",
-        isActive: false,
+        isActive: true,
         severity: "high",
         compliance: 1,
       },
@@ -314,7 +307,7 @@ export const PCIControls: Control[] = [
         id: "2.5",
         description:
           "Install personal firewall software or equivalent functionality on any portable computing devices (including company and/or employee-owned) that connect to the Internet when outside the network (for example",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -333,13 +326,12 @@ export const PCIControls: Control[] = [
       " and which are also used to access the CDE. Firewall (or equivalent) configurations include: • Specific configuration settings are defined. • Personal firewall (or equivalent functionality) is actively running. • Personal firewall (or equivalent functionality) is not alterable by users of the portable computing devices.",
     isActive: true,
     severity: "low",
-    compliance: 0.8,
     nestedControls: [
       {
         id: "3.1",
         description:
           "Ensure that security policies and operational procedures for managing firewalls are documented",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -348,7 +340,6 @@ export const PCIControls: Control[] = [
         description: " in use",
         isActive: true,
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "3.2.1",
@@ -361,7 +352,7 @@ export const PCIControls: Control[] = [
             id: "3.2.2",
             description:
               "Do not use vendor-supplied defaults for system passwords and other security parameters",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -386,9 +377,8 @@ export const PCIControls: Control[] = [
       {
         id: "3.4",
         description: " software that provides security services",
-        isActive: false,
+        isActive: true,
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "3.4.1",
@@ -404,7 +394,6 @@ export const PCIControls: Control[] = [
         description: " point-of-sale(POS) terminals",
         isActive: true,
         severity: "medium",
-        compliance: 0.5,
         nestedControls: [
           {
             id: "3.5.1",
@@ -417,14 +406,14 @@ export const PCIControls: Control[] = [
             id: "3.5.2",
             description:
               " Simple Network Management Protocol (SNMP) community strings",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
           {
             id: "3.5.3",
             description: " etc.).",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.3,
           },
@@ -441,7 +430,7 @@ export const PCIControls: Control[] = [
       {
         id: "3.6",
         description: " change ALL wireless vendor defaults at installation",
-        isActive: false,
+        isActive: true,
         severity: "low",
         compliance: 1,
       },
@@ -460,14 +449,12 @@ export const PCIControls: Control[] = [
     description: " passwords",
     isActive: true,
     severity: "low",
-    compliance: 1,
     nestedControls: [
       {
         id: "4.1",
         description: " and SNMP community strings. ",
         isActive: true,
         severity: "medium",
-        compliance: 0.8,
         nestedControls: [
           {
             id: "4.1.1",
@@ -483,7 +470,7 @@ export const PCIControls: Control[] = [
         id: "4.2",
         description:
           " but are not limited to: • Center for Internet Security (CIS) • International Organization for Standardization (ISO) • SysAdmin Audit Network Security (SANS) Institute • National Institute of Standards Technology (NIST).",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -502,12 +489,11 @@ export const PCIControls: Control[] = [
     description: " web servers",
     isActive: true,
     severity: "low",
-    compliance: 0.6,
     nestedControls: [
       {
         id: "5.1",
         description: " database servers",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 0.2,
       },
@@ -539,7 +525,6 @@ export const PCIControls: Control[] = [
     description: " daemons",
     isActive: true,
     severity: "medium",
-    compliance: 0.4,
     nestedControls: [
       {
         id: "6.1",
@@ -575,7 +560,6 @@ export const PCIControls: Control[] = [
         description: " or daemons that are considered to be insecure.",
         isActive: true,
         severity: "low",
-        compliance: 0.4,
         nestedControls: [
           {
             id: "6.5.1",
@@ -602,7 +586,7 @@ export const PCIControls: Control[] = [
           {
             id: "6.5.4",
             description: " drivers",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.7,
           },
@@ -638,7 +622,7 @@ export const PCIControls: Control[] = [
             id: "6.5.9",
             description:
               "Encrypt all non-console administrative access using strong cryptography. ",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.6,
           },
@@ -646,7 +630,7 @@ export const PCIControls: Control[] = [
             id: "6.5.10",
             description:
               "Maintain an inventory of system components that are in scope for PCI DSS.",
-            isActive: false,
+            isActive: true,
             severity: "high",
             compliance: 1,
           },
@@ -674,7 +658,6 @@ export const PCIControls: Control[] = [
     description: " and known to all affected parties.",
     isActive: true,
     severity: "high",
-    compliance: 1,
     nestedControls: [
       {
         id: "7.1",
@@ -695,7 +678,7 @@ export const PCIControls: Control[] = [
         id: "7.3",
         description:
           "Keep cardholder data storage to a minimum by implementing data retention and disposal policies",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 0.5,
       },
@@ -728,7 +711,7 @@ export const PCIControls: Control[] = [
     id: "11",
     description:
       "Do not store sensitive authentication data after authorization (even if encrypted). If sensitive authentication data is received",
-    isActive: false,
+    isActive: true,
     severity: "medium",
     compliance: 1,
   },
@@ -736,7 +719,7 @@ export const PCIControls: Control[] = [
     id: "12",
     description:
       " render all data unrecoverable upon completion of the authorization process.",
-    isActive: false,
+    isActive: true,
     severity: "low",
     compliance: 0.4,
   },

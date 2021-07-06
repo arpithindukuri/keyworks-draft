@@ -27,11 +27,6 @@ export const AvailableFrameworks: AvailableFramework[] = [
     link: "example.com",
   },
   {
-    id: "nist80053-framework-id",
-    name: "NIST 800-53",
-    link: "example.com",
-  },
-  {
     id: "iso27002-framework-id",
     name: "ISO 27002",
     link: "example.com",

@@ -94,16 +94,18 @@ const columns: Column[] = [
     align: "left",
   },
   {
-    id: "email",
-    label: "Email",
-    minWidth: 300,
-    align: "left",
-  },
-  {
     id: "hash",
     label: "Token",
     minWidth: 400,
     align: "left",
+    format: (item: string) => (
+      <>
+        {item
+          .split("-")
+          .map((word, index) => (index === 0 ? word : "*".repeat(word.length)))
+          .join("-")}
+      </>
+    ),
   },
   {
     id: "start",

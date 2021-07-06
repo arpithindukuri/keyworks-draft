@@ -1,7 +1,5 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
   CardHeader,
   createStyles,
   fade,
@@ -51,7 +49,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function ManageAPI() {
+export default function ViewAPI() {
   const classes = useStyles();
 
   const threatFeeds = useAppSelector(selectAPIs);

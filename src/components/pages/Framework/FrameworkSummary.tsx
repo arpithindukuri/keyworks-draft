@@ -1,5 +1,6 @@
 import { createStyles, Grid, makeStyles, Typography } from "@material-ui/core";
 import { CheckCircle, Notifications, ReportProblem } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 import PieChartRating from "../../widgets/PieChartRating";
 
@@ -28,6 +29,7 @@ export default function FrameworkSummary({
   numControlsCompliant,
   numAlerts,
   numViolations,
+  link,
 }: {
   title: string;
   subtitle?: string;
@@ -36,8 +38,10 @@ export default function FrameworkSummary({
   numControlsCompliant?: number;
   numAlerts?: number;
   numViolations?: number;
+  link: string;
 }) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Grid container className={classes.root} direction="column">
@@ -49,7 +53,13 @@ export default function FrameworkSummary({
       </Grid>
       <Grid container className={classes.body} alignItems="center">
         <Grid item className={classes.pieContainer} xs={7}>
-          <PieChartRating percent={percent} inverse />
+          <PieChartRating
+            percent={percent}
+            inverse
+            onClickProp={() => {
+              history.push(link);
+            }}
+          />
         </Grid>
         <Grid item xs={5} container spacing={2}>
           {numAlerts !== undefined && (

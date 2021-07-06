@@ -136,7 +136,7 @@ function FrameworkSummary({ framework }: { framework: Framework }) {
               <Typography>
                 {format(
                   parse(framework.dateAdopted, "T", new Date()),
-                  "hh:mm bbb, eee LLLL Mo"
+                  "hh:mm bbb, eee LLLL Mo, y"
                 )}
               </Typography>
             </SubItem>
@@ -144,7 +144,7 @@ function FrameworkSummary({ framework }: { framework: Framework }) {
               <Typography>
                 {format(
                   parse(framework.dateAdopted, "T", new Date()),
-                  "hh:mm bbb, eee LLLL Mo"
+                  "hh:mm bbb, eee LLLL Mo, y"
                 )}
               </Typography>
             </SubItem>
@@ -247,6 +247,7 @@ function AvailableFrameworkList({
     threshold: 0.3,
   };
   const fuse = new Fuse(AvailableFrameworks, options);
+  const addedFrameworks = useAppSelector(selectFrameworks);
 
   return (
     <>
@@ -276,21 +277,34 @@ function AvailableFrameworkList({
         {(search.length === 0
           ? AvailableFrameworks
           : fuse.search(search).map((result) => result.item)
-        ).map((framework) => (
-          <TableRow>
-            <TableCell>{framework.name}</TableCell>
-            <TableCell>{framework.link}</TableCell>
-            <TableCell padding="none" align="right">
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => setSelectedFramework(framework)}
-              >
-                Add
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
+        ).map((framework) => {
+          const isEnabled =
+            addedFrameworks.find((val) => val.name === framework.name) ===
+            undefined;
+          return (
+            <TableRow>
+              <TableCell>
+                <Typography
+                  variant="body2"
+                  color={isEnabled ? undefined : "textSecondary"}
+                >
+                  {isEnabled ? framework.name : `${framework.name} (Added)`}
+                </Typography>
+              </TableCell>
+              <TableCell>{framework.link}</TableCell>
+              <TableCell padding="none" align="right">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => setSelectedFramework(framework)}
+                  disabled={!isEnabled}
+                >
+                  Add
+                </Button>
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </Table>
     </>
   );
@@ -309,8 +323,9 @@ function ValidateFramework({
   const { enqueueSnackbar } = useSnackbar();
 
   const [license, setLicense] = useState("");
-  const [error, setError] =
-    useState<"Cannot be empty" | "Invalid License Key" | "success">("success");
+  const [error, setError] = useState<
+    "Cannot be empty" | "Invalid License Key" | "success"
+  >("success");
 
   const getAlerts = (name: string): Alert[] => {
     if (name === "PCI DSS") return PCIAlerts;

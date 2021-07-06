@@ -133,6 +133,7 @@ export default function Framework({
                 numControlsCompliant={numCompliant}
                 numAlerts={framework.alerts.length}
                 numViolations={numActive - numCompliant}
+                link={`/framework/${framework.id}`}
               />
             </Box>
           </Module>

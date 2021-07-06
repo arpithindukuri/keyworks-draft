@@ -45,7 +45,7 @@ export default function AlertList({ framework }: { framework: Framework }) {
                 <i>
                   {format(
                     parse(item.timestamp, "T", new Date()),
-                    "hh:mm bbb, eee LLLL Mo"
+                    "hh:mm bbb, eee LLLL Mo, y"
                   )}
                 </i>
               </Alert>

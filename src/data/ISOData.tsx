@@ -87,14 +87,14 @@ export const ISOAlerts: Alert[] = [
 export const ISOControls: Control[] = [
   {
     id: "4.1",
-    isActive: false,
+    isActive: true,
     description: "Understanding the organization and its context",
     severity: "medium",
     compliance: 1,
   },
   {
     id: "4.2",
-    isActive: false,
+    isActive: true,
     description:
       "Understanding the needs and expectations of interested parties",
     severity: "high",
@@ -110,7 +110,7 @@ export const ISOControls: Control[] = [
   },
   {
     id: "4.4",
-    isActive: false,
+    isActive: true,
     description: "Information security management system",
     severity: "medium",
     compliance: 1,
@@ -124,7 +124,7 @@ export const ISOControls: Control[] = [
   },
   {
     id: "5.2",
-    isActive: false,
+    isActive: true,
     description: "Information Security Policy",
     severity: "low",
     compliance: 1,
@@ -138,14 +138,14 @@ export const ISOControls: Control[] = [
   },
   {
     id: "6.1",
-    isActive: false,
+    isActive: true,
     description: "Actions to address risks and opportunities",
     severity: "medium",
     compliance: 0.8,
   },
   {
     id: "6.2",
-    isActive: false,
+    isActive: true,
     description: "Information security objectives and planning to achieve them",
     severity: "medium",
     compliance: 1,
@@ -159,7 +159,7 @@ export const ISOControls: Control[] = [
   },
   {
     id: "7.2",
-    isActive: false,
+    isActive: true,
     description: "Competence",
     severity: "low",
     compliance: 1,
@@ -201,14 +201,14 @@ export const ISOControls: Control[] = [
   },
   {
     id: "8.3",
-    isActive: false,
+    isActive: true,
     description: "Information security risk treatment",
     severity: "medium",
     compliance: 1,
   },
   {
     id: "9.1",
-    isActive: false,
+    isActive: true,
     description: "Monitoring measurement analysis and evaluation",
     severity: "medium",
     compliance: 0.7,
@@ -222,21 +222,21 @@ export const ISOControls: Control[] = [
   },
   {
     id: "9.3",
-    isActive: false,
+    isActive: true,
     description: "Management review",
     severity: "medium",
     compliance: 1,
   },
   {
     id: "10.1",
-    isActive: false,
+    isActive: true,
     description: "Nonconformity and corrective action",
     severity: "medium",
     compliance: 1,
   },
   {
     id: "10.2",
-    isActive: false,
+    isActive: true,
     description: "Continual improvement",
     severity: "medium",
     compliance: 1,
@@ -246,14 +246,12 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Information security policies",
     severity: "low",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.5.1",
         isActive: true,
         description: "Management direction of information security",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.5.1.1",
@@ -275,28 +273,26 @@ export const ISOControls: Control[] = [
   },
   {
     id: "A.6",
-    isActive: false,
+    isActive: true,
     description: "Organization of information security",
     severity: "low",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.6.1",
         isActive: true,
         description: "Internal organization",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.6.1.1",
-            isActive: false,
+            isActive: true,
             description: "Policies for Information Security",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.6.1.2",
-            isActive: false,
+            isActive: true,
             description: "Review of the policies for information security",
             severity: "medium",
             compliance: 1,
@@ -310,7 +306,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.6.1.4",
-            isActive: false,
+            isActive: true,
             description: "Review of the policies for information security",
             severity: "medium",
             compliance: 0.5,
@@ -322,7 +318,6 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Mobile devices and teleworking",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.6.2.1",
@@ -333,7 +328,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.6.2.2",
-            isActive: false,
+            isActive: true,
             description: "Teleworking",
             severity: "medium",
             compliance: 1,
@@ -347,14 +342,12 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Human resource security",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.7.1",
-        isActive: false,
+        isActive: true,
         description: "Prior to Employment",
         severity: "low",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.7.1.1",
@@ -374,21 +367,20 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.7.2",
-        isActive: false,
+        isActive: true,
         description: "During employment",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.7.2.1",
-            isActive: false,
+            isActive: true,
             description: "Management responsibilities",
             severity: "medium",
             compliance: 0.5,
           },
           {
             id: "A.7.2.2",
-            isActive: false,
+            isActive: true,
             description:
               "Information security awareness education and training",
             severity: "medium",
@@ -408,11 +400,10 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Termination and change of employment",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.7.3.1",
-            isActive: false,
+            isActive: true,
             description: "Termination or change of employment responsibilities",
             severity: "medium",
             compliance: 1,
@@ -426,18 +417,16 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Asset management",
     severity: "low",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.8.1",
-        isActive: false,
+        isActive: true,
         description: "Responsibility for assets",
         severity: "low",
-        compliance: 0.8,
         nestedControls: [
           {
             id: "A.8.1.1",
-            isActive: false,
+            isActive: true,
             description: "Inventory of assets",
             severity: "low",
             compliance: 1,
@@ -451,7 +440,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.8.1.3",
-            isActive: false,
+            isActive: true,
             description: "Acceptable use of assets",
             severity: "high",
             compliance: 0.8,
@@ -470,7 +459,6 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Information classification",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.8.2.1",
@@ -481,7 +469,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.8.2.2",
-            isActive: false,
+            isActive: true,
             description: "Labeling of information",
             severity: "medium",
             compliance: 0.6,
@@ -497,10 +485,9 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.8.3",
-        isActive: false,
+        isActive: true,
         description: "Media handling",
         severity: "high",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.8.3.1",
@@ -518,7 +505,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.8.3.3",
-            isActive: false,
+            isActive: true,
             description: "Physical media transfer",
             severity: "low",
             compliance: 1,
@@ -529,28 +516,26 @@ export const ISOControls: Control[] = [
   },
   {
     id: "A.9",
-    isActive: false,
+    isActive: true,
     description: "Access control",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.9.1",
-        isActive: false,
+        isActive: true,
         description: "Business requirements of access control",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.9.1.1",
-            isActive: false,
+            isActive: true,
             description: "Access control policy",
             severity: "low",
             compliance: 1,
           },
           {
             id: "A.9.1.2",
-            isActive: false,
+            isActive: true,
             description: "Access of networks and network services",
             severity: "low",
             compliance: 0.1,
@@ -559,10 +544,9 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.9.2",
-        isActive: false,
+        isActive: true,
         description: "User access management",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.9.2.1",
@@ -580,14 +564,14 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.9.2.3",
-            isActive: false,
+            isActive: true,
             description: "Management of privileged access rights",
             severity: "high",
             compliance: 1,
           },
           {
             id: "A.9.2.4",
-            isActive: false,
+            isActive: true,
             description:
               "Management of secret authentication information of users",
             severity: "medium",
@@ -595,14 +579,14 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.9.2.5",
-            isActive: false,
+            isActive: true,
             description: "Review of user access rights",
             severity: "high",
             compliance: 0.9,
           },
           {
             id: "A.9.2.6",
-            isActive: false,
+            isActive: true,
             description: "Removal or adjustment of access rights",
             severity: "medium",
             compliance: 1,
@@ -614,11 +598,10 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "User responsibilities",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.9.3.1",
-            isActive: false,
+            isActive: true,
             description: "User responsibilities",
             severity: "medium",
             compliance: 1,
@@ -627,21 +610,20 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.9.4",
-        isActive: false,
+        isActive: true,
         description: "System and application access control",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.9.4.1",
-            isActive: false,
+            isActive: true,
             description: "Information access restriction",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.9.4.2",
-            isActive: false,
+            isActive: true,
             description: "Secure log-on procedure",
             severity: "low",
             compliance: 1,
@@ -676,14 +658,12 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Cryptography",
     severity: "low",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.10.1",
         isActive: true,
         description: "Cryptographic controls",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.10.1.1",
@@ -705,42 +685,40 @@ export const ISOControls: Control[] = [
   },
   {
     id: "A.11",
-    isActive: false,
+    isActive: true,
     description: "Physical and environmental security",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.11.1",
-        isActive: false,
+        isActive: true,
         description: "Secure areas",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.11.1.1",
-            isActive: false,
+            isActive: true,
             description: "Physical security perimeter",
             severity: "medium",
             compliance: 0.6,
           },
           {
             id: "A.11.1.2",
-            isActive: false,
+            isActive: true,
             description: "Physical entry control",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.11.1.3",
-            isActive: false,
+            isActive: true,
             description: "Securing offices rooms and facilities",
             severity: "medium",
             compliance: 0.8,
           },
           {
             id: "A.11.1.4",
-            isActive: false,
+            isActive: true,
             description:
               "Protecting against external and environmental threats",
             severity: "low",
@@ -748,7 +726,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.11.1.5",
-            isActive: false,
+            isActive: true,
             description: "Working in secure areas",
             severity: "low",
             compliance: 0.1,
@@ -764,35 +742,34 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.11.2",
-        isActive: false,
+        isActive: true,
         description: "Equipment",
         severity: "low",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.11.2.1",
-            isActive: false,
+            isActive: true,
             description: "Equipment siting and protection",
             severity: "low",
             compliance: 0.4,
           },
           {
             id: "A.11.2.2",
-            isActive: false,
+            isActive: true,
             description: "Supporting utilities",
             severity: "high",
             compliance: 1,
           },
           {
             id: "A.11.2.3",
-            isActive: false,
+            isActive: true,
             description: "Cabling security",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.11.2.4",
-            isActive: false,
+            isActive: true,
             description: "Equipment maintenance",
             severity: "medium",
             compliance: 1,
@@ -813,7 +790,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.11.2.7",
-            isActive: false,
+            isActive: true,
             description: "Secure disposal or re-use of equipment",
             severity: "low",
             compliance: 0.8,
@@ -838,21 +815,19 @@ export const ISOControls: Control[] = [
   },
   {
     id: "A.12",
-    isActive: false,
+    isActive: true,
     description: "Operations security",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.12.1",
-        isActive: false,
+        isActive: true,
         description: "Operational procedures and responsibilities",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.12.1.1",
-            isActive: false,
+            isActive: true,
             description: "Documented operating procedures",
             severity: "high",
             compliance: 1,
@@ -866,14 +841,14 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.12.1.3",
-            isActive: false,
+            isActive: true,
             description: "Capacity management",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.12.1.4",
-            isActive: false,
+            isActive: true,
             description:
               "Separation of development testing and operational environments",
             severity: "medium",
@@ -886,11 +861,10 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Protection from malware",
         severity: "medium",
-        compliance: 0.5,
         nestedControls: [
           {
             id: "A.12.2.1",
-            isActive: false,
+            isActive: true,
             description: "Controls against malware",
             severity: "medium",
             compliance: 1,
@@ -899,10 +873,9 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.12.3",
-        isActive: false,
+        isActive: true,
         description: "Backup",
         severity: "medium",
-        compliance: 0.4,
         nestedControls: [
           {
             id: "A.12.3.1",
@@ -918,32 +891,31 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Logging and monitoring",
         severity: "high",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.12.4.1",
-            isActive: false,
+            isActive: true,
             description: "Event logging",
             severity: "medium",
             compliance: 0.8,
           },
           {
             id: "A.12.4.2",
-            isActive: false,
+            isActive: true,
             description: "Protection of log information",
             severity: "low",
             compliance: 1,
           },
           {
             id: "A.12.4.3",
-            isActive: false,
+            isActive: true,
             description: "Administrator and operator logs",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.12.4.4",
-            isActive: false,
+            isActive: true,
             description: "Clock synchronization",
             severity: "high",
             compliance: 1,
@@ -955,11 +927,10 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Control of operational software",
         severity: "low",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.12.5.1",
-            isActive: false,
+            isActive: true,
             description: "Installation of software on operational systems",
             severity: "medium",
             compliance: 1,
@@ -971,7 +942,6 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Technical vulnerability management",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.12.6.1",
@@ -991,14 +961,13 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.12.7",
-        isActive: false,
+        isActive: true,
         description: "Information systems audit considerations",
         severity: "medium",
-        compliance: 0.4,
         nestedControls: [
           {
             id: "A.12.7.1",
-            isActive: false,
+            isActive: true,
             description: "Information systems audit controls",
             severity: "low",
             compliance: 1,
@@ -1012,14 +981,12 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Communications security",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.13.1",
         isActive: true,
         description: "Network Security Management",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.13.1.1",
@@ -1037,7 +1004,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.13.1.3",
-            isActive: false,
+            isActive: true,
             description: "Segregation in networks",
             severity: "low",
             compliance: 1,
@@ -1049,11 +1016,10 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Information Transfer",
         severity: "medium",
-        compliance: 0.1,
         nestedControls: [
           {
             id: "A.13.2.1",
-            isActive: false,
+            isActive: true,
             description: "Information transfer policies and procedures",
             severity: "medium",
             compliance: 0.4,
@@ -1088,18 +1054,16 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "System acquisition development and maintenance",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.14.1",
-        isActive: false,
+        isActive: true,
         description: "Security requirements of information systems",
         severity: "medium",
-        compliance: 0.6,
         nestedControls: [
           {
             id: "A.14.1.1",
-            isActive: false,
+            isActive: true,
             description:
               "Information security requirements analysis and specification",
             severity: "low",
@@ -1107,14 +1071,14 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.14.1.2",
-            isActive: false,
+            isActive: true,
             description: "Securing application services on public networks",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.14.1.3",
-            isActive: false,
+            isActive: true,
             description: "Protecting application services transactions",
             severity: "medium",
             compliance: 1,
@@ -1123,10 +1087,9 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.14.2",
-        isActive: false,
+        isActive: true,
         description: "Security in development and support processes",
         severity: "low",
-        compliance: 0.5,
         nestedControls: [
           {
             id: "A.14.2.1",
@@ -1137,14 +1100,14 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.14.2.2",
-            isActive: false,
+            isActive: true,
             description: "System changes control procedures",
             severity: "low",
             compliance: 1,
           },
           {
             id: "A.14.2.3",
-            isActive: false,
+            isActive: true,
             description:
               "Technical review of applications after operating platform changes",
             severity: "medium",
@@ -1152,7 +1115,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.14.2.4",
-            isActive: false,
+            isActive: true,
             description: "Restrictions on changes to software packages",
             severity: "low",
             compliance: 0.9,
@@ -1166,7 +1129,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.14.2.6",
-            isActive: false,
+            isActive: true,
             description: "Secure development environment",
             severity: "medium",
             compliance: 1,
@@ -1196,10 +1159,9 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.14.3",
-        isActive: false,
+        isActive: true,
         description: "Test data",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.14.3.1",
@@ -1217,18 +1179,16 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Supplier relationships",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.15.1",
         isActive: true,
         description: "Information security policy for supplier relationships",
         severity: "high",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.15.1.1",
-            isActive: false,
+            isActive: true,
             description:
               "Information security policy for supplier relationships",
             severity: "low",
@@ -1266,7 +1226,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.15.2.2",
-            isActive: false,
+            isActive: true,
             description: "Managing changes to supplier services",
             severity: "medium",
             compliance: 1,
@@ -1280,7 +1240,6 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Information security incident management",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.16.1",
@@ -1288,11 +1247,10 @@ export const ISOControls: Control[] = [
         description:
           "Management of information security incidents and improvements",
         severity: "low",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.16.1.1",
-            isActive: false,
+            isActive: true,
             description: "Responsibilities and procedures",
             severity: "high",
             compliance: 1,
@@ -1313,7 +1271,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.16.1.4",
-            isActive: false,
+            isActive: true,
             description:
               "Assessment of and decision on information security events",
             severity: "medium",
@@ -1335,7 +1293,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.16.1.7",
-            isActive: false,
+            isActive: true,
             description: "Collection of evidence",
             severity: "medium",
             compliance: 1,
@@ -1346,22 +1304,20 @@ export const ISOControls: Control[] = [
   },
   {
     id: "A.17",
-    isActive: false,
+    isActive: true,
     description:
       "Information security aspects of business continuity management",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.17.1",
-        isActive: false,
+        isActive: true,
         description: "Information security continuity",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.17.1.1",
-            isActive: false,
+            isActive: true,
             description: "Planning information security continuity",
             severity: "medium",
             compliance: 0.8,
@@ -1385,14 +1341,13 @@ export const ISOControls: Control[] = [
       },
       {
         id: "A.17.2",
-        isActive: false,
+        isActive: true,
         description: "Redundancies",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.17.2.1",
-            isActive: false,
+            isActive: true,
             description: "Availability of information processing facilities",
             severity: "low",
             compliance: 1,
@@ -1406,18 +1361,16 @@ export const ISOControls: Control[] = [
     isActive: true,
     description: "Compliance",
     severity: "medium",
-    compliance: 1,
     nestedControls: [
       {
         id: "A.18.1",
         isActive: true,
         description: "Compliance with legal and contractual requirements",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.18.1.1",
-            isActive: false,
+            isActive: true,
             description:
               "Identification of applicable legislation and contractual requirements",
             severity: "medium",
@@ -1425,21 +1378,21 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.18.1.2",
-            isActive: false,
+            isActive: true,
             description: "Intellectual property rights",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.18.1.3",
-            isActive: false,
+            isActive: true,
             description: "Protection of records",
             severity: "medium",
             compliance: 1,
           },
           {
             id: "A.18.1.4",
-            isActive: false,
+            isActive: true,
             description:
               "Privacy and protection of personally identifiable information",
             severity: "low",
@@ -1459,7 +1412,6 @@ export const ISOControls: Control[] = [
         isActive: true,
         description: "Information security reviews",
         severity: "medium",
-        compliance: 1,
         nestedControls: [
           {
             id: "A.18.2.1",
@@ -1477,7 +1429,7 @@ export const ISOControls: Control[] = [
           },
           {
             id: "A.18.2.3",
-            isActive: false,
+            isActive: true,
             description: "Technical compliance review",
             severity: "low",
             compliance: 1,

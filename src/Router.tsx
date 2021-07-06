@@ -12,6 +12,8 @@ import ViewInternalAPI from "./components/pages/API/ViewInternalAPI";
 import ManageInternalAPI from "./components/pages/API/ManageInternalAPI";
 import ViewUsers from "./components/pages/User/ViewUsers";
 import GIS from "./components/pages/GIS/GIS";
+import ViewThreatFeed from "./components/pages/API/ViewThreatFeed";
+import OrganizationalOverview from "./components/pages/Framework/OrganizationalOverview";
 
 export interface Route {
   path: string;
@@ -20,6 +22,14 @@ export interface Route {
 }
 
 export const routes: Route[] = [
+  {
+    path: "/organizational",
+    component: OrganizationalOverview,
+  },
+  {
+    path: "/threat-intel-feeds",
+    component: ViewThreatFeed,
+  },
   {
     path: "/admin/corporateGIS",
     component: GIS,

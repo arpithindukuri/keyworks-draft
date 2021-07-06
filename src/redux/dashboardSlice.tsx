@@ -2,6 +2,11 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { Layout } from "react-grid-layout";
 
+export interface SelectedFramework {
+  widgetId: string;
+  frameworkId: string;
+}
+
 export interface Dashboard {
   id: string;
   name: string;
@@ -10,6 +15,7 @@ export interface Dashboard {
 
 export interface DashboardState {
   dashboards: Dashboard[];
+  selectedFrameworks: SelectedFramework[];
 }
 
 const initialState: DashboardState = {
@@ -111,7 +117,7 @@ const initialState: DashboardState = {
       layout: [
         {
           w: 7,
-          h: 6,
+          h: 7,
           x: 0,
           y: 0,
           i: "topthreats-risk-analysis-dashboard-0",
@@ -142,25 +148,9 @@ const initialState: DashboardState = {
           isBounded: true,
         },
         {
-          w: 7,
-          h: 6,
-          x: 0,
-          y: 6,
-          i: "regcomp-risk-analysis-dashboard-0",
-          minW: 4,
-          maxW: 20,
-          minH: 4,
-          maxH: 20,
-          moved: false,
-          static: false,
-          isDraggable: true,
-          isResizable: true,
-          isBounded: true,
-        },
-        {
-          w: 9,
+          w: 16,
           h: 5,
-          x: 7,
+          x: 0,
           y: 7,
           i: "trends-risk-analysis-dashboard-0",
           minW: 5,
@@ -211,41 +201,10 @@ const initialState: DashboardState = {
           isResizable: true,
           isBounded: true,
         },
-        {
-          w: 5,
-          h: 6,
-          x: 0,
-          y: 6,
-          i: "regcomp",
-          minW: 4,
-          maxW: 20,
-          minH: 4,
-          maxH: 20,
-          moved: false,
-          static: false,
-          isDraggable: true,
-          isResizable: true,
-          isBounded: true,
-        },
-        {
-          w: 11,
-          h: 6,
-          x: 5,
-          y: 6,
-          i: "highriskassets",
-          minW: 8,
-          maxW: 20,
-          minH: 4,
-          maxH: 20,
-          moved: false,
-          static: false,
-          isDraggable: true,
-          isResizable: true,
-          isBounded: true,
-        },
       ],
     },
   ],
+  selectedFrameworks: [],
 };
 
 export const dashboardSlice = createSlice({
@@ -269,6 +228,22 @@ export const dashboardSlice = createSlice({
         (dash) => dash.id === action.payload.id
       );
       if (index > -1) state.dashboards[index] = action.payload.newDashboard;
+    },
+    updateSelectedFramework: (
+      state,
+      action: PayloadAction<{ widgetId: string; frameworkId: string }>
+    ) => {
+      const index = state.selectedFrameworks.findIndex(
+        (item) => item.widgetId === action.payload.widgetId
+      );
+      if (index > -1)
+        state.selectedFrameworks[index].frameworkId =
+          action.payload.frameworkId;
+      else
+        state.selectedFrameworks.push({
+          widgetId: action.payload.widgetId,
+          frameworkId: action.payload.frameworkId,
+        });
     },
     updateDashboardLayout: (
       state,
@@ -332,6 +307,7 @@ export const {
   add,
   remove,
   update,
+  updateSelectedFramework,
   updateDashboardLayout,
   dropLayout,
   removeWidget,

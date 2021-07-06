@@ -8,13 +8,18 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import {
+  selectDashboardSlice,
+  updateSelectedFramework,
+} from "../../redux/dashboardSlice";
 import {
   countActiveControls,
   countCompliantControls,
   selectFrameworkById,
   selectFrameworks,
 } from "../../redux/frameworkSlice";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Module from "../Module";
 import FrameworkSummary from "../pages/Framework/FrameworkSummary";
 
@@ -25,13 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FrameworkCompliance() {
+export default function FrameworkCompliance({ thisId }: { thisId: string }) {
   const classes = useStyles();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  const selectedFrameworks = useAppSelector(selectDashboardSlice);
 
   const [selectedFrameworkId, setSelectedFrameworkId] = useState<string>("");
 
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
     setSelectedFrameworkId(event.target.value as string);
+    if (selectedFrameworkId.length > 0 && thisId.length > 0)
+      dispatch(
+        updateSelectedFramework({
+          widgetId: thisId,
+          frameworkId: selectedFrameworkId,
+        })
+      );
   };
 
   const selectedFramework = useAppSelector(
@@ -54,27 +70,29 @@ export default function FrameworkCompliance() {
     <Module
       title="COMPLIANCE"
       actions={
-        <FormControl
-          variant="filled"
-          className={classes.formControl}
-          size="small"
-          style={{ margin: 0 }}
-        >
-          <InputLabel id="demo-simple-select-outlined-label">
-            Framework
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={selectedFrameworkId}
-            onChange={handleChange}
-            label="Framework"
+        location.pathname.includes("/edit") ? (
+          <FormControl
+            variant="filled"
+            className={classes.formControl}
+            size="small"
+            style={{ margin: 0 }}
           >
-            {frameworks.map((item) => (
-              <MenuItem value={item.id}>{item.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            <InputLabel id="demo-simple-select-outlined-label">
+              Framework
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={selectedFrameworkId}
+              onChange={handleChange}
+              label="Framework"
+            >
+              {frameworks.map((item) => (
+                <MenuItem value={item.id}>{item.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : null
       }
     >
       <Box padding={2}>
@@ -87,6 +105,7 @@ export default function FrameworkCompliance() {
             numControlsCompliant={numCompliant}
             numAlerts={selectedFramework.alerts.length}
             numViolations={numActive - numCompliant}
+            link={`/framework/${selectedFramework.id}`}
           />
         ) : (
           <Box
