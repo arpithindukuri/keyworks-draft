@@ -72,10 +72,10 @@ export default function OrganizationalOverview() {
     <div className={classes.container}>
       {frameworks.length > 0 ? (
         <Grid container xs spacing={3}>
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <Ratings />
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <RatingTrends />
           </Grid>
           <Grid item container xs={12} spacing={3}>
@@ -106,10 +106,10 @@ export default function OrganizationalOverview() {
               );
             })}
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <RegulatoryCompliance />
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={8}>
             <HighRiskAssets />
           </Grid>
         </Grid>

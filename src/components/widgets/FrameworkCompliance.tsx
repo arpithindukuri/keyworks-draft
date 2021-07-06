@@ -70,29 +70,27 @@ export default function FrameworkCompliance({ thisId }: { thisId: string }) {
     <Module
       title="COMPLIANCE"
       actions={
-        location.pathname.includes("/edit") ? (
-          <FormControl
-            variant="filled"
-            className={classes.formControl}
-            size="small"
-            style={{ margin: 0 }}
+        <FormControl
+          variant="filled"
+          className={classes.formControl}
+          size="small"
+          style={{ margin: 0 }}
+        >
+          <InputLabel id="demo-simple-select-outlined-label">
+            Framework
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={selectedFrameworkId}
+            onChange={handleChange}
+            label="Framework"
           >
-            <InputLabel id="demo-simple-select-outlined-label">
-              Framework
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={selectedFrameworkId}
-              onChange={handleChange}
-              label="Framework"
-            >
-              {frameworks.map((item) => (
-                <MenuItem value={item.id}>{item.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        ) : null
+            {frameworks.map((item) => (
+              <MenuItem value={item.id}>{item.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       }
     >
       <Box padding={2}>
