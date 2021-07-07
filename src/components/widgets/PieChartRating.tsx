@@ -77,7 +77,7 @@ export default function PieChartRating({
             ))}
             <Label
               className={classes.fadeIn}
-              value={`${Math.round(percent * 100)}%`}
+              value={`${Math.floor(percent * 100)}%`}
               position="center"
               dominantBaseline="center"
               fontSize={theme.typography.h4.fontSize}
