@@ -483,7 +483,7 @@ export const PCIControls: Control[] = [
               "Ensure wireless networks transmitting cardholder data or connected to the cardholder data environment, use industry best practices to implement strong encryption for authentication and transmission.",
             isActive: true,
             severity: "high",
-            compliance: 1,
+            compliance: 0.1,
           },
         ],
       },
@@ -526,7 +526,7 @@ export const PCIControls: Control[] = [
           "Ensure that all anti-virus mechanisms are maintained as follows: • Are kept current, • Perform periodic scans • Generate audit logs which are retained per PCI DSS Requirement 10.7.",
         isActive: true,
         severity: "medium",
-        compliance: 1,
+        compliance: 0.5,
       },
       {
         id: "5.3",
@@ -597,7 +597,7 @@ export const PCIControls: Control[] = [
               "Injection flaws, particularly SQL injection. Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.",
             isActive: true,
             severity: "medium",
-            compliance: 1,
+            compliance: 0.5,
           },
           {
             id: "6.5.2",

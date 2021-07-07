@@ -47,7 +47,7 @@ export const NISTControls: Control[] = [
               "Physical devices and systems within the organization are inventoried",
             isActive: true,
             severity: "medium",
-            compliance: 0.8,
+            compliance: 0.5,
           },
           {
             id: "ID.AM-2",
@@ -103,7 +103,7 @@ export const NISTControls: Control[] = [
               "The organization’s role in the supply chain is identified and communicated",
             isActive: true,
             severity: "medium",
-            compliance: 0.8,
+            compliance: 1,
           },
           {
             id: "ID.BE-2",

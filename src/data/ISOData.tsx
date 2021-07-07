@@ -354,7 +354,7 @@ export const ISOControls: Control[] = [
             isActive: true,
             description: "Prior to employment",
             severity: "high",
-            compliance: 1,
+            compliance: 0.1,
           },
           {
             id: "A.7.1.2",
@@ -700,7 +700,7 @@ export const ISOControls: Control[] = [
             isActive: true,
             description: "Physical security perimeter",
             severity: "medium",
-            compliance: 0.6,
+            compliance: 1,
           },
           {
             id: "A.11.1.2",
@@ -1007,7 +1007,7 @@ export const ISOControls: Control[] = [
             isActive: true,
             description: "Segregation in networks",
             severity: "high",
-            compliance: 1,
+            compliance: 0.1,
           },
         ],
       },
@@ -1111,7 +1111,7 @@ export const ISOControls: Control[] = [
             description:
               "Technical review of applications after operating platform changes",
             severity: "medium",
-            compliance: 1,
+            compliance: 0.6,
           },
           {
             id: "A.14.2.4",
@@ -1388,7 +1388,7 @@ export const ISOControls: Control[] = [
             isActive: true,
             description: "Protection of records",
             severity: "high",
-            compliance: 1,
+            compliance: 0.1,
           },
           {
             id: "A.18.1.4",
