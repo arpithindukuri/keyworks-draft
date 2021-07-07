@@ -56,7 +56,7 @@ export const PCIControls: Control[] = [
             id: "1.1.1",
             description:
               "A formal process for approving and testing all network connections and changes to the firewall and router configurations",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -64,7 +64,7 @@ export const PCIControls: Control[] = [
             id: "1.1.2",
             description:
               "Current network diagram that identifies all connections between the cardholder data environment and other networks, including any wireless networks",
-            isActive: false,
+            isActive: true,
             severity: "high",
             compliance: 1,
           },
@@ -80,7 +80,7 @@ export const PCIControls: Control[] = [
             id: "1.1.4",
             description:
               "Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zone",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -88,7 +88,7 @@ export const PCIControls: Control[] = [
             id: "1.1.5",
             description:
               "Description of groups, roles, and responsibilities for management of network components",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -96,7 +96,7 @@ export const PCIControls: Control[] = [
             id: "1.1.6",
             description:
               "Documentation of business justification and approval for use of all services, protocols, and ports allowed, including documentation of security features implemented for those protocols considered to be insecure.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -121,7 +121,7 @@ export const PCIControls: Control[] = [
             id: "1.2.1",
             description:
               "Restrict inbound and outbound traffic to that which is necessary for the cardholder data environment, and specifically deny all other traffic.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -153,7 +153,7 @@ export const PCIControls: Control[] = [
             id: "1.3.1",
             description:
               "Implement a DMZ to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 0.9,
           },
@@ -161,7 +161,7 @@ export const PCIControls: Control[] = [
             id: "1.3.2",
             description:
               "Limit inbound Internet traffic to IP addresses within the DMZ.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.4,
           },
@@ -169,7 +169,7 @@ export const PCIControls: Control[] = [
             id: "1.3.3",
             description:
               "Implement anti-spoofing measures to detect and block forged source IP addresses from entering the network.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -177,7 +177,7 @@ export const PCIControls: Control[] = [
             id: "1.3.4",
             description:
               "Do not allow unauthorized outbound traffic from the cardholder data environment to the Internet.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -185,7 +185,7 @@ export const PCIControls: Control[] = [
             id: "1.3.5",
             description:
               "Permit only “established” connections into the network.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -193,7 +193,7 @@ export const PCIControls: Control[] = [
             id: "1.3.6",
             description:
               "Place system components that store cardholder data (such as a database) in an internal network zone, segregated from the DMZ and other untrusted networks.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -211,7 +211,7 @@ export const PCIControls: Control[] = [
         id: "1.4",
         description:
           "Install personal firewall software or equivalent functionality on any portable computing devices (including company and/or employee-owned) that connect to the Internet when outside the network (for example, laptops used by employees), and which are also used to access the CDE. Firewall (or equivalent) configurations include: • Specific configuration settings are defined. • Personal firewall (or equivalent functionality) is actively running. • Personal firewall (or equivalent functionality) is not alterable by users of the portable computing devices.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -219,7 +219,7 @@ export const PCIControls: Control[] = [
         id: "1.5",
         description:
           "Ensure that security policies and operational procedures for managing firewalls are documented, in use, and known to all affected parties.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -229,7 +229,7 @@ export const PCIControls: Control[] = [
     id: "2",
     description:
       "Do not use vendor-supplied defaults for system passwords and other security parameters",
-    isActive: false,
+    isActive: true,
     severity: "low",
     nestedControls: [
       {
@@ -243,7 +243,7 @@ export const PCIControls: Control[] = [
             id: "2.1.1",
             description:
               "For wireless environments connected to the cardholder data environment or transmitting cardholder data, change ALL wireless vendor defaults at installation, including but not limited to default wireless encryption keys, passwords, and SNMP community strings. ",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -268,7 +268,7 @@ export const PCIControls: Control[] = [
             id: "2.2.2",
             description:
               "Enable only necessary services, protocols, daemons, etc., as required for the function of the system. ",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -284,7 +284,7 @@ export const PCIControls: Control[] = [
             id: "2.2.4",
             description:
               "Configure system security parameters to prevent misuse.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -292,7 +292,7 @@ export const PCIControls: Control[] = [
             id: "2.2.5",
             description:
               "Remove all unnecessary functionality, such as scripts, drivers, features, subsystems, file systems, and unnecessary web servers.",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
@@ -310,7 +310,7 @@ export const PCIControls: Control[] = [
         id: "2.4",
         description:
           "Maintain an inventory of system components that are in scope for PCI DSS.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -342,7 +342,7 @@ export const PCIControls: Control[] = [
         id: "3.1",
         description:
           "Keep cardholder data storage to a minimum by implementing data retention and disposal policies, procedures and processes that include at least the following for all cardholder data (CHD) storage: • Limiting data storage amount and retention time to that which is required for legal, regulatory, and/or business requirements • Specific retention requirements for cardholder data • Processes for secure deletion of data when no longer needed • A quarterly process for identifying and securely deleting stored cardholder data that exceeds defined retention.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -373,7 +373,7 @@ export const PCIControls: Control[] = [
             id: "3.2.3",
             description:
               "Do not store the personal identification number (PIN) or the encrypted PIN block after authorization.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -383,7 +383,7 @@ export const PCIControls: Control[] = [
         id: "3.3",
         description:
           "Mask PAN when displayed (the first six and last four digits are the maximum number of digits to be displayed), such that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN.",
-        isActive: false,
+        isActive: true,
         severity: "low",
         compliance: 1,
       },
@@ -398,7 +398,7 @@ export const PCIControls: Control[] = [
             id: "3.4.1",
             description:
               "If disk encryption is used (rather than file- or column-level database encryption), logical access must be managed separately and independently of native operating system authentication and access control mechanisms (for example, by not using local user account databases or general network login credentials). Decryption keys must not be associated with user accounts. ",
-            isActive: false,
+            isActive: true,
             severity: "high",
             compliance: 1,
           },
@@ -408,7 +408,7 @@ export const PCIControls: Control[] = [
         id: "3.5",
         description:
           "Document and implement procedures to protect keys used to secure stored cardholder data against disclosure and misuse:",
-        isActive: false,
+        isActive: true,
         severity: "low",
         nestedControls: [
           {
@@ -439,7 +439,7 @@ export const PCIControls: Control[] = [
             id: "3.5.4",
             description:
               "Store cryptographic keys in the fewest possible locations.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -457,7 +457,7 @@ export const PCIControls: Control[] = [
         id: "3.7",
         description:
           "Ensure that security policies and operational procedures for protecting stored cardholder data are documented, in use, and known to all affected parties.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -467,7 +467,7 @@ export const PCIControls: Control[] = [
     id: "4",
     description:
       "Encrypt transmission of cardholder data across open, public networks",
-    isActive: false,
+    isActive: true,
     severity: "medium",
     nestedControls: [
       {
@@ -509,14 +509,14 @@ export const PCIControls: Control[] = [
     id: "5",
     description:
       "Protect all systems against malware and regularly update anti-virus software or programs",
-    isActive: false,
+    isActive: true,
     severity: "low",
     nestedControls: [
       {
         id: "5.1",
         description:
           "Deploy anti-virus software on all systems commonly affected by malicious software (particularly personal computers and servers).",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 0.1,
       },
@@ -540,7 +540,7 @@ export const PCIControls: Control[] = [
         id: "5.4",
         description:
           "Ensure that security policies and operational procedures for protecting systems against malware are documented, in use, and known to all affected parties.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -549,14 +549,14 @@ export const PCIControls: Control[] = [
   {
     id: "6",
     description: "Develop and maintain secure systems and applications",
-    isActive: false,
+    isActive: true,
     severity: "medium",
     nestedControls: [
       {
         id: "6.1",
         description:
           "Establish a process to identify security vulnerabilities, using reputable outside sources for security vulnerability information, and assign a risk ranking (for example, as “high,” “medium,” or “low”) to newly discovered security vulnerabilities. ",
-        isActive: false,
+        isActive: true,
         severity: "high",
         compliance: 1,
       },
@@ -564,7 +564,7 @@ export const PCIControls: Control[] = [
         id: "6.2",
         description:
           "Ensure that all system components and software are protected from known vulnerabilities by installing applicable vendor-supplied security patches. Install critical security patches within one month of release.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -580,7 +580,7 @@ export const PCIControls: Control[] = [
         id: "6.4",
         description:
           "Follow change control processes and procedures for all changes to system components. The processes must include the following:",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         compliance: 1,
       },
@@ -588,7 +588,7 @@ export const PCIControls: Control[] = [
         id: "6.5",
         description:
           "Address common coding vulnerabilities in software-development processes as follows: • Train developers at least annually in up\u0002to-date secure coding techniques, including how to avoid common coding vulnerabilities. • Develop applications based on secure coding guidelines.",
-        isActive: false,
+        isActive: true,
         severity: "medium",
         nestedControls: [
           {
@@ -602,14 +602,14 @@ export const PCIControls: Control[] = [
           {
             id: "6.5.2",
             description: "Buffer overflows",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 1,
           },
           {
             id: "6.5.3",
             description: "Insecure cryptographic storage",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 0.7,
           },
@@ -638,7 +638,7 @@ export const PCIControls: Control[] = [
           {
             id: "6.5.7",
             description: "Cross-site scripting (XSS)",
-            isActive: false,
+            isActive: true,
             severity: "medium",
             compliance: 0.3,
           },
@@ -660,7 +660,7 @@ export const PCIControls: Control[] = [
           {
             id: "6.5.10",
             description: "Broken authentication and session management.",
-            isActive: false,
+            isActive: true,
             severity: "low",
             compliance: 1,
           },
@@ -687,7 +687,7 @@ export const PCIControls: Control[] = [
   {
     id: "7:",
     description: "Restrict access to cardholder data by business need to know",
-    isActive: false,
+    isActive: true,
     severity: "low",
     nestedControls: [
       {
@@ -702,7 +702,7 @@ export const PCIControls: Control[] = [
         id: "7.2",
         description:
           "Establish an access control system(s) for systems components that restricts access based on a user’s need to know, and is set to “deny all” unless specifically allowed. This access control system(s) must include the following:",
-        isActive: false,
+        isActive: true,
         severity: "high",
         compliance: 1,
       },
@@ -710,7 +710,7 @@ export const PCIControls: Control[] = [
         id: "7.3",
         description:
           "Ensure that security policies and operational procedures for restricting access to cardholder data are documented, in use, and known to all affected parties.",
-        isActive: false,
+        isActive: true,
         severity: "low",
         compliance: 1,
       },
@@ -719,7 +719,7 @@ export const PCIControls: Control[] = [
   {
     id: "8",
     description: "Identify and authenticate access to system components ",
-    isActive: false,
+    isActive: true,
     severity: "medium",
     compliance: 1,
   },
@@ -749,7 +749,7 @@ export const PCIControls: Control[] = [
     id: "12",
     description:
       "Maintain a policy that addresses information security for all personnel.",
-    isActive: false,
+    isActive: true,
     severity: "low",
     compliance: 1,
   },
