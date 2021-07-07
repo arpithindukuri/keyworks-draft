@@ -80,19 +80,19 @@ export default function Ratings() {
       setRisk((prev) =>
         prev + newNum1 > 0 && prev + newNum1 < 1 ? prev + newNum1 : prev
       );
-    }, getRandomArbitrary(1000, 3000));
+    }, getRandomArbitrary(6000, 8000));
     const timerId2 = setInterval(() => {
-      const newNum2 = getRandomArbitrary(-0.05, 0.05);
+      const newNum2 = getRandomArbitrary(-0.03, 0.03);
       setCompliance((prev) =>
         prev + newNum2 > 0 && prev + newNum2 < 1 ? prev + newNum2 : prev
       );
-    }, getRandomArbitrary(1000, 3000));
+    }, getRandomArbitrary(10000, 12000));
     const timerId3 = setInterval(() => {
       const newNum3 = getRandomArbitrary(-0.05, 0.05);
       setThreats((prev) =>
         prev + newNum3 > 0 && prev + newNum3 < 1 ? prev + newNum3 : prev
       );
-    }, getRandomArbitrary(1000, 3000));
+    }, getRandomArbitrary(3000, 5000));
     return () => {
       clearInterval(timerId1);
       clearInterval(timerId2);
