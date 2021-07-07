@@ -85,13 +85,6 @@ const initialState: FrameworkState = {
       controls: PCIControls,
       id: "pci-framework-id",
     },
-    {
-      name: "NIST CSF",
-      dateAdopted: format(1614943978000, "T"),
-      alerts: NISTAlerts,
-      controls: NISTControls,
-      id: "nist-framework-id",
-    },
   ],
 };
 
