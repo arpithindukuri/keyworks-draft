@@ -1,5 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { format } from "date-fns";
+import { NISTAlerts, NISTControls } from "../data/NISTData";
 import { PCIAlerts, PCIControls } from "../data/PCIData";
 import { RootState } from "./store";
 
@@ -83,6 +84,13 @@ const initialState: FrameworkState = {
       alerts: PCIAlerts,
       controls: PCIControls,
       id: "pci-framework-id",
+    },
+    {
+      name: "NIST CSF",
+      dateAdopted: format(1614943978000, "T"),
+      alerts: NISTAlerts,
+      controls: NISTControls,
+      id: "nist-framework-id",
     },
   ],
 };

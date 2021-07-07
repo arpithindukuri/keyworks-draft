@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { useLocation } from "react-router";
 import { AppContext } from "../../../context/AppContext";
 import { selectDashboardById } from "../../../redux/dashboardSlice";
+import { selectFrameworks } from "../../../redux/frameworkSlice";
 import { useAppSelector } from "../../../redux/hooks";
 import { WidgetIdType, widgetList } from "../../../redux/widgetSlice";
 import Dashboard from "./Dashboard";
@@ -45,6 +46,7 @@ export default function EditDashboard() {
   const location = useLocation();
   const dashboardId = location.pathname.split("/")[3];
   const dashboard = useAppSelector(selectDashboardById(dashboardId));
+  const frameworks = useAppSelector(selectFrameworks);
 
   const classes = useStyles();
 
@@ -71,35 +73,28 @@ export default function EditDashboard() {
                 {dashboard?.name}
               </Typography>
             </ListItem>
-            {/* <ListItem>
-              <ButtonGroup fullWidth color="primary" disableElevation>
-                <Tooltip title="Does not work LOL">
-                  <Button startIcon={<Cancel />}>Cancel</Button>
-                </Tooltip>
-                <Button
-                  variant="contained"
-                  startIcon={<Save />}
-                  onClick={() => {
-                    history.push(`/dashboard/${dashboardId}`);
-                    enqueueSnackbar(
-                      <>
-                        Successfully saved dashboard:&nbsp;
-                        <strong>{dashboard.name}</strong>
-                      </>,
-                      { variant: "success" }
-                    );
-                  }}
-                >
-                  Save
-                </Button>
-              </ButtonGroup>
-            </ListItem> */}
             <Divider />
-            {widgetList.map((widget) => (
+            {widgetList.map((widget) =>
+              widget.hidden ? null : (
+                <WidgetListItem
+                  key={`widget-list-item-${widget.title}`}
+                  title={widget.title}
+                  widgetType={widget.i}
+                />
+              )
+            )}
+            {frameworks.map((framework) => (
               <WidgetListItem
-                key={`widget-list-item-${widget.title}`}
-                title={widget.title}
-                widgetType={widget.i}
+                key={`widget-list-item-compliance-${framework.id}`}
+                title={`${framework.name} Compliance`}
+                widgetType={`compliance-${framework.id}`}
+              />
+            ))}
+            {frameworks.map((framework) => (
+              <WidgetListItem
+                key={`widget-list-item-alerts-${framework.id}`}
+                title={`${framework.name} Alerts`}
+                widgetType={`alerts-${framework.id}`}
               />
             ))}
           </List>
@@ -115,15 +110,17 @@ export default function EditDashboard() {
 function WidgetListItem({
   title,
   widgetType,
+  disabled = true,
 }: {
   title: string;
   widgetType: WidgetIdType;
+  disabled?: boolean;
 }) {
   const { setType, clearType } = useContext(AppContext);
 
   return (
     <div
-      draggable={true}
+      draggable={disabled}
       onDragStart={(e) => {
         e.dataTransfer.setData("text/plain", "");
         setType(widgetType);
@@ -135,7 +132,9 @@ function WidgetListItem({
       <ListItem button disableRipple disableTouchRipple>
         <ListItemText
           primary={title}
-          primaryTypographyProps={{ noWrap: true }}
+          primaryTypographyProps={{
+            color: disabled ? undefined : "textSecondary",
+          }}
         />
       </ListItem>
     </div>

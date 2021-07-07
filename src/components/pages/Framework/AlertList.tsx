@@ -1,4 +1,10 @@
-import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  createStyles,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { format, parse } from "date-fns";
 import { Framework, getControlById } from "../../../redux/frameworkSlice";
@@ -23,6 +29,9 @@ export default function AlertList({ framework }: { framework: Framework }) {
 
   return (
     <Grid container className={classes.container} spacing={1}>
+      <Grid item>
+        <Typography variant="h4">{framework.name}</Typography>
+      </Grid>
       {framework.alerts.map((item) => {
         const id =
           item.title.split(" ").length > 1 ? item.title.split(" ")[1] : "";

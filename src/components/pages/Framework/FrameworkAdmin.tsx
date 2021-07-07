@@ -330,19 +330,18 @@ function ValidateFramework({
   const getAlerts = (name: string): Alert[] => {
     if (name === "PCI DSS") return PCIAlerts;
     if (name === "ISO 27001") return ISOAlerts;
-    if (name === "NIST") return NISTAlerts;
+    if (name === "NIST CSF") return NISTAlerts;
     return [];
   };
 
   const getControls = (name: string): Control[] => {
     if (name === "PCI DSS") return PCIControls;
     if (name === "ISO 27001") return ISOControls;
-    if (name === "NIST") return NISTControls;
+    if (name === "NIST CSF") return NISTControls;
     return [];
   };
 
   const handleAdd = () => {
-    console.log(license.length, error);
     if (license.length === 0) setError(() => "Cannot be empty");
     // else if (error !== "Invalid License Key")
     //   setError(() => "Invalid License Key");

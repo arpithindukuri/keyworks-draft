@@ -121,7 +121,6 @@ export default function Dashboard({
         };
       })
     );
-    console.log("changed");
   }, [dashboard.layout, canEdit]);
 
   // const layout = dashboard.layout.map((widget) => {
@@ -296,9 +295,7 @@ export default function Dashboard({
           }}
         >
           {layout.map((widget) => {
-            const widgetEl = getWidgetFromId(
-              widget.i.split("-")[0] as WidgetIdType
-            );
+            const widgetEl = getWidgetFromId(widget.i);
             return (
               <div
                 key={widget.i}

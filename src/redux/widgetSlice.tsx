@@ -5,52 +5,56 @@ import Ratings from "../components/widgets/Ratings";
 import RatingTrends from "../components/widgets/RatingTrends";
 import RegulatoryCompliance from "../components/widgets/RegulatoryCompliance";
 import TopThreats from "../components/widgets/TopThreats";
-import { v4 } from "uuid";
 
-export type WidgetIdType =
-  | "ratings"
-  | "trends"
-  | "regcomp"
-  | "highriskassets"
-  | "topthreats"
-  | "compliance"
-  | "alerts"
-  | null;
+// export type WidgetIdType =
+//   | "ratings"
+//   | "trends"
+//   | "regcomp"
+//   | "highriskassets"
+//   | "topthreats"
+//   | "compliance"
+//   | "alerts"
+//   | null;
+export type WidgetIdType = string | null;
 
 export interface Widget {
   title: string;
-  i: WidgetIdType;
+  i: string;
   w: number;
   h: number;
   minW: number;
   minH: number;
   maxW: number;
   maxH: number;
+  hidden?: boolean;
 }
 
-export function getWidgetFromId(widgetId: WidgetIdType) {
-  switch (widgetId) {
-    case "ratings":
-      return <Ratings />;
-    case "trends":
-      return <RatingTrends />;
-    case "regcomp":
-      return <RegulatoryCompliance />;
-    case "highriskassets":
-      return <HighRiskAssets />;
-    case "topthreats":
-      return <TopThreats />;
-    case "compliance":
-      return <FrameworkCompliance thisId={v4()} />;
-    case "alerts":
-      return <FrameworkAlerts />;
-    default:
-      return <></>;
-  }
+export function getWidgetFromId(widgetId: string) {
+  console.log(widgetId);
+  if (widgetId.split("-")[0] === "ratings") return <Ratings />;
+  if (widgetId.split("-")[0] === "trends") return <RatingTrends />;
+  if (widgetId.split("-")[0] === "regcomp") return <RegulatoryCompliance />;
+  if (widgetId.split("-")[0] === "highriskassets") return <HighRiskAssets />;
+  if (widgetId.split("-")[0] === "topthreats") return <TopThreats />;
+  if (widgetId.split("-")[0] === "compliance")
+    return (
+      <FrameworkCompliance
+        thisId={widgetId.split("-").slice(1, -2).join("-")}
+      />
+    );
+  if (widgetId.split("-")[0] === "alerts")
+    return (
+      <FrameworkAlerts thisId={widgetId.split("-").slice(1, -2).join("-")} />
+    );
+  return <></>;
 }
 
 export function getWidgetDetailsFromId(widgetId: WidgetIdType) {
-  return widgetList.find((wid) => wid.i === widgetId);
+  const result = widgetList.find((wid) => wid.i === widgetId);
+  if (result !== undefined) return result;
+  return widgetId === null
+    ? undefined
+    : widgetList.find((wid) => widgetId.includes(wid.i));
 }
 
 export const widgetList: Widget[] = [
@@ -113,6 +117,7 @@ export const widgetList: Widget[] = [
     minH: 4,
     maxW: 10,
     maxH: 10,
+    hidden: true,
   },
   {
     title: "Alerts",
@@ -123,5 +128,6 @@ export const widgetList: Widget[] = [
     minH: 4,
     maxW: 20,
     maxH: 20,
+    hidden: true,
   },
 ];

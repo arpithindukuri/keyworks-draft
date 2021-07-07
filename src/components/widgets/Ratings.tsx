@@ -77,21 +77,18 @@ export default function Ratings() {
   useEffect(() => {
     const timerId1 = setInterval(() => {
       const newNum1 = getRandomArbitrary(-0.05, 0.05);
-      console.log(newNum1);
       setRisk((prev) =>
         prev + newNum1 > 0 && prev + newNum1 < 1 ? prev + newNum1 : prev
       );
     }, getRandomArbitrary(1000, 3000));
     const timerId2 = setInterval(() => {
       const newNum2 = getRandomArbitrary(-0.05, 0.05);
-      console.log(newNum2);
       setCompliance((prev) =>
         prev + newNum2 > 0 && prev + newNum2 < 1 ? prev + newNum2 : prev
       );
     }, getRandomArbitrary(1000, 3000));
     const timerId3 = setInterval(() => {
       const newNum3 = getRandomArbitrary(-0.05, 0.05);
-      console.log(newNum3);
       setThreats((prev) =>
         prev + newNum3 > 0 && prev + newNum3 < 1 ? prev + newNum3 : prev
       );

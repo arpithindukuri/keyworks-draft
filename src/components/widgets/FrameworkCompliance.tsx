@@ -31,28 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FrameworkCompliance({ thisId }: { thisId: string }) {
-  const classes = useStyles();
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-
-  const selectedFrameworks = useAppSelector(selectDashboardSlice);
-
-  const [selectedFrameworkId, setSelectedFrameworkId] = useState<string>("");
-
-  const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setSelectedFrameworkId(event.target.value as string);
-    if (selectedFrameworkId.length > 0 && thisId.length > 0)
-      dispatch(
-        updateSelectedFramework({
-          widgetId: thisId,
-          frameworkId: selectedFrameworkId,
-        })
-      );
-  };
-
-  const selectedFramework = useAppSelector(
-    selectFrameworkById(selectedFrameworkId)
-  );
+  const selectedFramework = useAppSelector(selectFrameworkById(thisId));
 
   const controls =
     selectedFramework?.controls.filter((item) => item.isActive) || [];
@@ -60,39 +39,8 @@ export default function FrameworkCompliance({ thisId }: { thisId: string }) {
   const numActive = countActiveControls(controls);
   const numCompliant = countCompliantControls(controls);
 
-  const frameworks = useAppSelector(selectFrameworks);
-
-  useEffect(() => {
-    setSelectedFrameworkId(frameworks.length > 0 ? frameworks[0].id : "");
-  }, [frameworks]);
-
   return (
-    <Module
-      title="COMPLIANCE"
-      actions={
-        <FormControl
-          variant="filled"
-          className={classes.formControl}
-          size="small"
-          style={{ margin: 0 }}
-        >
-          <InputLabel id="demo-simple-select-outlined-label">
-            Framework
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={selectedFrameworkId}
-            onChange={handleChange}
-            label="Framework"
-          >
-            {frameworks.map((item) => (
-              <MenuItem value={item.id}>{item.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      }
-    >
+    <Module title="COMPLIANCE">
       <Box padding={2}>
         {selectedFramework ? (
           <FrameworkSummary
@@ -103,7 +51,7 @@ export default function FrameworkCompliance({ thisId }: { thisId: string }) {
             numControlsCompliant={numCompliant}
             numAlerts={selectedFramework.alerts.length}
             numViolations={numActive - numCompliant}
-            link={`/framework/${selectedFramework.id}`}
+            link={`/framework/${thisId}`}
           />
         ) : (
           <Box
@@ -112,7 +60,7 @@ export default function FrameworkCompliance({ thisId }: { thisId: string }) {
             height="100%"
             width="100%"
           >
-            <Typography>No Frameworks</Typography>
+            <Typography>No Framework with ID {thisId}</Typography>
           </Box>
         )}
       </Box>

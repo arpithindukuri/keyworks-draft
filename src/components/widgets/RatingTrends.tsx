@@ -114,16 +114,16 @@ const newData = [
 export default function RatingTrends() {
   const classes = useStyles();
 
-  const [data, setData] = useState(oldData);
+  const [data, setData] = useState(newData);
 
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setData(newData);
-    }, 1000);
-    return () => {
-      clearTimeout(id);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const id = setTimeout(() => {
+  //     setData(newData);
+  //   }, 1000);
+  //   return () => {
+  //     clearTimeout(id);
+  //   };
+  // }, []);
 
   return (
     <Module title="RATING TRENDS">

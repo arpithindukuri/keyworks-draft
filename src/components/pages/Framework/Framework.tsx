@@ -803,7 +803,6 @@ function AddProcessDialog({
   const [file, setFile] = useState<File | null>(null);
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles[0]);
     setFile(acceptedFiles[0]);
   }, []);
 
@@ -896,7 +895,6 @@ function AddDocumentDialog({
   const [file, setFile] = useState<File | null>(null);
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles[0]);
     setFile(acceptedFiles[0]);
   }, []);
 

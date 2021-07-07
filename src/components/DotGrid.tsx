@@ -4,7 +4,7 @@ export default function DotGrid({
   numX,
   numY,
   heightSpace,
-  radius = 4,
+  radius = 3,
   thickness = 1,
   fill = "#aaa",
 }: {

@@ -13,7 +13,7 @@ export const AvailableFrameworks: AvailableFramework[] = [
   },
   {
     id: "nist-framework-id",
-    name: "NIST",
+    name: "NIST CSF",
     link: "example.com",
   },
   {
