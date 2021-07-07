@@ -32,14 +32,14 @@ export const NISTControls: Control[] = [
     id: "ID",
     description: "IDENTIFY",
     isActive: true,
-    severity: "medium",
+    severity: "low",
     nestedControls: [
       {
         id: "ID.AM",
         description:
           "Asset Management The data, personnel, devices, systems, and facilities that enable the organization to achieve business purposes are identified and managed consistent with their relative importance to organizational objectives and the organization’s risk strategy.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "ID.AM-1",
@@ -54,22 +54,22 @@ export const NISTControls: Control[] = [
             description:
               "Software platforms and applications within the organization are inventoried",
             isActive: true,
-            severity: "medium",
-            compliance: 0.9,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.AM-3",
             description:
               "Organizational communication and data flows are mapped",
             isActive: true,
-            severity: "medium",
-            compliance: 0.5,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.AM-4",
             description: "External information systems are catalogued",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -77,15 +77,15 @@ export const NISTControls: Control[] = [
             description:
               "Resources (e.g., hardware, devices, data, time, personnel, and software) are prioritized based on their classification, criticality, and business value ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.1,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.AM-6",
             description:
               "Cybersecurity roles and responsibilities for the entire workforce and third-party stakeholders (e.g., suppliers, customers, partners) are established",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -95,14 +95,14 @@ export const NISTControls: Control[] = [
         description:
           "Business Environment The organization’s mission, objectives, stakeholders, and activities are understood and prioritized; this information is used to inform cybersecurity roles, responsibilities, and risk management decisions.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "ID.BE-1",
             description:
               "The organization’s role in the supply chain is identified and communicated",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -118,15 +118,15 @@ export const NISTControls: Control[] = [
             description:
               "Priorities for organizational mission, objectives, and activities are established and communicated",
             isActive: true,
-            severity: "medium",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.BE-4",
             description:
               "Dependencies and critical functions for delivery of critical services are established",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -134,7 +134,7 @@ export const NISTControls: Control[] = [
             description:
               "Resilience requirements to support delivery of critical services are established for all operating states (e.g. under duress/attack, during recovery, normal operations)",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -151,7 +151,7 @@ export const NISTControls: Control[] = [
             description:
               "Organizational cybersecurity policy is established and communicated",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -160,7 +160,7 @@ export const NISTControls: Control[] = [
               "Cybersecurity roles and responsibilities are coordinated and aligned with internal roles and external partners",
             isActive: true,
             severity: "low",
-            compliance: 0.4,
+            compliance: 1,
           },
           {
             id: "ID.GV-3",
@@ -175,8 +175,8 @@ export const NISTControls: Control[] = [
             description:
               "Governance and risk management processes address cybersecurity risks",
             isActive: true,
-            severity: "medium",
-            compliance: 0.1,
+            severity: "low",
+            compliance: 1,
           },
         ],
       },
@@ -191,7 +191,7 @@ export const NISTControls: Control[] = [
             id: "ID.RA-1",
             description: "Asset vulnerabilities are identified and documented",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
             requiredDocuments: [
               {
@@ -204,7 +204,7 @@ export const NISTControls: Control[] = [
             description:
               "Cyber threat intelligence is received from information sharing forums and sources",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -213,23 +213,23 @@ export const NISTControls: Control[] = [
               "Threats, both internal and external, are identified and documented",
             isActive: true,
             severity: "low",
-            compliance: 0.8,
+            compliance: 1,
           },
           {
             id: "ID.RA-4",
             description:
               "Potential business impacts and likelihoods are identified",
             isActive: true,
-            severity: "medium",
-            compliance: 0.1,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.RA-5",
             description:
               "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk",
             isActive: true,
-            severity: "medium",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.RA-6",
@@ -245,15 +245,15 @@ export const NISTControls: Control[] = [
         description:
           "Risk Management Strategy The organization’s priorities, constraints, risk tolerances, and assumptions are established and used to support operational risk decisions.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "ID.RM-1",
             description:
               "Risk management processes are established, managed, and agreed to by organizational stakeholders",
             isActive: true,
-            severity: "medium",
-            compliance: 0.5,
+            severity: "low",
+            compliance: 1,
             requiredProcesses: [
               {
                 name: "Risk Management Processes",
@@ -265,16 +265,16 @@ export const NISTControls: Control[] = [
             description:
               "Organizational risk tolerance is determined and clearly expressed",
             isActive: true,
-            severity: "medium",
-            compliance: 0.4,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.RM-3",
             description:
               "The organization’s determination of risk tolerance is informed by its role in critical infrastructure and sector specific risk analysis",
             isActive: true,
-            severity: "high",
-            compliance: 0.7,
+            severity: "low",
+            compliance: 1,
           },
         ],
       },
@@ -283,7 +283,7 @@ export const NISTControls: Control[] = [
         description:
           "Supply Chain Risk Management The organization’s priorities, constraints, risk tolerances, and assumptions are established and used to support risk decisions associated with managing supply chain risk. The organization has established and implemented the processes to identify, assess and manage supply chain risks.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "ID.SC-1",
@@ -305,8 +305,8 @@ export const NISTControls: Control[] = [
             description:
               "Suppliers and third party partners of information systems, components, and services are identified, prioritized, and assessed using a cyber supply chain risk assessment process ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.3,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.SC-3",
@@ -314,7 +314,7 @@ export const NISTControls: Control[] = [
               "Contracts with suppliers and third-party partners are used to implement appropriate measures designed to meet the objectives of an organization’s cybersecurity program and Cyber Supply Chain Risk Management Plan.",
             isActive: true,
             severity: "low",
-            compliance: 0.4,
+            compliance: 1,
           },
           {
             id: "ID.SC-4",
@@ -322,7 +322,7 @@ export const NISTControls: Control[] = [
               "Suppliers and third-party partners are routinely assessed using audits, test results, or other forms of evaluations to confirm they are meeting their contractual obligations.",
             isActive: true,
             severity: "low",
-            compliance: 0.2,
+            compliance: 1,
           },
           {
             id: "ID.SC-5",
@@ -347,7 +347,7 @@ export const NISTControls: Control[] = [
         description:
           "Identity Management, Authentication and Access Control Access to physical and logical assets and associated facilities is limited to authorized users, processes, and devices, and is managed consistent with the assessed risk of unauthorized access to authorized activities and transactions.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "PR.AC-1",
@@ -361,23 +361,23 @@ export const NISTControls: Control[] = [
             id: "PR.AC-2",
             description: "Physical access to assets is managed and protected",
             isActive: true,
-            severity: "medium",
-            compliance: 0.5,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.AC-3",
             description: "Remote access is managed",
             isActive: true,
-            severity: "high",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.AC-4",
             description:
               "Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties",
             isActive: true,
-            severity: "medium",
-            compliance: 0.7,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.AC-5",
@@ -392,7 +392,7 @@ export const NISTControls: Control[] = [
             description:
               "Identities are proofed and bound to credentials and asserted in interactions",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -416,23 +416,23 @@ export const NISTControls: Control[] = [
             id: "PR.AT-1",
             description: "All users are informed and trained ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.7,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.AT-2",
             description:
               "Privileged users understand their roles and responsibilities ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.AT-3",
             description:
               "Third-party stakeholders (e.g., suppliers, customers, partners) understand their roles and responsibilities ",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -440,16 +440,16 @@ export const NISTControls: Control[] = [
             description:
               "Senior executives understand their roles and responsibilities ",
             isActive: true,
-            severity: "high",
-            compliance: 0.9,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.AT-5",
             description:
               "Physical and cybersecurity personnel understand their roles and responsibilities ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
         ],
       },
@@ -464,14 +464,14 @@ export const NISTControls: Control[] = [
             id: "PR.DS-1",
             description: "Data-at-rest is protected",
             isActive: true,
-            severity: "medium",
-            compliance: 0.7,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.DS-2",
             description: "Data-in-transit is protected",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -479,7 +479,7 @@ export const NISTControls: Control[] = [
             description:
               "Assets are formally managed throughout removal, transfers, and disposition",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -494,7 +494,7 @@ export const NISTControls: Control[] = [
             id: "PR.DS-5",
             description: "Protections against data leaks are implemented",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -502,8 +502,8 @@ export const NISTControls: Control[] = [
             description:
               "Integrity checking mechanisms are used to verify software, firmware, and information integrity",
             isActive: true,
-            severity: "medium",
-            compliance: 0.4,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.DS-7",
@@ -518,8 +518,8 @@ export const NISTControls: Control[] = [
             description:
               "Integrity checking mechanisms are used to verify hardware integrity",
             isActive: true,
-            severity: "medium",
-            compliance: 0.7,
+            severity: "low",
+            compliance: 1,
           },
         ],
       },
@@ -528,14 +528,14 @@ export const NISTControls: Control[] = [
         description:
           "Information Protection Processes and Procedures (PR.IP): Security policies (that address purpose, scope, roles, responsibilities, management commitment, and coordination among organizational entities), processes, and procedures are maintained and used to manage protection of information systems and assets.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "PR.IP-1",
             description:
               "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -543,7 +543,7 @@ export const NISTControls: Control[] = [
             description:
               "A System Development Life Cycle to manage systems is implemented",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -558,7 +558,7 @@ export const NISTControls: Control[] = [
             description:
               "Backups of information are conducted, maintained, and tested ",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -573,22 +573,22 @@ export const NISTControls: Control[] = [
             id: "PR.IP-6",
             description: "Data is destroyed according to policy",
             isActive: true,
-            severity: "medium",
-            compliance: 0.9,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.IP-7",
             description: "Protection processes are improved",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
             id: "PR.IP-8",
             description: "Effectiveness of protection technologies is shared ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.7,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.IP-9",
@@ -596,7 +596,7 @@ export const NISTControls: Control[] = [
               "Response plans (Incident Response and Business Continuity) and recovery plans (Incident Recovery and Disaster Recovery) are in place and managed",
             isActive: true,
             severity: "low",
-            compliance: 0.9,
+            compliance: 1,
           },
           {
             id: "PR.IP-10",
@@ -610,8 +610,8 @@ export const NISTControls: Control[] = [
             description:
               "Cybersecurity is included in human resources practices (e.g., deprovisioning, personnel screening)",
             isActive: true,
-            severity: "medium",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.IP-12",
@@ -628,15 +628,15 @@ export const NISTControls: Control[] = [
         description:
           "Maintenance Maintenance and repairs of industrial control and information system components are performed consistent with policies and procedures.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "PR.MA-1",
             description:
               "Maintenance and repair of organizational assets are performed and logged, with approved and controlled tools",
             isActive: true,
-            severity: "high",
-            compliance: 0.9,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.MA-2",
@@ -644,7 +644,7 @@ export const NISTControls: Control[] = [
               "Remote maintenance of organizational assets is approved, logged, and performed in a manner that prevents unauthorized access",
             isActive: true,
             severity: "low",
-            compliance: 0.9,
+            compliance: 1,
           },
         ],
       },
@@ -653,14 +653,14 @@ export const NISTControls: Control[] = [
         description:
           "Protective Technology Technical security solutions are managed to ensure the security and resilience of systems and assets, consistent with related policies, procedures, and agreements.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "PR.PT-1",
             description:
               "Audit/log records are determined, documented, implemented, and reviewed in accordance with policy",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -668,7 +668,7 @@ export const NISTControls: Control[] = [
             description:
               "Removable media is protected and its use restricted according to policy",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -683,15 +683,15 @@ export const NISTControls: Control[] = [
             id: "PR.PT-4",
             description: "Communications and control networks are protected",
             isActive: true,
-            severity: "medium",
-            compliance: 0.4,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "PR.PT-5",
             description:
               "Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented to achieve resilience requirements in normal and adverse situations",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -702,14 +702,14 @@ export const NISTControls: Control[] = [
     id: "DE",
     description: "DETECT",
     isActive: true,
-    severity: "high",
+    severity: "low",
     nestedControls: [
       {
         id: "DE.AE",
         description:
           "Anomalies and Events Anomalous activity is detected and the potential impact of events is understood.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "DE.AE-1",
@@ -724,7 +724,7 @@ export const NISTControls: Control[] = [
             description:
               "Detected events are analyzed to understand attack targets and methods",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -732,21 +732,21 @@ export const NISTControls: Control[] = [
             description:
               "Event data are collected and correlated from multiple sources and sensors",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
             id: "DE.AE-4",
             description: "Impact of events is determined",
             isActive: true,
-            severity: "high",
+            severity: "low",
             compliance: 1,
           },
           {
             id: "DE.AE-5",
             description: "Incident alert thresholds are established",
             isActive: true,
-            severity: "high",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -756,7 +756,7 @@ export const NISTControls: Control[] = [
         description:
           "Security Continuous Monitoring The information system and assets are monitored to identify cybersecurity events and verify the effectiveness of protective measures.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "DE.CM-1",
@@ -771,7 +771,7 @@ export const NISTControls: Control[] = [
             description:
               "The physical environment is monitored to detect potential cybersecurity events",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -779,14 +779,14 @@ export const NISTControls: Control[] = [
             description:
               "Personnel activity is monitored to detect potential cybersecurity events",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
             id: "DE.CM-4",
             description: "Malicious code is detected",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -794,15 +794,15 @@ export const NISTControls: Control[] = [
             description: "Unauthorized mobile code is detected",
             isActive: true,
             severity: "low",
-            compliance: 0.4,
+            compliance: 1,
           },
           {
             id: "DE.CM-6",
             description:
               "External service provider activity is monitored to detect potential cybersecurity events",
             isActive: true,
-            severity: "medium",
-            compliance: 0.6,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "DE.CM-7",
@@ -816,7 +816,7 @@ export const NISTControls: Control[] = [
             id: "DE.CM-8",
             description: "Vulnerability scans are performed",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -826,14 +826,14 @@ export const NISTControls: Control[] = [
         description:
           "Detection Processes Detection processes and procedures are maintained and tested to ensure awareness of anomalous events.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "DE.DP-1",
             description:
               "Roles and responsibilities for detection are well defined to ensure accountability",
             isActive: true,
-            severity: "high",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -841,8 +841,8 @@ export const NISTControls: Control[] = [
             description:
               "Detection activities comply with all applicable requirements",
             isActive: true,
-            severity: "high",
-            compliance: 0.5,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "DE.DP-3",
@@ -855,7 +855,7 @@ export const NISTControls: Control[] = [
             id: "DE.DP-4",
             description: "Event detection information is communicated",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -873,22 +873,22 @@ export const NISTControls: Control[] = [
     id: "RS",
     description: "RESPOND",
     isActive: true,
-    severity: "medium",
+    severity: "low",
     nestedControls: [
       {
         id: "RS.RP",
         description:
           "Response Planning Response processes and procedures are executed and maintained, to ensure response to detected cybersecurity incidents.",
         isActive: true,
-        severity: "high",
+        severity: "low",
         nestedControls: [
           {
             id: "RS.RP-1",
             description:
               "Response plan is executed during or after an incident",
             isActive: true,
-            severity: "medium",
-            compliance: 0.2,
+            severity: "low",
+            compliance: 1,
           },
         ],
       },
@@ -897,7 +897,7 @@ export const NISTControls: Control[] = [
         description:
           "Communications Response activities are coordinated with internal and external stakeholders (e.g. external support from law enforcement agencies).",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "RS.CO-1",
@@ -905,7 +905,7 @@ export const NISTControls: Control[] = [
               "Personnel know their roles and order of operations when a response is needed",
             isActive: true,
             severity: "low",
-            compliance: 0.3,
+            compliance: 1,
           },
           {
             id: "RS.CO-2",
@@ -919,7 +919,7 @@ export const NISTControls: Control[] = [
             id: "RS.CO-3",
             description: "Information is shared consistent with response plans",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -927,7 +927,7 @@ export const NISTControls: Control[] = [
             description:
               "Coordination with stakeholders occurs consistent with response plans",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -935,7 +935,7 @@ export const NISTControls: Control[] = [
             description:
               "Voluntary information sharing occurs with external stakeholders to achieve broader cybersecurity situational awareness ",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -945,21 +945,21 @@ export const NISTControls: Control[] = [
         description:
           "Analysis Analysis is conducted to ensure effective response and support recovery activities.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "RS.AN-1",
             description:
               "Notifications from detection systems are investigated ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.8,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "RS.AN-2",
             description: "The impact of the incident is understood",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -975,15 +975,15 @@ export const NISTControls: Control[] = [
               "Incidents are categorized consistent with response plans",
             isActive: true,
             severity: "low",
-            compliance: 0.6,
+            compliance: 1,
           },
           {
             id: "RS.AN-5",
             description:
               "Processes are established to receive, analyze and respond to vulnerabilities disclosed to the organization from internal and external sources (e.g. internal testing, security bulletins, or security researchers)",
             isActive: true,
-            severity: "medium",
-            compliance: 0.8,
+            severity: "low",
+            compliance: 1,
           },
         ],
       },
@@ -992,20 +992,20 @@ export const NISTControls: Control[] = [
         description:
           "Mitigation Activities are performed to prevent expansion of an event, mitigate its effects, and resolve the incident.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "RS.MI-1",
             description: "Incidents are contained",
             isActive: true,
-            severity: "medium",
-            compliance: 0.4,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "RS.MI-2",
             description: "Incidents are mitigated",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -1014,7 +1014,7 @@ export const NISTControls: Control[] = [
               "Newly identified vulnerabilities are mitigated or documented as accepted risks",
             isActive: true,
             severity: "low",
-            compliance: 0.3,
+            compliance: 1,
           },
         ],
       },
@@ -1023,20 +1023,20 @@ export const NISTControls: Control[] = [
         description:
           "Improvements Organizational response activities are improved by incorporating lessons learned from current and previous detection/response activities.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "RS.IM-1",
             description: "Response plans incorporate lessons learned",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
             id: "RS.IM-2",
             description: "Response strategies are updated",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
         ],
@@ -1047,29 +1047,29 @@ export const NISTControls: Control[] = [
     id: "RC",
     description: "RECOVER",
     isActive: true,
-    severity: "medium",
+    severity: "low",
     nestedControls: [
       {
         id: "RC.RP",
         description:
           "Recovery Planning Recovery processes and procedures are executed and maintained to ensure restoration of systems or assets affected by cybersecurity incidents.",
         isActive: true,
-        severity: "medium",
+        severity: "low",
         nestedControls: [
           {
             id: "RC.RP-1",
             description:
               "Recovery plan is executed during or after a cybersecurity incident ",
             isActive: true,
-            severity: "medium",
-            compliance: 0.1,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "RC.IM",
             description:
               "Improvements Recovery planning and processes are improved by incorporating lessons learned into future activities.",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
             nestedControls: [],
           },
@@ -1077,7 +1077,7 @@ export const NISTControls: Control[] = [
             id: "RC.IM-1",
             description: "Recovery plans incorporate lessons learned",
             isActive: true,
-            severity: "medium",
+            severity: "low",
             compliance: 1,
           },
           {
@@ -1085,7 +1085,7 @@ export const NISTControls: Control[] = [
             description: "Recovery strategies are updated",
             isActive: true,
             severity: "low",
-            compliance: 0.3,
+            compliance: 1,
           },
         ],
       },
@@ -1100,8 +1100,8 @@ export const NISTControls: Control[] = [
             id: "RC.CO-1",
             description: "Public relations are managed",
             isActive: true,
-            severity: "medium",
-            compliance: 0.8,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "RC.CO-2",
@@ -1116,7 +1116,7 @@ export const NISTControls: Control[] = [
               "Recovery activities are communicated to internal and external stakeholders as well as executive and management teams",
             isActive: true,
             severity: "low",
-            compliance: 0.6,
+            compliance: 1,
           },
         ],
       },
