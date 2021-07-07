@@ -3,26 +3,25 @@ import { Alert, Control } from "../redux/frameworkSlice";
 
 export const NISTAlerts: Alert[] = [
   {
-    title: "Control ID.AM-1",
+    title: "Control PR.AC-2",
     child: (
       <>
-        <strong>Medium Risk Alert:</strong> Not all physical systems in the
-        system are inventoried, which violates NIST Control ID.AM-1.
+        <strong>High Risk Alert:</strong> Not all physical assets in the system
+        are protected, which violates NIST Control PR.AC-2.
       </>
     ),
-    severity: "warning",
+    severity: "error",
     timestamp: format(new Date(), "T"),
   },
   {
     title: "Control ID.BE-1",
     child: (
       <>
-        <strong>No Risk:</strong> All information regarding the organization's
-        supply chain is now in effect. NIST Control ID.BE-1 is no longer in
-        violation.
+        <strong>Medium Risk Alert:</strong> Missing information regarding the
+        organization's supply chain. NIST Control ID.BE-1 is in violation.
       </>
     ),
-    severity: "success",
+    severity: "warning",
     timestamp: format(new Date(), "T"),
   },
 ];
@@ -46,16 +45,16 @@ export const NISTControls: Control[] = [
             description:
               "Physical devices and systems within the organization are inventoried",
             isActive: true,
-            severity: "medium",
-            compliance: 0.5,
+            severity: "low",
+            compliance: 1,
           },
           {
             id: "ID.AM-2",
             description:
               "Software platforms and applications within the organization are inventoried",
             isActive: true,
-            severity: "low",
-            compliance: 1,
+            severity: "medium",
+            compliance: 0.6,
           },
           {
             id: "ID.AM-3",
@@ -102,8 +101,8 @@ export const NISTControls: Control[] = [
             description:
               "The organization’s role in the supply chain is identified and communicated",
             isActive: true,
-            severity: "low",
-            compliance: 1,
+            severity: "medium",
+            compliance: 0.6,
           },
           {
             id: "ID.BE-2",
@@ -361,8 +360,8 @@ export const NISTControls: Control[] = [
             id: "PR.AC-2",
             description: "Physical access to assets is managed and protected",
             isActive: true,
-            severity: "low",
-            compliance: 1,
+            severity: "high",
+            compliance: 0.1,
           },
           {
             id: "PR.AC-3",

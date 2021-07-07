@@ -2,29 +2,29 @@ import { format } from "date-fns";
 import { Alert, Control } from "../redux/frameworkSlice";
 
 export const ISOAlerts: Alert[] = [
-  {
-    title: "Control 13.1.3",
-    child: (
-      <>
-        <strong>High Risk Alert:</strong> An unauthorized device has connected
-        to, or has attempted to connect to, the segregated OT ICS network in
-        violation of ISO27001 Control 13.1.3
-      </>
-    ),
-    severity: "error",
-    timestamp: format(new Date(), "T"),
-  },
-  {
-    title: "Control A.10.1.2",
-    child: (
-      <>
-        <strong>No Risk:</strong> All cryptographic keys are fully stored and
-        backed up. ISO27001 Control A.10.1.2 is no longer in violation.
-      </>
-    ),
-    severity: "success",
-    timestamp: format(new Date(), "T"),
-  },
+  // {
+  //   title: "Control 13.1.3",
+  //   child: (
+  //     <>
+  //       <strong>High Risk Alert:</strong> An unauthorized device has connected
+  //       to, or has attempted to connect to, the segregated OT ICS network in
+  //       violation of ISO27001 Control 13.1.3
+  //     </>
+  //   ),
+  //   severity: "error",
+  //   timestamp: format(new Date(), "T"),
+  // },
+  // {
+  //   title: "Control A.10.1.2",
+  //   child: (
+  //     <>
+  //       <strong>No Risk:</strong> All cryptographic keys are fully stored and
+  //       backed up. ISO27001 Control A.10.1.2 is no longer in violation.
+  //     </>
+  //   ),
+  //   severity: "success",
+  //   timestamp: format(new Date(), "T"),
+  // },
   {
     title: "Control A.18.1.3",
     child: (
@@ -36,29 +36,29 @@ export const ISOAlerts: Alert[] = [
     severity: "error",
     timestamp: format(new Date(), "T"),
   },
-  {
-    title: "Control A.14.1.2",
-    child: (
-      <>
-        <strong>No Risk:</strong> All systems connected to public networks are
-        now appropriately secured. ISO27001 Control A.14.1.2 is no longer in
-        violation.
-      </>
-    ),
-    severity: "success",
-    timestamp: format(new Date(), "T"),
-  },
-  {
-    title: "Control A.11.1.1",
-    child: (
-      <>
-        <strong>No Risk:</strong> All sensitive areas are now appropriately
-        secured. ISO27001 Control A.11.1.1 is no longer in violation.
-      </>
-    ),
-    severity: "success",
-    timestamp: format(new Date(), "T"),
-  },
+  // {
+  //   title: "Control A.14.1.2",
+  //   child: (
+  //     <>
+  //       <strong>No Risk:</strong> All systems connected to public networks are
+  //       now appropriately secured. ISO27001 Control A.14.1.2 is no longer in
+  //       violation.
+  //     </>
+  //   ),
+  //   severity: "success",
+  //   timestamp: format(new Date(), "T"),
+  // },
+  // {
+  //   title: "Control A.11.1.1",
+  //   child: (
+  //     <>
+  //       <strong>No Risk:</strong> All sensitive areas are now appropriately
+  //       secured. ISO27001 Control A.11.1.1 is no longer in violation.
+  //     </>
+  //   ),
+  //   severity: "success",
+  //   timestamp: format(new Date(), "T"),
+  // },
   {
     title: "Control A.14.2.3",
     child: (
@@ -1006,8 +1006,8 @@ export const ISOControls: Control[] = [
             id: "A.13.1.3",
             isActive: true,
             description: "Segregation in networks",
-            severity: "high",
-            compliance: 0.1,
+            severity: "low",
+            compliance: 0.99,
           },
         ],
       },
