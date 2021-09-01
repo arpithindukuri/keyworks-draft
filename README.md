@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Copyright
 
-Do no copy this code. This is a product built for a customer, and is public for portfolio purposes only.
+Do no use this code. This is a product built for a customer, and is public for portfolio purposes only.
 
 ## Screenshots
 
